@@ -10,64 +10,179 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
     <style>
-        /* [تم دمج الأنماط الخاصة بك هنا لضمان السرعة] */
-        :root { --primary: #1a237e; --accent: #ff6f00; --light: #ffffff; --success: #00c853; --gradient-dark: linear-gradient(135deg, #0d1117 0%, #1a237e 50%, #0d1117 100%); }
-        body { background: var(--gradient-dark); color: var(--light); font-family: 'Cairo', sans-serif; }
-        /* ... بقية الـ CSS المذهل الخاص بك ... */
-    </style>
-    </head>
-<body>
-    <script>
-        // 1. إعدادات Firebase الخاصة بك (تم الربط!)
-        const firebaseConfig = {
-            apiKey: "AIzaSyB68LMIIbyS86NgXYMR6ramIayZvKx1yxo",
-            authDomain: "kr-system-5c846.firebaseapp.com",
-            databaseURL: "https://kr-system-5c846-default-rtdb.firebaseio.com",
-            projectId: "kr-system-5c846",
-            storageBucket: "kr-system-5c846.firebasestorage.app",
-            appId: "1:676032414707:web:f2f535b87522b2402f4886"
-        };
+        :root {
+            --primary: #1a237e; --primary-dark: #0d1557; --primary-light: #3f51b5;
+            --accent: #ff6f00; --accent-dark: #e65100; --accent-light: #ff9800;
+            --success: #00c853; --warning: #ffd600; --danger: #d50000;
+            --dark: #0d1117; --light: #ffffff; --gray: #8b949e;
+            --border: rgba(255, 255, 255, 0.1); --glass-dark: rgba(0, 0, 0, 0.3);
+            --gradient-dark: linear-gradient(135deg, #0d1117 0%, #1a237e 50%, #0d1117 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--gradient-dark); min-height: 100vh; color: var(--light); display: flex; justify-content: center; align-items: center; padding: 20px; }
         
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        /* شاشة التحميل */
+        .loading-screen { position: fixed; inset: 0; background: var(--dark); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; }
+        .spinner { width: 60px; height: 60px; border: 5px solid rgba(255,111,0,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        // 2. تعديل دالة submitRequest لترسل للسحاب بدلاً من localStorage
-        function submitRequest() {
-            const terms1 = document.getElementById('agreeTerms1');
-            const terms2 = document.getElementById('agreeTerms2');
-            const terms3 = document.getElementById('agreeTerms3');
-            
-            if (!terms1.checked || !terms2.checked || !terms3.checked) {
-                showAlert('يجب الموافقة على جميع الشروط قبل إرسال الطلب', false);
-                return;
+        .container { width: 100%; max-width: 1000px; background: var(--glass-dark); backdrop-filter: blur(15px); border-radius: 24px; border: 1px solid var(--border); overflow: hidden; }
+        .header { background: var(--primary); padding: 40px; text-align: center; border-bottom: 4px solid var(--accent); position: relative; }
+        .kr-badge { position: absolute; top: 20px; left: 20px; background: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        
+        .content { padding: 40px; }
+        .step { display: none; animation: fadeIn 0.5s ease; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .input-group { margin-bottom: 25px; }
+        .input-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--accent-light); }
+        .input-group input { width: 100%; padding: 15px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 10px; color: white; outline: none; }
+        .input-group input:focus { border-color: var(--accent); }
+
+        .departments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .dept-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .dept-card:hover, .dept-card.selected { border-color: var(--accent); background: rgba(255,111,0,0.1); }
+        
+        .btn { width: 100%; padding: 18px; background: var(--accent); border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; font-size: 18px; margin-top: 20px; }
+        .btn-secondary { background: rgba(255,255,255,0.1); margin-top: 10px; }
+
+        .alert { padding: 15px; border-radius: 10px; margin-bottom: 20px; display: none; text-align: center; }
+        .alert.show { display: block; background: rgba(213, 0, 0, 0.2); border: 1px solid var(--danger); }
+        
+        .success-box { text-align: center; padding: 40px; }
+        .success-box i { font-size: 80px; color: var(--success); }
+    </style>
+</head>
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+    <div class="spinner"></div>
+    <p style="margin-top: 20px;">جاري التحقق من السحابة...</p>
+</div>
+
+<div class="container">
+    <div class="header">
+        <div class="kr-badge">KR OFFICIAL</div>
+        <h1>نظام تفعيل الهوية الرقمي</h1>
+        <p>الجهة المسؤولة عن التوثيق - KR</p>
+    </div>
+
+    <div class="content">
+        <div id="alertBox" class="alert"></div>
+
+        <div class="step active" id="step1">
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> الاسم الثلاثي</label>
+                <input type="text" id="fullName" placeholder="أدخل اسمك باللغة العربية">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-fingerprint"></i> رقم الهوية (ID)</label>
+                <input type="number" id="gameId" placeholder="أدخل 10 أرقام">
+            </div>
+            <button class="btn" onclick="nextStep(2)">التالي</button>
+        </div>
+
+        <div class="step" id="step2">
+            <h3 style="margin-bottom: 20px; text-align: center;">اختر الجهة التابع لها</h3>
+            <div class="departments-grid">
+                <div class="dept-card" onclick="selectDept('وزارة الداخلية', this)">وزارة الداخلية</div>
+                <div class="dept-card" onclick="selectDept('وزارة الصحة', this)">وزارة الصحة</div>
+                <div class="dept-card" onclick="selectDept('وزارة العدل', this)">وزارة العدل</div>
+                <div class="dept-card" onclick="selectDept('مواطن', this)">مواطن</div>
+            </div>
+            <button class="btn" onclick="submitToFirebase()">إرسال الطلب سحابياً</button>
+            <button class="btn btn-secondary" onclick="nextStep(1)">رجوع</button>
+        </div>
+
+        <div class="step" id="step3">
+            <div class="success-box">
+                <i class="fas fa-check-circle"></i>
+                <h2 style="margin-top: 20px;">تم إرسال طلبك للسحابة!</h2>
+                <p id="statusDisplay" style="margin: 20px 0; color: var(--warning);">الحالة الحالية: قيد المراجعة ⏳</p>
+                <p style="font-size: 14px; color: var(--gray);">سيتم تحديث هذه الصفحة تلقائياً عند قبولك.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // إعدادات Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyB68LMIIbyS86NgXYMR6ramIayZvKx1yxo",
+        authDomain: "kr-system-5c846.firebaseapp.com",
+        databaseURL: "https://kr-system-5c846-default-rtdb.firebaseio.com",
+        projectId: "kr-system-5c846",
+        storageBucket: "kr-system-5c846.firebasestorage.app",
+        appId: "1:676032414707:web:f2f535b87522b2402f4886"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    let selectedDeptName = "";
+    const deviceId = localStorage.getItem('kr_device_id') || 'dev_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('kr_device_id', deviceId);
+
+    // التحقق من حالة الطلب عند فتح الصفحة
+    window.onload = function() {
+        database.ref('requests').orderByChild('deviceId').equalTo(deviceId).on('value', snapshot => {
+            document.getElementById('loadingScreen').style.display = 'none';
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const id = Object.keys(data)[0];
+                const request = data[id];
+                
+                showStep(3);
+                if (request.status === 'approved') {
+                    document.getElementById('statusDisplay').innerHTML = "تم قبولك! 🎉 جاري توجيهك...";
+                    document.getElementById('statusDisplay').style.color = "var(--success)";
+                    setTimeout(() => window.location.href = "kr-digital-platform.html", 2000);
+                } else if (request.status === 'rejected') {
+                    document.getElementById('statusDisplay').innerHTML = "للأسف تم رفض طلبك ❌";
+                    document.getElementById('statusDisplay').style.color = "var(--danger)";
+                }
             }
+        });
+    };
 
-            // تجهيز البيانات
-            const requestData = {
-                id: 'KR-' + Date.now().toString().slice(-6),
-                fullName: document.getElementById('fullName').value.trim(),
-                gameId: document.getElementById('gameId').value.trim(),
-                gameUsername: document.getElementById('gameUsername').value.trim(),
-                discordUsername: document.getElementById('discordUsername').value.trim(),
-                department: selectedDepartment,
-                rank: selectedRank,
-                status: 'pending', // الحالة الافتراضية
-                submissionDate: new Date().toISOString()
-            };
+    function nextStep(n) { showStep(n); }
 
-            // الرفع السحابي لـ Firebase
-            database.ref('requests').push(requestData)
-                .then(() => {
-                    // حفظ معرف الطلب محلياً فقط لكي يعرف المستخدم حالة طلبه لاحقاً
-                    localStorage.setItem('my_request_id', requestData.id);
-                    showSuccessMessage(requestData);
-                })
-                .catch((error) => {
-                    showAlert('حدث خطأ أثناء الإرسال السحابي: ' + error.message, false);
-                });
+    function showStep(n) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + n).classList.add('active');
+    }
+
+    function selectDept(name, el) {
+        selectedDeptName = name;
+        document.querySelectorAll('.dept-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function submitToFirebase() {
+        const name = document.getElementById('fullName').value;
+        const gId = document.getElementById('gameId').value;
+
+        if (!name || !gId || !selectedDeptName) {
+            const alert = document.getElementById('alertBox');
+            alert.innerText = "يرجى إكمال جميع البيانات واختيار الجهة";
+            alert.classList.add('show');
+            return;
         }
 
-        // [بقية الدوال الخاصة بالمعاينة والتنقل بين الخطوات تبقى كما هي في كودك]
-    </script>
+        const newRequest = {
+            fullName: name,
+            gameId: gId,
+            department: selectedDeptName,
+            status: "pending",
+            deviceId: deviceId,
+            timestamp: Date.now()
+        };
+
+        database.ref('requests').push(newRequest).then(() => {
+            showStep(3);
+        });
+    }
+</script>
+
 </body>
 </html>
