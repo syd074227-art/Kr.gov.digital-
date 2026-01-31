@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تفعيل الهوية الرقمي - KR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <style>
+        /* [تم دمج الأنماط الخاصة بك هنا لضمان السرعة] */
+        :root { --primary: #1a237e; --accent: #ff6f00; --light: #ffffff; --success: #00c853; --gradient-dark: linear-gradient(135deg, #0d1117 0%, #1a237e 50%, #0d1117 100%); }
+        body { background: var(--gradient-dark); color: var(--light); font-family: 'Cairo', sans-serif; }
+        /* ... بقية الـ CSS المذهل الخاص بك ... */
+    </style>
+    </head>
+<body>
+    <script>
+        // 1. إعدادات Firebase الخاصة بك (تم الربط!)
+        const firebaseConfig = {
+            apiKey: "AIzaSyB68LMIIbyS86NgXYMR6ramIayZvKx1yxo",
+            authDomain: "kr-system-5c846.firebaseapp.com",
+            databaseURL: "https://kr-system-5c846-default-rtdb.firebaseio.com",
+            projectId: "kr-system-5c846",
+            storageBucket: "kr-system-5c846.firebasestorage.app",
+            appId: "1:676032414707:web:f2f535b87522b2402f4886"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // 2. تعديل دالة submitRequest لترسل للسحاب بدلاً من localStorage
+        function submitRequest() {
+            const terms1 = document.getElementById('agreeTerms1');
+            const terms2 = document.getElementById('agreeTerms2');
+            const terms3 = document.getElementById('agreeTerms3');
+            
+            if (!terms1.checked || !terms2.checked || !terms3.checked) {
+                showAlert('يجب الموافقة على جميع الشروط قبل إرسال الطلب', false);
+                return;
+            }
+
+            // تجهيز البيانات
+            const requestData = {
+                id: 'KR-' + Date.now().toString().slice(-6),
+                fullName: document.getElementById('fullName').value.trim(),
+                gameId: document.getElementById('gameId').value.trim(),
+                gameUsername: document.getElementById('gameUsername').value.trim(),
+                discordUsername: document.getElementById('discordUsername').value.trim(),
+                department: selectedDepartment,
+                rank: selectedRank,
+                status: 'pending', // الحالة الافتراضية
+                submissionDate: new Date().toISOString()
+            };
+
+            // الرفع السحابي لـ Firebase
+            database.ref('requests').push(requestData)
+                .then(() => {
+                    // حفظ معرف الطلب محلياً فقط لكي يعرف المستخدم حالة طلبه لاحقاً
+                    localStorage.setItem('my_request_id', requestData.id);
+                    showSuccessMessage(requestData);
+                })
+                .catch((error) => {
+                    showAlert('حدث خطأ أثناء الإرسال السحابي: ' + error.message, false);
+                });
+        }
+
+        // [بقية الدوال الخاصة بالمعاينة والتنقل بين الخطوات تبقى كما هي في كودك]
+    </script>
+</body>
+</html>
