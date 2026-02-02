@@ -47,6 +47,10 @@ body {
     padding: 18px 0 15px;
     font-weight: 600;
     font-size: 15px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
 }
 
 .status-icons {
@@ -57,9 +61,15 @@ body {
 
 .status-icons i {
     font-size: 14px;
+    color: var(--text-muted);
 }
 
 /* الترحيب */
+.welcome-section {
+    margin-bottom: 25px;
+    padding-top: 10px;
+}
+
 .greeting {
     font-size: 32px;
     font-weight: 700;
@@ -73,7 +83,6 @@ body {
 .weather {
     color: var(--text-muted);
     font-size: 16px;
-    margin-bottom: 25px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -84,6 +93,10 @@ body {
 }
 
 /* البحث */
+.search-section {
+    margin-bottom: 30px;
+}
+
 .search-bar {
     background: var(--card);
     border-radius: 14px;
@@ -91,7 +104,6 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 30px;
     border: 1px solid var(--border);
     transition: all 0.3s ease;
 }
@@ -120,18 +132,230 @@ body {
 }
 
 /* الوصول السريع */
-.mini-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+.quick-access-section {
     margin-bottom: 30px;
 }
 
-.mini-item {
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.view-all {
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.view-all:hover {
+    transform: translateX(-5px);
+}
+
+.quick-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.quick-item {
     background: var(--card);
     border-radius: 14px;
-    padding: 18px 12px;
+    padding: 15px 10px;
     text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue);
+    box-shadow: 0 8px 20px rgba(10, 132, 255, 0.2);
+}
+
+.quick-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+}
+
+.quick-item:nth-child(1) .quick-icon {
+    background: linear-gradient(135deg, var(--blue), #5E5CE6);
+}
+
+.quick-item:nth-child(2) .quick-icon {
+    background: linear-gradient(135deg, var(--green), #30D158);
+}
+
+.quick-item:nth-child(3) .quick-icon {
+    background: linear-gradient(135deg, var(--red), #FF6B6B);
+}
+
+.quick-item:nth-child(4) .quick-icon {
+    background: linear-gradient(135deg, var(--orange), #FFD60A);
+}
+
+.quick-item span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* النشرة المختصرة */
+.news-brief-section {
+    margin-bottom: 30px;
+}
+
+.news-brief-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.news-brief-item {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.news-brief-item:hover {
+    transform: translateX(-5px);
+    border-color: var(--purple);
+    box-shadow: 0 8px 20px rgba(94, 92, 230, 0.15);
+}
+
+.news-brief-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.news-brief-item:nth-child(1) .news-brief-icon {
+    background: linear-gradient(135deg, var(--purple), #7E5CFF);
+}
+
+.news-brief-item:nth-child(2) .news-brief-icon {
+    background: linear-gradient(135deg, var(--green), #4CD964);
+}
+
+.news-brief-item:nth-child(3) .news-brief-icon {
+    background: linear-gradient(135deg, var(--orange), #FFD700);
+}
+
+.news-brief-content {
+    flex: 1;
+}
+
+.news-brief-content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.news-brief-content p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.news-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* الإحصائيات السريعة */
+.stats-section {
+    margin-bottom: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.stat-card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* البطاقات المميزة */
+.featured-section {
+    margin-bottom: 30px;
+}
+
+.featured-grid {
+    display: grid;
+    gap: 15px;
+}
+
+.featured-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
     border: 1px solid var(--border);
     transition: all 0.3s ease;
     cursor: pointer;
@@ -139,148 +363,35 @@ body {
     overflow: hidden;
 }
 
-.mini-item:hover {
+.featured-card:hover {
     transform: translateY(-5px);
-    border-color: var(--blue);
-    box-shadow: 0 8px 20px rgba(10, 132, 255, 0.2);
-}
-
-.mini-icon {
-    width: 45px;
-    height: 45px;
-    margin: 0 auto 10px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: white;
-    background: linear-gradient(135deg, rgba(10, 132, 255, 0.2), rgba(94, 92, 230, 0.15));
-    border: 1px solid rgba(10, 132, 255, 0.3);
-}
-
-.mini-item:nth-child(2) .mini-icon {
-    background: linear-gradient(135deg, rgba(48, 209, 88, 0.2), rgba(10, 132, 255, 0.15));
-    border-color: rgba(48, 209, 88, 0.3);
-}
-
-.mini-item:nth-child(3) .mini-icon {
-    background: linear-gradient(135deg, rgba(255, 159, 10, 0.2), rgba(255, 69, 58, 0.15));
-    border-color: rgba(255, 159, 10, 0.3);
-}
-
-.mini-item span {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-/* صفحة الخدمات */
-.services-page {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg);
-    z-index: 3000;
-    overflow-y: auto;
-    padding-bottom: 100px;
-}
-
-/* شريط التنقل في صفحة الخدمات */
-.services-header {
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 100;
-}
-
-.back-btn {
-    background: none;
-    border: none;
-    color: var(--blue);
-    font-size: 20px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-    background: rgba(10, 132, 255, 0.1);
-}
-
-.services-title {
-    font-size: 20px;
-    font-weight: 700;
-    flex: 1;
-}
-
-/* قائمة الخدمات */
-.services-list {
-    padding: 0 20px;
-}
-
-.service-category {
-    margin-bottom: 30px;
-}
-
-.category-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--text);
-    padding-right: 10px;
-    border-right: 3px solid var(--blue);
-}
-
-.service-item {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 15px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.service-item:hover {
-    transform: translateX(-8px);
     border-color: var(--blue);
     box-shadow: 0 10px 25px rgba(10, 132, 255, 0.2);
 }
 
-.service-item::before {
+.featured-card::before {
     content: '';
     position: absolute;
     top: 0;
     right: 0;
     width: 5px;
     height: 100%;
-    background: linear-gradient(to bottom, var(--blue), var(--purple));
+    background: linear-gradient(to bottom, var(--green), var(--blue));
     transition: width 0.3s ease;
-    border-radius: 0 16px 16px 0;
 }
 
-.service-item:hover::before {
+.featured-card:hover::before {
     width: 8px;
 }
 
-.service-icon {
+.featured-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.featured-icon {
     width: 50px;
     height: 50px;
     border-radius: 12px;
@@ -289,79 +400,20 @@ body {
     justify-content: center;
     font-size: 22px;
     color: white;
-    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue), #5E5CE6);
 }
 
-/* ألوان الأيقونات للخدمات */
-.health-service .service-icon {
-    background: linear-gradient(135deg, #FF453A, #FF6B6B);
-}
-
-.employment-service .service-icon {
-    background: linear-gradient(135deg, #30D158, #4CD964);
-}
-
-.media-service .service-icon {
-    background: linear-gradient(135deg, #5E5CE6, #7E5CFF);
-}
-
-.report-service .service-icon {
-    background: linear-gradient(135deg, #FF9500, #FFD60A);
-}
-
-.newsletter-service .service-icon {
-    background: linear-gradient(135deg, #FF2D55, #FF6B6B);
-}
-
-.employee-service .service-icon {
-    background: linear-gradient(135deg, #5856D6, #AF52DE);
-}
-
-.service-info {
-    flex: 1;
-}
-
-.service-name {
-    font-size: 17px;
+.featured-content h3 {
+    font-size: 18px;
     font-weight: 700;
     margin-bottom: 5px;
     color: var(--text);
 }
 
-.service-description {
+.featured-content p {
     font-size: 14px;
     color: var(--text-muted);
     line-height: 1.4;
-}
-
-.employee-only {
-    display: inline-block;
-    background: rgba(255, 193, 7, 0.15);
-    color: #FFC107;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 8px;
-    border: 1px solid rgba(255, 193, 7, 0.3);
-}
-
-/* قسم رئيسي للموظفين */
-.employee-section {
-    background: rgba(88, 86, 214, 0.1);
-    border-radius: 16px;
-    padding: 20px;
-    margin-top: 20px;
-    border: 1px solid rgba(88, 86, 214, 0.3);
-}
-
-.employee-section .category-title {
-    color: #5E5CE6;
-    border-right-color: #5E5CE6;
-}
-
-.employee-section .service-item {
-    background: rgba(88, 86, 214, 0.05);
 }
 
 /* الشريط السفلي */
@@ -415,7 +467,7 @@ body {
 }
 
 /* تأثيرات تفاعلية */
-.mini-item:active, .service-item:active {
+.quick-item:active, .news-brief-item:active, .featured-card:active {
     transform: scale(0.98);
 }
 
@@ -429,16 +481,14 @@ body {
         font-size: 28px;
     }
     
-    .mini-grid {
-        gap: 12px;
+    .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
     
-    .mini-item {
-        padding: 16px 10px;
-    }
-    
-    .service-item {
-        padding: 16px;
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
     
     .nav-item {
@@ -449,10 +499,18 @@ body {
         font-size: 20px;
     }
     
-    .service-icon {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
+    .featured-card {
+        padding: 16px;
+    }
+}
+
+@media (min-width: 768px) {
+    .quick-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .news-brief-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>
@@ -461,189 +519,168 @@ body {
 <body>
 <!-- الصفحة الرئيسية -->
 <div id="mainPage">
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div id="currentTime">٩:٤١</div>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
     <!-- الترحيب -->
-    <div class="greeting">أهلاً سليمان</div>
-    <div class="weather">
-        <i class="fas fa-cloud-sun"></i>
-        <span>غائم جزئي في KR الآن</span>
+    <div class="welcome-section">
+        <h1 class="greeting">أهلاً سليمان</h1>
+        <div class="weather">
+            <i class="fas fa-cloud-sun"></i>
+            <span>غائم جزئي في KR الآن</span>
+        </div>
     </div>
 
     <!-- البحث -->
-    <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input placeholder="ابحث في منصة سَمُوّ">
+    <div class="search-section">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="ابحث في خدمات منصة سَمُوّ">
+        </div>
     </div>
 
     <!-- الوصول السريع -->
-    <div class="mini-grid">
-        <div class="mini-item" id="calendarBtn">
-            <div class="mini-icon"><i class="fas fa-calendar-alt"></i></div>
-            <span>التقويم</span>
+    <div class="quick-access-section">
+        <div class="section-header">
+            <h2 class="section-title">الوصول السريع</h2>
+            <a href="#" class="view-all">المزيد <i class="fas fa-chevron-left"></i></a>
         </div>
-        <div class="mini-item" id="entitiesBtn">
-            <div class="mini-icon"><i class="fas fa-building"></i></div>
-            <span>الجهات</span>
-        </div>
-        <div class="mini-item" id="servicesBtn">
-            <div class="mini-icon"><i class="fas fa-sliders-h"></i></div>
-            <span>الخدمات</span>
-        </div>
-    </div>
-
-    <!-- النشرة -->
-    <div class="section-header">
-        <div class="section-title">استكشف التصنيفات</div>
-        <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
-    </div>
-
-    <div class="news-grid">
-        <div class="news-item services" onclick="openNews('الخدمات الحكومية')">
-            <div class="news-icon"><i class="fas fa-sliders-h"></i></div>
-            <div class="news-content">
-                <h3>الخدمات الحكومية</h3>
-                <p>أحدث الخدمات والميزات المضافة للمنصة</p>
+        <div class="quick-grid">
+            <div class="quick-item" onclick="openQuickAccess('التقويم')">
+                <div class="quick-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span>التقويم</span>
             </div>
-        </div>
-
-        <div class="news-item health" onclick="openNews('الصحة')">
-            <div class="news-icon"><i class="fas fa-heart-pulse"></i></div>
-            <div class="news-content">
-                <h3>الصحة</h3>
-                <p>الخدمات الصحية والرعاية الطبية</p>
+            <div class="quick-item" onclick="openQuickAccess('الخدمات')">
+                <div class="quick-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <span>الخدمات</span>
             </div>
-        </div>
-
-        <div class="news-item law" onclick="openNews('العدلية')">
-            <div class="news-icon"><i class="fas fa-scale-balanced"></i></div>
-            <div class="news-content">
-                <h3>العدلية</h3>
-                <p>خدمات قانونية ووزارة العدل</p>
+            <div class="quick-item" onclick="openQuickAccess('الجهات')">
+                <div class="quick-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <span>الجهات</span>
+            </div>
+            <div class="quick-item" onclick="openQuickAccess('المستندات')">
+                <div class="quick-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <span>المستندات</span>
             </div>
         </div>
     </div>
-</div>
 
-<!-- صفحة الخدمات -->
-<div class="services-page" id="servicesPage">
-    <!-- شريط التنقل -->
-    <div class="services-header">
-        <button class="back-btn" onclick="closeServices()">
-            <i class="fas fa-arrow-right"></i>
-        </button>
-        <h1 class="services-title">الخدمات</h1>
-    </div>
-
-    <!-- قائمة الخدمات -->
-    <div class="services-list">
-        <!-- الخدمات العامة -->
-        <div class="service-category">
-            <h2 class="category-title">الخدمات العامة</h2>
-            
-            <!-- الصحة -->
-            <div class="service-item health-service" onclick="openService('الصحة', 'health')">
-                <div class="service-icon">
+    <!-- النشرة المختصرة -->
+    <div class="news-brief-section">
+        <div class="section-header">
+            <h2 class="section-title">آخر النشرة</h2>
+            <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
+        </div>
+        <div class="news-brief-grid">
+            <div class="news-brief-item" onclick="openNews('خدمات الصحة الجديدة')">
+                <div class="news-brief-icon">
                     <i class="fas fa-heartbeat"></i>
                 </div>
-                <div class="service-info">
-                    <div class="service-name">الصحة</div>
-                    <div class="service-description">الخدمات الصحية والرعاية الطبية والتطعيمات والتأمين الصحي</div>
+                <div class="news-brief-content">
+                    <h3>خدمات الصحة الجديدة</h3>
+                    <p>إطلاق منصة الصحة الإلكترونية مع خدمات حجز المواعيد والاستشارات الطبية عن بعد</p>
+                    <div class="news-date">
+                        <i class="far fa-clock"></i>
+                        <span>قبل ساعتين</span>
+                    </div>
                 </div>
             </div>
-
-            <!-- التوظيف -->
-            <div class="service-item employment-service" onclick="openService('التوظيف', 'employment')">
-                <div class="service-icon">
+            <div class="news-brief-item" onclick="openNews('فرص التوظيف')">
+                <div class="news-brief-icon">
                     <i class="fas fa-user-tie"></i>
                 </div>
-                <div class="service-info">
-                    <div class="service-name">التوظيف</div>
-                    <div class="service-description">الوظائف المتاحة والتقديم للوظائف الحكومية والقطاع الخاص</div>
+                <div class="news-brief-content">
+                    <h3>فرص التوظيف الجديدة</h3>
+                    <p>فتح باب التقديم على ٢٥٠ وظيفة حكومية في عدة وزارات وهيئات</p>
+                    <div class="news-date">
+                        <i class="far fa-clock"></i>
+                        <span>قبل ٥ أيام</span>
+                    </div>
                 </div>
             </div>
-
-            <!-- الإعلام -->
-            <div class="service-item media-service" onclick="openService('الإعلام', 'media')">
-                <div class="service-icon">
-                    <i class="fas fa-bullhorn"></i>
+            <div class="news-brief-item" onclick="openNews('التحديثات التقنية')">
+                <div class="news-brief-icon">
+                    <i class="fas fa-sync-alt"></i>
                 </div>
-                <div class="service-info">
-                    <div class="service-name">الإعلام</div>
-                    <div class="service-description">الأخبار الرسمية والتقارير الإعلامية والبيانات الصحفية</div>
-                </div>
-            </div>
-
-            <!-- منصة إبلاغ -->
-            <div class="service-item report-service" onclick="openService('منصة إبلاغ', 'report')">
-                <div class="service-icon">
-                    <i class="fas fa-flag"></i>
-                </div>
-                <div class="service-info">
-                    <div class="service-name">منصة إبلاغ</div>
-                    <div class="service-description">الإبلاغ عن المخالفات والشكاوى والاقتراحات للجهات المعنية</div>
-                </div>
-            </div>
-
-            <!-- النشرة -->
-            <div class="service-item newsletter-service" onclick="openService('النشرة', 'newsletter')">
-                <div class="service-icon">
-                    <i class="fas fa-newspaper"></i>
-                </div>
-                <div class="service-info">
-                    <div class="service-name">النشرة</div>
-                    <div class="service-description">آخر التحديثات والأخبار والمنشورات الرسمية من الجهات الحكومية</div>
+                <div class="news-brief-content">
+                    <h3>التحديثات التقنية</h3>
+                    <p>تحسينات جديدة على المنصة تشمل سرعة الأداء وتجربة مستخدم محسنة</p>
+                    <div class="news-date">
+                        <i class="far fa-clock"></i>
+                        <span>قبل أسبوع</span>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- الخدمات للموظفين فقط -->
-        <div class="employee-section">
-            <h2 class="category-title">خدمات الموظفين</h2>
-            
-            <!-- عملي -->
-            <div class="service-item employee-service" onclick="openEmployeeService('عملي')">
-                <div class="service-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="service-info">
-                    <div class="service-name">عملي</div>
-                    <div class="service-description">نظام إدارة المهام والتقارير والاجتماعات الداخلية للموظفين</div>
-                    <div class="employee-only">للموظفين فقط</div>
+    <!-- الإحصائيات السريعة -->
+    <div class="stats-section">
+        <div class="section-header">
+            <h2 class="section-title">إحصائيات سريعة</h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">١٥٬٢٣٤</div>
+                <div class="stat-label">خدمة منفذة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">٨٤٥</div>
+                <div class="stat-label">جهة حكومية</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">١٫٢م</div>
+                <div class="stat-label">مستخدم نشط</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">٩٩٫٨٪</div>
+                <div class="stat-label">رضا العملاء</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- البطاقات المميزة -->
+    <div class="featured-section">
+        <div class="section-header">
+            <h2 class="section-title">مميز لك</h2>
+            <a href="#" class="view-all">تخصيص <i class="fas fa-chevron-left"></i></a>
+        </div>
+        <div class="featured-grid">
+            <div class="featured-card" onclick="openFeatured('منصة إبلاغ')">
+                <div class="featured-header">
+                    <div class="featured-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="featured-content">
+                        <h3>منصة إبلاغ</h3>
+                        <p>الإبلاغ عن المخالفات والشكاوى والاقتراحات للجهات المعنية</p>
+                    </div>
                 </div>
             </div>
-
-            <!-- إدارة الملفات -->
-            <div class="service-item employee-service" onclick="openEmployeeService('إدارة الملفات')">
-                <div class="service-icon">
-                    <i class="fas fa-folder"></i>
-                </div>
-                <div class="service-info">
-                    <div class="service-name">إدارة الملفات</div>
-                    <div class="service-description">التخزين السحابي والمشاركة الآمنة للملفات والمستندات الداخلية</div>
-                    <div class="employee-only">للموظفين فقط</div>
-                </div>
-            </div>
-
-            <!-- التدريب والتطوير -->
-            <div class="service-item employee-service" onclick="openEmployeeService('التدريب والتطوير')">
-                <div class="service-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="service-info">
-                    <div class="service-name">التدريب والتطوير</div>
-                    <div class="service-description">برامج التدريب والدورات التطويرية وورش العمل للموظفين</div>
-                    <div class="employee-only">للموظفين فقط</div>
-                </div>
-            </div>
-
-            <!-- المراسلات الداخلية -->
-            <div class="service-item employee-service" onclick="openEmployeeService('المراسلات الداخلية')">
-                <div class="service-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="service-info">
-                    <div class="service-name">المراسلات الداخلية</div>
-                    <div class="service-description">نظام المراسلات والتواصل الداخلي بين الإدارات والموظفين</div>
-                    <div class="employee-only">للموظفين فقط</div>
+            <div class="featured-card" onclick="openFeatured('خدمات الموظفين')">
+                <div class="featured-header">
+                    <div class="featured-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="featured-content">
+                        <h3>خدمات الموظفين</h3>
+                        <p>نظام إدارة المهام والتقارير والملفات الداخلية</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -665,9 +702,9 @@ body {
             <i class="fas fa-sliders-h"></i>
             <span>الخدمات</span>
         </a>
-        <a class="nav-item" onclick="changeNav('الرسائل')">
-            <i class="fas fa-envelope"></i>
-            <span>الرسائل</span>
+        <a class="nav-item" onclick="changeNav('الجهات')">
+            <i class="fas fa-building"></i>
+            <span>الجهات</span>
         </a>
         <a class="nav-item" onclick="changeNav('حسابي')">
             <i class="fas fa-user"></i>
@@ -677,50 +714,40 @@ body {
 </nav>
 
 <script>
-// فتح صفحة الخدمات
-function openServices() {
-    document.getElementById('mainPage').style.display = 'none';
-    document.getElementById('servicesPage').style.display = 'block';
-    updateNav('الخدمات');
-}
-
-// إغلاق صفحة الخدمات
-function closeServices() {
-    document.getElementById('servicesPage').style.display = 'none';
-    document.getElementById('mainPage').style.display = 'block';
-    updateNav('الرئيسية');
-}
-
-// فتح خدمة معينة
-function openService(serviceName, serviceType) {
-    let description = '';
+// تحديث الوقت
+const arabicNumbers = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+function updateTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
     
-    switch(serviceType) {
-        case 'health':
-            description = 'الخدمات الصحية تشمل: الحجز الطبي، الاستشارات الطبية، نتائج الفحوصات، التطعيمات، والتأمين الصحي';
-            break;
-        case 'employment':
-            description = 'خدمات التوظيف تشمل: البحث عن الوظائف، التقديم الإلكتروني، متابعة الطلبات، اختبارات التوظيف، والمقابلات';
-            break;
-        case 'media':
-            description = 'خدمات الإعلام تشمل: الأخبار الرسمية، البث المباشر، الأرشيف الإعلامي، البيانات الصحفية، والتقارير السنوية';
-            break;
-        case 'report':
-            description = 'منصة الإبلاغ تشمل: الإبلاغ عن المخالفات، تقديم الشكاوى، الاقتراحات، الاستفسارات، وتتبع البلاغات';
-            break;
-        case 'newsletter':
-            description = 'النشرة تشمل: آخر الأخبار، التحديثات المهمة، المنشورات الرسمية، الإعلانات الهامة، والتنبيهات';
-            break;
-        default:
-            description = 'جاري فتح الخدمة...';
-    }
+    // تحويل إلى تنسيق 12 ساعة
+    hours = hours % 12 || 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
     
-    alert(`جاري فتح خدمة ${serviceName}\n\n${description}`);
+    // تحويل الأرقام إلى عربية
+    const hoursStr = hours.toString().split('').map(n => arabicNumbers[n] || n).join('');
+    const minutesStr = minutes.toString().split('').map(n => arabicNumbers[n] || n).join('');
+    
+    document.getElementById('currentTime').textContent = `${hoursStr}:${minutesStr}`;
 }
 
-// فتح خدمات الموظفين
-function openEmployeeService(serviceName) {
-    alert(`جاري فتح ${serviceName}\n\nهذه الخدمة متاحة للموظفين المسجلين فقط. يرجى تسجيل الدخول بحساب الموظف.`);
+updateTime();
+setInterval(updateTime, 60000);
+
+// فتح الوصول السريع
+function openQuickAccess(item) {
+    alert(`جاري فتح ${item}...`);
+}
+
+// فتح النشرة
+function openNews(title) {
+    alert(`جاري فتح "${title}"...`);
+}
+
+// فتح المميزات
+function openFeatured(item) {
+    alert(`جاري فتح ${item}...`);
 }
 
 // تحديث التنقل
@@ -737,58 +764,62 @@ function updateNav(pageName) {
 }
 
 function changeNav(pageName) {
-    if (pageName === 'الخدمات') {
-        openServices();
-    } else if (pageName === 'الرئيسية') {
-        document.getElementById('servicesPage').style.display = 'none';
-        document.getElementById('mainPage').style.display = 'block';
+    if (pageName === 'الرئيسية') {
+        // نحن بالفعل في الرئيسية
+        alert(`أنت في الصفحة الرئيسية`);
         updateNav('الرئيسية');
-    } else if (pageName === 'النشرة') {
-        alert('جاري تحميل النشرة...');
-        updateNav('النشرة');
-    } else if (pageName === 'الرسائل') {
-        alert('جاري تحميل الرسائل...');
-        updateNav('الرسائل');
-    } else if (pageName === 'حسابي') {
-        alert('جاري تحميل حسابي...');
-        updateNav('حسابي');
+    } else {
+        alert(`جاري تحميل صفحة ${pageName}...`);
+        updateNav(pageName);
     }
 }
 
-// تفاعل الأزرار
-document.getElementById('calendarBtn').onclick = () => alert('جاري فتح التقويم...');
-document.getElementById('entitiesBtn').onclick = () => alert('جاري فتح الجهات... (يمكنك إضافة هذه الصفحة لاحقاً)');
-document.getElementById('servicesBtn').onclick = openServices;
-
 // تأثيرات عند التحميل
 document.addEventListener('DOMContentLoaded', function() {
-    const items = document.querySelectorAll('.mini-item');
-    items.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
+    // تأثيرات ظهور تدريجي للعناصر
+    const sections = document.querySelectorAll('.quick-grid, .news-brief-grid, .stats-grid, .featured-grid');
+    
+    sections.forEach((section, sectionIndex) => {
+        const items = section.querySelectorAll('.quick-item, .news-brief-item, .stat-card, .featured-card');
         
-        setTimeout(() => {
-            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-        }, index * 100);
+        items.forEach((item, itemIndex) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, (sectionIndex * 200) + (itemIndex * 100));
+        });
     });
 });
 
-// تأثيرات ظهور الخدمات
-window.addEventListener('load', function() {
-    const services = document.querySelectorAll('.service-item');
-    services.forEach((service, index) => {
-        service.style.opacity = '0';
-        service.style.transform = 'translateX(30px)';
-        
-        setTimeout(() => {
-            service.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            service.style.opacity = '1';
-            service.style.transform = 'translateX(0)';
-        }, index * 100 + 300);
-    });
+// تأثير على البحث عند التركيز
+const searchInput = document.querySelector('.search-bar input');
+searchInput.addEventListener('focus', function() {
+    document.querySelector('.search-bar').style.boxShadow = '0 0 0 2px rgba(10, 132, 255, 0.2)';
 });
+
+searchInput.addEventListener('blur', function() {
+    document.querySelector('.search-bar').style.boxShadow = 'none';
+});
+
+// تحديث البطارية بشكل عشوائي
+setInterval(() => {
+    const batteryIcons = [
+        'fa-battery-empty',
+        'fa-battery-quarter',
+        'fa-battery-half',
+        'fa-battery-three-quarters',
+        'fa-battery-full'
+    ];
+    const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
+    const batteryIcon = document.querySelector('.fa-battery-three-quarters');
+    if (batteryIcon) {
+        batteryIcon.className = `fas ${randomIcon}`;
+    }
+}, 30000);
 </script>
 </body>
 </html>
