@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة سَمُوّ</title>
+    <title>منصة شمّق</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -32,80 +32,65 @@
         body {
             background: var(--dark);
             color: var(--text);
-            line-height: 1.5;
-            padding: 0 15px 90px;
+            line-height: 1.6;
+            padding: 20px 15px 90px;
             max-width: 500px;
             margin: 0 auto;
-            overflow-x: hidden;
-        }
-
-        /* شريط الحالة */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0 10px;
-        }
-
-        .time {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .status-icons i {
-            margin-right: 5px;
-            font-size: 14px;
         }
 
         /* الترحيب */
         .welcome-section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .greeting {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-size: 34px;
+            font-weight: 800;
+            margin-bottom: 10px;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-align: center;
         }
 
         .weather-info {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 10px;
             color: var(--text-secondary);
-            font-size: 16px;
+            font-size: 18px;
+            margin-bottom: 25px;
         }
 
         .weather-icon {
             color: #FFD700;
+            font-size: 22px;
         }
 
         /* شريط البحث */
         .search-bar {
             background: var(--card-bg);
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 25px;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 30px;
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .search-bar i {
             color: var(--text-secondary);
-            font-size: 18px;
+            font-size: 20px;
         }
 
         .search-bar input {
             background: transparent;
             border: none;
             color: var(--text);
-            font-size: 17px;
+            font-size: 18px;
             flex: 1;
         }
 
@@ -114,203 +99,145 @@
         }
 
         /* القوائم المصغرة */
-        .mini-grid {
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .mini-item {
+        .service-item {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px 12px;
+            border-radius: 14px;
+            padding: 20px 15px;
             text-align: center;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
 
-        .mini-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.2);
-        }
-
-        .mini-icon {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 8px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-        }
-
-        .calendar .mini-icon { background: var(--gradient-primary); }
-        .entities .mini-icon { background: var(--gradient-secondary); }
-        .personal .mini-icon { background: var(--gradient-accent); }
-
-        .mini-item h3 {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .mini-item p {
-            color: var(--text-secondary);
-            font-size: 11px;
-        }
-
-        /* النشرة */
-        .newsletter-section {
-            margin-bottom: 25px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .view-all {
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .newsletter-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .news-item {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 18px 20px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .news-item:hover {
-            transform: translateX(-5px);
-            border-color: var(--secondary);
-            box-shadow: 0 8px 20px rgba(52, 199, 89, 0.15);
-        }
-
-        .news-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .services .news-icon { background: var(--gradient-primary); }
-        .work .news-icon { background: var(--gradient-secondary); }
-        .education .news-icon { background: var(--gradient-accent); }
-
-        .news-content {
-            flex: 1;
-        }
-
-        .news-content h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .news-content p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        /* البطاقات المفضلة */
-        .favorite-section {
-            margin-bottom: 25px;
-        }
-
-        .favorite-cards {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .favorite-card {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .favorite-card:hover {
+        .service-item:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
             box-shadow: 0 10px 25px rgba(0, 122, 255, 0.2);
         }
 
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .card-icon {
+        .service-icon {
             width: 50px;
             height: 50px;
+            margin: 0 auto 12px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
             color: white;
-            background: var(--gradient-primary);
         }
 
-        .card-title {
-            font-size: 18px;
+        .personal .service-icon { background: var(--gradient-primary); }
+        .entities .service-icon { background: var(--gradient-secondary); }
+        .calendar .service-icon { background: var(--gradient-accent); }
+
+        .service-item h3 {
+            font-size: 16px;
             font-weight: 700;
             margin-bottom: 5px;
         }
 
-        .card-desc {
+        .service-item p {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .card-badges {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        /* زر عرض الكل */
+        .view-all-container {
+            margin: 25px 0 35px;
+            text-align: center;
         }
 
-        .badge {
-            background: rgba(0, 122, 255, 0.15);
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             color: var(--primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            font-size: 18px;
             font-weight: 600;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            background: rgba(0, 122, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        /* الخدمات */
+        .services-section {
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px 22px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateX(-8px);
+            border-color: var(--secondary);
+            box-shadow: 0 12px 30px rgba(52, 199, 89, 0.15);
+        }
+
+        .service-card:hover::before {
+            width: 8px;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.5;
         }
 
         /* الشريط السفلي */
@@ -322,11 +249,11 @@
             background: var(--glass);
             backdrop-filter: blur(25px);
             border-top: 1px solid var(--border);
-            padding: 10px 0 15px;
+            padding: 12px 0 18px;
             z-index: 1000;
             max-width: 500px;
             margin: 0 auto;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.5);
         }
 
         .nav-items {
@@ -342,14 +269,15 @@
             text-decoration: none;
             color: var(--text-secondary);
             transition: all 0.3s ease;
-            padding: 6px 12px;
-            border-radius: 12px;
-            min-width: 60px;
+            padding: 8px 15px;
+            border-radius: 14px;
+            min-width: 70px;
         }
 
         .nav-item.active {
             color: var(--primary);
             background: rgba(0, 122, 255, 0.15);
+            transform: translateY(-3px);
         }
 
         .nav-item:hover {
@@ -358,173 +286,138 @@
         }
 
         .nav-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
+            font-size: 22px;
+            margin-bottom: 6px;
         }
 
         .nav-text {
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         /* تأثيرات تفاعلية */
-        .mini-item, .news-item, .favorite-card, .nav-item {
+        .service-item, .service-card, .nav-item {
             cursor: pointer;
         }
 
-        .mini-item:active, .news-item:active, .favorite-card:active {
+        .service-item:active, .service-card:active {
             transform: scale(0.98);
         }
 
         /* التكيف مع الشاشات */
         @media (max-width: 400px) {
             body {
-                padding: 0 12px 85px;
+                padding: 15px 12px 85px;
             }
             
-            .mini-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .greeting {
+                font-size: 30px;
             }
             
-            .news-item {
-                padding: 15px;
+            .services-grid {
+                gap: 12px;
+            }
+            
+            .service-item {
+                padding: 18px 12px;
+            }
+            
+            .service-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
             }
             
             .nav-item {
-                padding: 5px 8px;
-                min-width: 55px;
+                padding: 6px 10px;
+                min-width: 65px;
             }
             
             .nav-icon {
-                font-size: 18px;
+                font-size: 20px;
             }
             
             .nav-text {
-                font-size: 10px;
+                font-size: 11px;
             }
         }
 
         @media (min-width: 768px) {
-            .mini-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            .newsletter-grid {
+            .services-list {
+                display: grid;
                 grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- شريط الحالة -->
-    <div class="status-bar">
-        <div class="time" id="currentTime">٩:٤١</div>
-        <div class="status-icons">
-            <i class="fas fa-signal"></i>
-            <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-three-quarters"></i>
-        </div>
-    </div>
-
     <!-- الترحيب -->
     <div class="welcome-section">
         <h1 class="greeting">أهلاً سليمان</h1>
         <div class="weather-info">
             <i class="fas fa-cloud-sun weather-icon"></i>
-            <span>غائم جزئي في جازان الآن</span>
+            <span>غائم جزئي في جازان الآن 😊</span>
         </div>
     </div>
 
     <!-- شريط البحث -->
     <div class="search-bar">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="البحث في منصة سَمُوّ">
+        <input type="text" placeholder="البحث في منصة شمّق">
     </div>
 
     <!-- القوائم المصغرة -->
-    <div class="mini-grid">
-        <div class="mini-item calendar" id="calendarBtn">
-            <div class="mini-icon">
-                <i class="fas fa-calendar-alt"></i>
+    <div class="services-grid">
+        <div class="service-item personal" id="personalService">
+            <div class="service-icon">
+                <i class="fas fa-user"></i>
             </div>
-            <h3>التقويم</h3>
-            <p>المواعيد والأحداث</p>
+            <h3>الشخصية</h3>
+            <p>خدمات الأفراد</p>
         </div>
-        <div class="mini-item entities" id="entitiesBtn">
-            <div class="mini-icon">
+        <div class="service-item entities" id="entitiesService">
+            <div class="service-icon">
                 <i class="fas fa-building"></i>
             </div>
             <h3>الجهات</h3>
             <p>الوزارات والهيئات</p>
         </div>
-        <div class="mini-item personal" id="personalBtn">
-            <div class="mini-icon">
-                <i class="fas fa-user-friends"></i>
+        <div class="service-item calendar" id="calendarService">
+            <div class="service-icon">
+                <i class="fas fa-calendar-alt"></i>
             </div>
-            <h3>الشخصية</h3>
-            <p>خدمات الأفراد</p>
+            <h3>التقويم</h3>
+            <p>المواعيد والأحداث</p>
         </div>
     </div>
 
-    <!-- النشرة -->
-    <div class="newsletter-section">
-        <div class="section-header">
-            <h2 class="section-title">النشرة</h2>
-            <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
-        </div>
-        <div class="newsletter-grid">
-            <div class="news-item services" id="servicesNews">
-                <div class="news-icon">
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <div class="news-content">
-                    <h3>الخدمات الحكومية</h3>
-                    <p>أحدث الخدمات والميزات المضافة للمنصة</p>
-                </div>
-            </div>
-            <div class="news-item work" id="workNews">
-                <div class="news-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <div class="news-content">
-                    <h3>فرص العمل</h3>
-                    <p>وظائف جديدة في القطاع الحكومي والخاص</p>
-                </div>
-            </div>
-            <div class="news-item education" id="educationNews">
-                <div class="news-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="news-content">
-                    <h3>التعليم والتدريب</h3>
-                    <p>برامج تدريبية ودورات تطويرية</p>
-                </div>
-            </div>
-        </div>
+    <!-- زر عرض الكل -->
+    <div class="view-all-container">
+        <a href="#" class="view-all-btn">
+            <span>عرض الكل</span>
+            <i class="fas fa-chevron-left"></i>
+        </a>
     </div>
 
-    <!-- البطاقات المفضلة -->
-    <div class="favorite-section">
+    <!-- الخدمات -->
+    <div class="services-section">
         <div class="section-header">
-            <h2 class="section-title">البطاقات المفضلة</h2>
-            <a href="#" class="view-all">إدارة <i class="fas fa-chevron-left"></i></a>
+            <h2 class="section-title">الخدمات</h2>
         </div>
-        <div class="favorite-cards">
-            <div class="favorite-card" id="idCard">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-id-card"></i>
-                    </div>
-                    <div>
-                        <h3 class="card-title">الهوية الرقمية</h3>
-                        <p class="card-desc">الهوية الوطنية الرقمية</p>
-                    </div>
-                </div>
-                <div class="card-badges">
-                    <span class="badge">نشطة</span>
-                    <span class="badge">صالحة</span>
-                    <span class="badge">محدثة</span>
-                </div>
+        <div class="services-list">
+            <div class="service-card" id="governmentServices">
+                <h3>الخدمات الحكومية</h3>
+                <p>أحدث الخدمات والميزات المضافة للمنصة</p>
+            </div>
+            <div class="service-card" id="jobOpportunities">
+                <h3>فرص العمل</h3>
+                <p>وظائف جديدة في القطاع الحكومي والخاص</p>
+            </div>
+            <div class="service-card" id="educationTraining">
+                <h3>التعليم والتدريب</h3>
+                <p>برامج تدريبية ودورات تطويرية</p>
             </div>
         </div>
     </div>
@@ -538,17 +431,17 @@
                 </div>
                 <div class="nav-text">الرئيسية</div>
             </a>
-            <a href="#" class="nav-item" id="navNews">
-                <div class="nav-icon">
-                    <i class="fas fa-newspaper"></i>
-                </div>
-                <div class="nav-text">النشرة</div>
-            </a>
             <a href="#" class="nav-item" id="navServices">
                 <div class="nav-icon">
                     <i class="fas fa-sliders-h"></i>
                 </div>
                 <div class="nav-text">الخدمات</div>
+            </a>
+            <a href="#" class="nav-item" id="navNews">
+                <div class="nav-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="nav-text">النشرة</div>
             </a>
             <a href="#" class="nav-item" id="navMessages">
                 <div class="nav-icon">
@@ -566,57 +459,36 @@
     </nav>
 
     <script>
-        // تحديث الوقت
-        function updateTime() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            
-            // تحويل إلى تنسيق 12 ساعة
-            hours = hours % 12 || 12;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            
-            // تحويل الأرقام إلى عربية
-            const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-            const hoursStr = hours.toString().split('').map(d => arabicNumbers[d] || d).join('');
-            const minutesStr = minutes.toString().split('').map(d => arabicNumbers[d] || d).join('');
-            
-            document.getElementById('currentTime').textContent = `${hoursStr}:${minutesStr}`;
-        }
-
-        // تحديث الوقت أولاً ثم كل دقيقة
-        updateTime();
-        setInterval(updateTime, 60000);
-
         // تفاعل القوائم المصغرة
-        document.getElementById('calendarBtn').addEventListener('click', () => {
-            alert('جاري فتح التقويم');
-        });
-
-        document.getElementById('entitiesBtn').addEventListener('click', () => {
-            alert('جاري فتح قائمة الجهات الحكومية');
-        });
-
-        document.getElementById('personalBtn').addEventListener('click', () => {
+        document.getElementById('personalService').addEventListener('click', () => {
             alert('جاري فتح الخدمات الشخصية');
         });
 
-        // تفاعل النشرة
-        document.getElementById('servicesNews').addEventListener('click', () => {
-            alert('جاري فتح تفاصيل الخدمات الحكومية');
+        document.getElementById('entitiesService').addEventListener('click', () => {
+            alert('جاري فتح قائمة الجهات الحكومية');
         });
 
-        document.getElementById('workNews').addEventListener('click', () => {
+        document.getElementById('calendarService').addEventListener('click', () => {
+            alert('جاري فتح التقويم');
+        });
+
+        // تفاعل الخدمات
+        document.getElementById('governmentServices').addEventListener('click', () => {
+            alert('جاري فتح الخدمات الحكومية');
+        });
+
+        document.getElementById('jobOpportunities').addEventListener('click', () => {
             alert('جاري فتح فرص العمل المتاحة');
         });
 
-        document.getElementById('educationNews').addEventListener('click', () => {
+        document.getElementById('educationTraining').addEventListener('click', () => {
             alert('جاري فتح برامج التعليم والتدريب');
         });
 
-        // تفاعل البطاقات المفضلة
-        document.getElementById('idCard').addEventListener('click', () => {
-            alert('جاري فتح الهوية الرقمية');
+        // تفاعل زر عرض الكل
+        document.querySelector('.view-all-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('جاري عرض جميع الخدمات');
         });
 
         // تفاعل الشريط السفلي
@@ -644,7 +516,7 @@
         const searchInput = document.querySelector('.search-bar input');
         searchInput.addEventListener('focus', function() {
             this.parentElement.style.borderColor = 'var(--primary)';
-            this.parentElement.style.boxShadow = '0 0 0 2px rgba(0, 122, 255, 0.2)';
+            this.parentElement.style.boxShadow = '0 0 0 3px rgba(0, 122, 255, 0.2)';
         });
 
         searchInput.addEventListener('blur', function() {
@@ -652,38 +524,16 @@
             this.parentElement.style.boxShadow = 'none';
         });
 
-        // تأثيرات عند التمرير
-        window.addEventListener('scroll', function() {
-            const scrollY = window.scrollY;
-            const bottomNav = document.querySelector('.bottom-nav');
-            
-            if (scrollY > 100) {
-                bottomNav.style.backdropFilter = 'blur(15px)';
-                bottomNav.style.opacity = '0.95';
-            } else {
-                bottomNav.style.backdropFilter = 'blur(25px)';
-                bottomNav.style.opacity = '1';
-            }
-        });
-
-        // محاكاة تغيير حالة البطارية
-        setInterval(() => {
-            const batteryIcons = ['fa-battery-empty', 'fa-battery-quarter', 'fa-battery-half', 
-                                  'fa-battery-three-quarters', 'fa-battery-full'];
-            const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
-            
-            const batteryIcon = document.querySelector('.fa-battery-three-quarters');
-            if (batteryIcon) {
-                batteryIcon.className = `fas ${randomIcon}`;
-            }
-        }, 30000);
-
         // إضافة تأثيرات عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
             // إضافة تأثيرات ظهور تدريجي
-            const elements = document.querySelectorAll('.mini-item, .news-item, .favorite-card');
+            const elements = document.querySelectorAll('.service-item, .service-card');
             elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                
                 setTimeout(() => {
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                 }, index * 100);
@@ -696,14 +546,44 @@
             const bottomNav = document.querySelector('.bottom-nav');
             
             if (hour >= 6 && hour < 18) {
-                bottomNav.style.background = 'rgba(28, 28, 30, 0.85)';
+                bottomNav.style.background = 'rgba(28, 28, 30, 0.88)';
             } else {
-                bottomNav.style.background = 'rgba(20, 20, 22, 0.9)';
+                bottomNav.style.background = 'rgba(20, 20, 22, 0.92)';
             }
         }
 
         updateNavBackground();
         setInterval(updateNavBackground, 60000);
+
+        // تأثير عند التمرير
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const currentScroll = window.pageYOffset;
+            const bottomNav = document.querySelector('.bottom-nav');
+            
+            if (currentScroll > lastScroll) {
+                // التمرير لأسفل
+                bottomNav.style.transform = 'translateY(100%)';
+            } else {
+                // التمرير لأعلى
+                bottomNav.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // إضافة تأثير للمؤشر عند النقر
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.service-item, .service-card, .nav-item')) {
+                const element = e.target.closest('.service-item, .service-card, .nav-item');
+                
+                // تأثير النقر
+                element.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    element.style.transform = '';
+                }, 150);
+            }
+        });
     </script>
 </body>
 </html>
