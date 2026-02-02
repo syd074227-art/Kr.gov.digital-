@@ -3,72 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>توكلنا</title>
+    <title>توكيلنا</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #007AFF;
+            --secondary: #34C759;
+            --accent: #FF9500;
+            --dark: #000000;
+            --card-bg: #1C1C1E;
+            --text: #FFFFFF;
+            --text-secondary: #8E8E93;
+            --border: #2C2C2E;
+            --glass: rgba(28, 28, 30, 0.9);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
-
-        :root {
-            --primary-color: #007AFF;
-            --secondary-color: #34C759;
-            --accent-color: #FF9500;
-            --dark-bg: #000000;
-            --card-bg: #1C1C1E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #8E8E93;
-            --border-color: #2C2C2E;
-            --glass-bg: rgba(28, 28, 30, 0.9);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-primary);
+            background: var(--dark);
+            color: var(--text);
             line-height: 1.5;
-            padding: 20px 15px 100px 15px;
+            padding: 0 15px 90px;
             max-width: 500px;
             margin: 0 auto;
-            transition: padding-bottom 0.3s ease;
+            overflow-x: hidden;
         }
 
-        /* شريط الحالة العلوي */
+        /* شريط الحالة */
         .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
+            padding: 15px 0 10px;
         }
 
         .time {
             font-weight: 600;
-            font-size: 17px;
-        }
-
-        .status-icons {
-            display: flex;
-            gap: 8px;
-            align-items: center;
+            font-size: 16px;
         }
 
         .status-icons i {
+            margin-right: 5px;
             font-size: 14px;
         }
 
-        /* قسم الترحيب */
+        /* الترحيب */
         .welcome-section {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .greeting {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-primary);
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #007AFF, #34C759);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .weather-info {
@@ -79,33 +76,41 @@
             font-size: 16px;
         }
 
-        /* الأقسام الرئيسية */
-        .main-sections {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+        .weather-icon {
+            color: #FFD700;
         }
 
-        .section-box {
-            background-color: var(--card-bg);
+        /* شريط البحث */
+        .search-bar {
+            background: var(--card-bg);
             border-radius: 14px;
-            padding: 20px;
-            height: 120px;
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid var(--border-color);
+            align-items: center;
+            gap: 12px;
         }
 
-        .section-title {
+        .search-bar i {
+            color: var(--text-secondary);
             font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
         }
 
-        /* قسم استكشاف التصنيفات */
-        .categories-section {
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 17px;
+            flex: 1;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* الوصول السريع */
+        .quick-access {
             margin-bottom: 30px;
         }
 
@@ -116,80 +121,175 @@
             margin-bottom: 20px;
         }
 
-        .section-header h2 {
+        .section-title {
             font-size: 22px;
             font-weight: 700;
-            color: var(--text-primary);
         }
 
-        /* قائمة التصنيفات */
-        .categories-list {
+        .view-all {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .quick-item {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 20px 15px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .quick-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.2);
+        }
+
+        .quick-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+        }
+
+        .calendar .quick-icon { background: linear-gradient(135deg, #FF2D55, #FF9500); }
+        .ehsan .quick-icon { background: linear-gradient(135deg, #34C759, #5AC8FA); }
+        .documents .quick-icon { background: linear-gradient(135deg, #5856D6, #AF52DE); }
+        .entities .quick-icon { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
+
+        .quick-item h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* البطاقات المفضلة وسجل الأسرة */
+        .cards-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .category-item {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 18px 15px;
-            border: 1px solid var(--border-color);
-        }
-
-        .category-item h3 {
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-
-        /* أزرار عرض الكل */
-        .view-all-buttons {
-            display: flex;
-            flex-direction: column;
             gap: 15px;
             margin-bottom: 30px;
         }
 
-        .view-all-btn {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 17px;
-            text-decoration: none;
+        .card-item {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 25px 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
 
-        /* القائمة الثانية */
-        .categories-list-secondary {
+        .card-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(52, 199, 89, 0.2);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .favorite .card-icon { background: linear-gradient(135deg, #FF9500, #FFCC00); }
+        .family .card-icon { background: linear-gradient(135deg, #5AC8FA, #007AFF); }
+
+        .card-item h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* استكشف التصنيفات */
+        .categories-section {
+            margin-bottom: 30px;
+        }
+
+        .categories-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
 
-        /* الشريط السفلي المتحرك */
+        .category-item {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 25px 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .category-item:nth-child(1) .category-icon { background: linear-gradient(135deg, #FF2D55, #FF9500); }
+        .category-item:nth-child(2) .category-icon { background: linear-gradient(135deg, #34C759, #5AC8FA); }
+        .category-item:nth-child(3) .category-icon { background: linear-gradient(135deg, #5856D6, #AF52DE); }
+        .category-item:nth-child(4) .category-icon { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
+        .category-item:nth-child(5) .category-icon { background: linear-gradient(135deg, #FF9500, #FFCC00); }
+
+        .category-item h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .category-item p {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* الشريط السفلي */
         .bottom-nav {
             position: fixed;
-            bottom: -70px;
-            right: 0;
+            bottom: 0;
             left: 0;
-            background: var(--glass-bg);
+            right: 0;
+            background: var(--glass);
             backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color);
-            padding: 10px 0;
+            border-top: 1px solid var(--border);
+            padding: 12px 0;
             z-index: 1000;
             max-width: 500px;
             margin: 0 auto;
-            transition: bottom 0.3s ease-in-out;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .bottom-nav.visible {
-            bottom: 0;
         }
 
         .nav-items {
@@ -204,15 +304,20 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-secondary);
-            transition: all 0.2s;
-            padding: 8px 12px;
-            border-radius: 10px;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 12px;
             min-width: 70px;
         }
 
         .nav-item.active {
-            color: var(--primary-color);
-            background-color: rgba(0, 122, 255, 0.1);
+            color: var(--primary);
+            background: rgba(0, 122, 255, 0.15);
+        }
+
+        .nav-item:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
         }
 
         .nav-icon {
@@ -222,95 +327,51 @@
 
         .nav-text {
             font-size: 12px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         /* تأثيرات تفاعلية */
-        .section-box, .category-item, .nav-item {
-            transition: all 0.2s ease;
+        .quick-item, .card-item, .category-item, .nav-item {
+            cursor: pointer;
         }
 
-        .section-box:active, .category-item:active {
-            background-color: rgba(120, 120, 128, 0.2);
+        .quick-item:active, .card-item:active, .category-item:active {
             transform: scale(0.98);
         }
 
-        .nav-item:active {
-            transform: scale(0.95);
-        }
-
-        /* تخصيص الألوان للتصنيفات */
-        .category-item:nth-child(1) h3 { color: #007AFF; }
-        .category-item:nth-child(2) h3 { color: #34C759; }
-        .category-item:nth-child(3) h3 { color: #FF9500; }
-        .category-item:nth-child(4) h3 { color: #AF52DE; }
-        
-        .categories-list-secondary .category-item:nth-child(1) h3 { color: #5856D6; }
-        .categories-list-secondary .category-item:nth-child(2) h3 { color: #FF3B30; }
-        .categories-list-secondary .category-item:nth-child(3) h3 { color: #5AC8FA; }
-        .categories-list-secondary .category-item:nth-child(4) h3 { color: #FFCC00; }
-        .categories-list-secondary .category-item:nth-child(5) h3 { color: #FF2D55; }
-        .categories-list-secondary .category-item:nth-child(6) h3 { color: #4CD964; }
-
-        /* زر إظهار/إخفاء الشريط */
-        .toggle-nav-btn {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            border: none;
-            z-index: 999;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .toggle-nav-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* التكيف مع الشاشات المختلفة */
+        /* التكيف مع الشاشات */
         @media (max-width: 400px) {
             body {
-                padding: 15px 12px 90px 12px;
+                padding: 0 12px 85px;
             }
             
-            .section-box {
-                padding: 15px;
-                height: 110px;
+            .quick-access-grid {
+                gap: 12px;
             }
             
-            .category-item {
-                padding: 15px 12px;
+            .quick-item {
+                padding: 15px 10px;
+            }
+            
+            .card-item, .category-item {
+                padding: 20px 15px;
             }
             
             .nav-item {
-                min-width: 60px;
-                padding: 6px 10px;
+                padding: 8px 10px;
+                min-width: 65px;
             }
             
             .nav-icon {
                 font-size: 20px;
             }
-            
-            .nav-text {
-                font-size: 11px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- شريط الحالة العلوي -->
+    <!-- شريط الحالة -->
     <div class="status-bar">
-        <div class="time">٩:٤١</div>
+        <div class="time" id="currentTime">٩:٤١</div>
         <div class="status-icons">
             <i class="fas fa-signal"></i>
             <i class="fas fa-wifi"></i>
@@ -318,282 +379,162 @@
         </div>
     </div>
 
-    <!-- قسم الترحيب -->
+    <!-- الترحيب -->
     <div class="welcome-section">
-        <h1 class="greeting">أهلاً</h1>
+        <h1 class="greeting">أهلاً سليمان</h1>
         <div class="weather-info">
-            <i class="fas fa-sun"></i>
-            <span>27° - صحيح في الاثنين</span>
+            <i class="fas fa-cloud-sun weather-icon"></i>
+            <span>غائم جزئي في جازان الآن</span>
         </div>
     </div>
 
-    <!-- الأقسام الرئيسية -->
-    <div class="main-sections">
-        <div class="section-box" id="favoriteCards">
-            <h2 class="section-title">البطاقات المفضلة</h2>
-            <div class="section-content"></div>
-        </div>
-        
-        <div class="section-box" id="familyRecord">
-            <h2 class="section-title">سجل الأسرة</h2>
-            <div class="section-content"></div>
-        </div>
+    <!-- شريط البحث -->
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="البحث في توكيلنا">
     </div>
 
-    <!-- قسم استكشاف التصنيفات -->
-    <div class="categories-section">
+    <!-- الوصول السريع -->
+    <div class="quick-access">
         <div class="section-header">
-            <h2>استكشاف التصنيفات</h2>
+            <h2 class="section-title">الوصول السريع</h2>
+            <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
         </div>
-
-        <!-- القائمة الأولى -->
-        <div class="categories-list">
-            <div class="category-item" id="entitiesCategory">
-                <h3>الجهات</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>المستندات</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>إحسان</h3>
-            </div>
-            
-            <div class="category-item">
+        <div class="quick-access-grid">
+            <div class="quick-item calendar" id="calendarBtn">
+                <div class="quick-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
                 <h3>التقويم</h3>
             </div>
-        </div>
-
-        <!-- أزرار عرض الكل -->
-        <div class="view-all-buttons">
-            <a href="#" class="view-all-btn">
-                <span>عرض الكل</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            
-            <a href="#" class="view-all-btn">
-                <span>عرض الكل</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            
-            <a href="#" class="view-all-btn">
-                <span>عرض الكل</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-        </div>
-
-        <!-- القائمة الثانية -->
-        <div class="categories-list-secondary">
-            <div class="category-item">
-                <h3>الدينية</h3>
+            <div class="quick-item ehsan" id="ehsanBtn">
+                <div class="quick-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>إحسان</h3>
             </div>
-            
-            <div class="category-item">
-                <h3>الصحة</h3>
+            <div class="quick-item documents" id="documentsBtn">
+                <div class="quick-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>المستندات</h3>
             </div>
-            
-            <div class="category-item">
-                <h3>الشخصية والأسرة</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>المركبات والمرور</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>التجارة والمالية</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>التعليم</h3>
+            <div class="quick-item entities" id="entitiesBtn">
+                <div class="quick-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>الجهات</h3>
             </div>
         </div>
     </div>
 
-    <!-- زر التحكم بالشريط -->
-    <button class="toggle-nav-btn" id="toggleNavBtn">
-        <i class="fas fa-bars"></i>
-    </button>
+    <!-- البطاقات المفضلة وسجل الأسرة -->
+    <div class="cards-section">
+        <div class="card-item favorite" id="favoriteCards">
+            <div class="card-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3>البطاقات المفضلة</h3>
+            <p>الوصول السريع لبطاقاتك المفضلة</p>
+        </div>
+        <div class="card-item family" id="familyRecord">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>سجل الأسرة</h3>
+            <p>إدارة بيانات العائلة</p>
+        </div>
+    </div>
 
-    <!-- الشريط السفلي المتحرك -->
-    <nav class="bottom-nav" id="bottomNav">
+    <!-- استكشف التصنيفات -->
+    <div class="categories-section">
+        <div class="section-header">
+            <h2 class="section-title">استكشف التصنيفات</h2>
+        </div>
+        <div class="categories-grid">
+            <div class="category-item" id="personalCategory">
+                <div class="category-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <h3>الشخصية والأسرة</h3>
+                <p>خدمات الأفراد والعائلات</p>
+            </div>
+            <div class="category-item" id="servicesCategory">
+                <div class="category-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h3>الخدمات</h3>
+                <p>جميع الخدمات الحكومية</p>
+            </div>
+            <div class="category-item" id="vehiclesCategory">
+                <div class="category-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3>المركبات والمرور</h3>
+                <p>خدمات المرور والمركبات</p>
+            </div>
+            <div class="category-item" id="workCategory">
+                <div class="category-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>العمل</h3>
+                <p>الخدمات الوظيفية والتوظيف</p>
+            </div>
+            <div class="category-item" id="tawakkalnaCategory">
+                <div class="category-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3>توكيلنا</h3>
+                <p>خدمات المنصة الرئيسية</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- الشريط السفلي -->
+    <nav class="bottom-nav">
         <div class="nav-items">
-            <a href="#" class="nav-item active" data-page="home">
+            <a href="#" class="nav-item active" id="navHome">
                 <div class="nav-icon">
                     <i class="fas fa-home"></i>
                 </div>
                 <div class="nav-text">الرئيسية</div>
             </a>
-            
-            <a href="#" class="nav-item" data-page="explore">
+            <a href="#" class="nav-item" id="navCategories">
                 <div class="nav-icon">
-                    <i class="fas fa-compass"></i>
+                    <i class="fas fa-th-large"></i>
                 </div>
-                <div class="nav-text">استكشاف</div>
+                <div class="nav-text">التصنيفات</div>
             </a>
-            
-            <a href="#" class="nav-item" data-page="entities">
-                <div class="nav-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <div class="nav-text">الجهات</div>
-            </a>
-            
-            <a href="#" class="nav-item" data-page="services">
+            <a href="#" class="nav-item" id="navServices">
                 <div class="nav-icon">
                     <i class="fas fa-sliders-h"></i>
                 </div>
                 <div class="nav-text">الخدمات</div>
             </a>
-            
-            <a href="#" class="nav-item" data-page="profile">
+            <a href="#" class="nav-item" id="navMessages">
+                <div class="nav-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="nav-text">الرسائل</div>
+            </a>
+            <a href="#" class="nav-item" id="navProfile">
                 <div class="nav-icon">
                     <i class="fas fa-user"></i>
                 </div>
-                <div class="nav-text">معلوماتي</div>
+                <div class="nav-text">حسابي</div>
             </a>
         </div>
     </nav>
 
     <script>
-        // عناصر DOM
-        const favoriteCards = document.getElementById('favoriteCards');
-        const familyRecord = document.getElementById('familyRecord');
-        const entitiesCategory = document.getElementById('entitiesCategory');
-        const viewAllBtns = document.querySelectorAll('.view-all-btn');
-        const categoryItems = document.querySelectorAll('.category-item');
-        const navItems = document.querySelectorAll('.nav-item');
-        const bottomNav = document.getElementById('bottomNav');
-        const toggleNavBtn = document.getElementById('toggleNavBtn');
-        let lastScrollTop = 0;
-        let isNavVisible = true;
-        let autoHideTimeout;
-
-        // تفاعل البطاقات المفضلة
-        favoriteCards.addEventListener('click', function() {
-            alert('سيتم فتح البطاقات المفضلة');
-        });
-
-        // تفاعل سجل الأسرة
-        familyRecord.addEventListener('click', function() {
-            alert('سيتم فتح سجل الأسرة');
-        });
-
-        // تفاعل تصنيف الجهات
-        entitiesCategory.addEventListener('click', function() {
-            alert('سيتم فتح قائمة الجهات');
-        });
-
-        // تفاعل أزرار عرض الكل
-        viewAllBtns.forEach((btn, index) => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                let sectionName = '';
-                
-                if (index === 0) {
-                    sectionName = 'البطاقات المفضلة';
-                } else if (index === 1) {
-                    sectionName = 'سجل الأسرة';
-                } else {
-                    sectionName = 'التصنيفات';
-                }
-                
-                alert(`سيتم عرض جميع عناصر قسم "${sectionName}"`);
-            });
-        });
-
-        // تفاعل عناصر التصنيفات
-        categoryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const categoryName = this.querySelector('h3').textContent;
-                alert(`سيتم فتح قسم "${categoryName}"`);
-            });
-        });
-
-        // تفاعل شريط التنقل السفلي
-        navItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                navItems.forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-                
-                const pageName = this.querySelector('.nav-text').textContent;
-                
-                if (pageName !== 'الرئيسية') {
-                    alert(`سيتم فتح صفحة "${pageName}"`);
-                }
-                
-                // إخفاء الشريط بعد النقر
-                hideNavBar();
-            });
-        });
-
-        // زر التحكم بالشريط
-        toggleNavBtn.addEventListener('click', function() {
-            if (bottomNav.classList.contains('visible')) {
-                hideNavBar();
-            } else {
-                showNavBar();
-            }
-        });
-
-        // وظائف إظهار وإخفاء الشريط
-        function showNavBar() {
-            bottomNav.classList.add('visible');
-            isNavVisible = true;
-            clearTimeout(autoHideTimeout);
-            
-            // إخفاء تلقائي بعد 5 ثواني
-            autoHideTimeout = setTimeout(() => {
-                if (isNavVisible) {
-                    hideNavBar();
-                }
-            }, 5000);
-        }
-
-        function hideNavBar() {
-            bottomNav.classList.remove('visible');
-            isNavVisible = false;
-            clearTimeout(autoHideTimeout);
-        }
-
-        // إظهار الشريط عند التمرير لأعلى وإخفاؤه عند التمرير لأسفل
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop) {
-                // التمرير لأسفل
-                hideNavBar();
-            } else {
-                // التمرير لأعلى
-                showNavBar();
-            }
-            
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        });
-
-        // إظهار الشريط عند لمس الشاشة (للأجهزة المحمولة)
-        document.addEventListener('touchstart', function() {
-            showNavBar();
-        });
-
-        // إظهار الشريط عند تحريك الماوس
-        document.addEventListener('mousemove', function() {
-            showNavBar();
-        });
-
-        // تحديث الوقت كل دقيقة
+        // تحديث الوقت
         function updateTime() {
             const now = new Date();
             let hours = now.getHours();
             let minutes = now.getMinutes();
             
             // تحويل إلى تنسيق 12 ساعة
-            const isPM = hours >= 12;
             hours = hours % 12 || 12;
-            
-            // إضافة صفر أمام الأرقام أقل من 10
             minutes = minutes < 10 ? '0' + minutes : minutes;
             
             // تحويل الأرقام إلى عربية
@@ -601,16 +542,101 @@
             const hoursStr = hours.toString().split('').map(d => arabicNumbers[d] || d).join('');
             const minutesStr = minutes.toString().split('').map(d => arabicNumbers[d] || d).join('');
             
-            document.querySelector('.time').textContent = `${hoursStr}:${minutesStr}`;
+            document.getElementById('currentTime').textContent = `${hoursStr}:${minutesStr}`;
         }
 
         // تحديث الوقت أولاً ثم كل دقيقة
         updateTime();
         setInterval(updateTime, 60000);
 
+        // تفاعل عناصر الوصول السريع
+        document.getElementById('calendarBtn').addEventListener('click', () => {
+            alert('سيتم فتح التقويم');
+        });
+
+        document.getElementById('ehsanBtn').addEventListener('click', () => {
+            alert('سيتم فتح منصة إحسان');
+        });
+
+        document.getElementById('documentsBtn').addEventListener('click', () => {
+            alert('سيتم فتح المستندات');
+        });
+
+        document.getElementById('entitiesBtn').addEventListener('click', () => {
+            alert('سيتم فتح الجهات الحكومية');
+        });
+
+        // تفاعل البطاقات المفضلة وسجل الأسرة
+        document.getElementById('favoriteCards').addEventListener('click', () => {
+            alert('سيتم فتح البطاقات المفضلة');
+        });
+
+        document.getElementById('familyRecord').addEventListener('click', () => {
+            alert('سيتم فتح سجل الأسرة');
+        });
+
+        // تفاعل التصنيفات
+        const categories = [
+            'personalCategory', 'servicesCategory', 'vehiclesCategory', 
+            'workCategory', 'tawakkalnaCategory'
+        ];
+
+        categories.forEach(categoryId => {
+            document.getElementById(categoryId).addEventListener('click', function() {
+                const categoryName = this.querySelector('h3').textContent;
+                alert(`سيتم فتح قسم ${categoryName}`);
+            });
+        });
+
+        // تفاعل الشريط السفلي
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // إزالة التفعيل من جميع العناصر
+                navItems.forEach(nav => nav.classList.remove('active'));
+                
+                // تفعيل العنصر الحالي
+                this.classList.add('active');
+                
+                const pageName = this.querySelector('.nav-text').textContent;
+                
+                // إذا لم تكن الصفحة الرئيسية، عرض رسالة
+                if (pageName !== 'الرئيسية') {
+                    alert(`جاري تحميل صفحة ${pageName}...`);
+                }
+            });
+        });
+
+        // تفاعل شريط البحث
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.style.borderColor = 'var(--primary)';
+            this.parentElement.style.boxShadow = '0 0 0 2px rgba(0, 122, 255, 0.2)';
+        });
+
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.style.borderColor = 'var(--border)';
+            this.parentElement.style.boxShadow = 'none';
+        });
+
+        // إضافة تأثيرات عند التمرير
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            const bottomNav = document.querySelector('.bottom-nav');
+            
+            if (scrollY > 100) {
+                bottomNav.style.opacity = '0.9';
+            } else {
+                bottomNav.style.opacity = '1';
+            }
+        });
+
         // محاكاة تغيير حالة البطارية
         setInterval(() => {
-            const batteryIcons = ['fa-battery-empty', 'fa-battery-quarter', 'fa-battery-half', 'fa-battery-three-quarters', 'fa-battery-full'];
+            const batteryIcons = ['fa-battery-empty', 'fa-battery-quarter', 'fa-battery-half', 
+                                  'fa-battery-three-quarters', 'fa-battery-full'];
             const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
             
             const batteryIcon = document.querySelector('.fa-battery-three-quarters');
@@ -619,29 +645,13 @@
             }
         }, 30000);
 
-        // إظهار الشريط عند التحميل
-        window.addEventListener('load', function() {
+        // إضافة تأثيرات عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
-                showNavBar();
-            }, 1000);
+                document.querySelector('.welcome-section').style.opacity = '1';
+                document.querySelector('.search-bar').style.transform = 'translateY(0)';
+            }, 100);
         });
-
-        // إخفاء الشريط بعد 5 ثواني من عدم النشاط
-        let activityTimer;
-        function resetActivityTimer() {
-            clearTimeout(activityTimer);
-            activityTimer = setTimeout(() => {
-                hideNavBar();
-            }, 5000);
-        }
-
-        // إعادة تعيين المؤقت عند أي نشاط
-        ['click', 'touchstart', 'mousemove', 'keypress'].forEach(event => {
-            document.addEventListener(event, resetActivityTimer);
-        });
-
-        // بدء المؤقت
-        resetActivityTimer();
     </script>
 </body>
 </html>
