@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>توكيلنا</title>
+    <title>منصة سَمُوّ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #007AFF;
             --secondary: #34C759;
             --accent: #FF9500;
+            --royal: #5856D6;
             --dark: #000000;
             --card-bg: #1C1C1E;
             --text: #FFFFFF;
             --text-secondary: #8E8E93;
             --border: #2C2C2E;
             --glass: rgba(28, 28, 30, 0.9);
+            --gradient-primary: linear-gradient(135deg, #007AFF, #5856D6);
+            --gradient-secondary: linear-gradient(135deg, #34C759, #5AC8FA);
+            --gradient-accent: linear-gradient(135deg, #FF9500, #FF2D55);
         }
 
         * {
@@ -62,7 +66,7 @@
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 8px;
-            background: linear-gradient(90deg, #007AFF, #34C759);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -85,7 +89,7 @@
             background: var(--card-bg);
             border-radius: 14px;
             padding: 16px 20px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
@@ -109,93 +113,166 @@
             color: var(--text-secondary);
         }
 
-        /* الوصول السريع */
-        .quick-access {
-            margin-bottom: 30px;
+        /* القوائم المصغرة */
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .mini-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .mini-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.2);
+        }
+
+        .mini-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 8px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        .calendar .mini-icon { background: var(--gradient-primary); }
+        .entities .mini-icon { background: var(--gradient-secondary); }
+        .personal .mini-icon { background: var(--gradient-accent); }
+
+        .mini-item h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .mini-item p {
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        /* النشرة */
+        .newsletter-section {
+            margin-bottom: 25px;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .section-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
+            color: var(--text);
         }
 
         .view-all {
             color: var(--primary);
             font-weight: 600;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
         }
 
-        .quick-access-grid {
+        .newsletter-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
             gap: 15px;
         }
 
-        .quick-item {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px 15px;
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
+        .news-item:hover {
+            transform: translateX(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 8px 20px rgba(52, 199, 89, 0.15);
         }
 
-        .quick-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.2);
-        }
-
-        .quick-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 12px;
-            border-radius: 12px;
+        .news-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
             color: white;
+            flex-shrink: 0;
         }
 
-        .calendar .quick-icon { background: linear-gradient(135deg, #FF2D55, #FF9500); }
-        .ehsan .quick-icon { background: linear-gradient(135deg, #34C759, #5AC8FA); }
-        .documents .quick-icon { background: linear-gradient(135deg, #5856D6, #AF52DE); }
-        .entities .quick-icon { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
+        .services .news-icon { background: var(--gradient-primary); }
+        .work .news-icon { background: var(--gradient-secondary); }
+        .education .news-icon { background: var(--gradient-accent); }
 
-        .quick-item h3 {
-            font-size: 14px;
-            font-weight: 600;
+        .news-content {
+            flex: 1;
         }
 
-        /* البطاقات المفضلة وسجل الأسرة */
-        .cards-section {
+        .news-content h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .news-content p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* البطاقات المفضلة */
+        .favorite-section {
+            margin-bottom: 25px;
+        }
+
+        .favorite-cards {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
 
-        .card-item {
+        .favorite-card {
             background: var(--card-bg);
             border-radius: 14px;
-            padding: 25px 20px;
+            padding: 20px;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
 
-        .card-item:hover {
+        .favorite-card:hover {
             transform: translateY(-5px);
-            border-color: var(--secondary);
-            box-shadow: 0 10px 20px rgba(52, 199, 89, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .card-icon {
@@ -206,75 +283,34 @@
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            margin-bottom: 15px;
             color: white;
+            background: var(--gradient-primary);
         }
 
-        .favorite .card-icon { background: linear-gradient(135deg, #FF9500, #FFCC00); }
-        .family .card-icon { background: linear-gradient(135deg, #5AC8FA, #007AFF); }
-
-        .card-item h3 {
+        .card-title {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 5px;
         }
 
-        .card-item p {
+        .card-desc {
             color: var(--text-secondary);
             font-size: 14px;
         }
 
-        /* استكشف التصنيفات */
-        .categories-section {
-            margin-bottom: 30px;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        .category-item {
-            background: var(--card-bg);
-            border-radius: 14px;
-            padding: 25px 20px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .category-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .category-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+        .card-badges {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: white;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .category-item:nth-child(1) .category-icon { background: linear-gradient(135deg, #FF2D55, #FF9500); }
-        .category-item:nth-child(2) .category-icon { background: linear-gradient(135deg, #34C759, #5AC8FA); }
-        .category-item:nth-child(3) .category-icon { background: linear-gradient(135deg, #5856D6, #AF52DE); }
-        .category-item:nth-child(4) .category-icon { background: linear-gradient(135deg, #007AFF, #5AC8FA); }
-        .category-item:nth-child(5) .category-icon { background: linear-gradient(135deg, #FF9500, #FFCC00); }
-
-        .category-item h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .category-item p {
-            color: var(--text-secondary);
-            font-size: 13px;
+        .badge {
+            background: rgba(0, 122, 255, 0.15);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         /* الشريط السفلي */
@@ -284,12 +320,13 @@
             left: 0;
             right: 0;
             background: var(--glass);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
             border-top: 1px solid var(--border);
-            padding: 12px 0;
+            padding: 10px 0 15px;
             z-index: 1000;
             max-width: 500px;
             margin: 0 auto;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-items {
@@ -305,9 +342,9 @@
             text-decoration: none;
             color: var(--text-secondary);
             transition: all 0.3s ease;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 12px;
-            min-width: 70px;
+            min-width: 60px;
         }
 
         .nav-item.active {
@@ -317,25 +354,25 @@
 
         .nav-item:hover {
             color: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .nav-icon {
-            font-size: 22px;
-            margin-bottom: 5px;
+            font-size: 20px;
+            margin-bottom: 4px;
         }
 
         .nav-text {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
         }
 
         /* تأثيرات تفاعلية */
-        .quick-item, .card-item, .category-item, .nav-item {
+        .mini-item, .news-item, .favorite-card, .nav-item {
             cursor: pointer;
         }
 
-        .quick-item:active, .card-item:active, .category-item:active {
+        .mini-item:active, .news-item:active, .favorite-card:active {
             transform: scale(0.98);
         }
 
@@ -345,25 +382,35 @@
                 padding: 0 12px 85px;
             }
             
-            .quick-access-grid {
-                gap: 12px;
+            .mini-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .quick-item {
-                padding: 15px 10px;
-            }
-            
-            .card-item, .category-item {
-                padding: 20px 15px;
+            .news-item {
+                padding: 15px;
             }
             
             .nav-item {
-                padding: 8px 10px;
-                min-width: 65px;
+                padding: 5px 8px;
+                min-width: 55px;
             }
             
             .nav-icon {
-                font-size: 20px;
+                font-size: 18px;
+            }
+            
+            .nav-text {
+                font-size: 10px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mini-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .newsletter-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -391,101 +438,93 @@
     <!-- شريط البحث -->
     <div class="search-bar">
         <i class="fas fa-search"></i>
-        <input type="text" placeholder="البحث في توكيلنا">
+        <input type="text" placeholder="البحث في منصة سَمُوّ">
     </div>
 
-    <!-- الوصول السريع -->
-    <div class="quick-access">
+    <!-- القوائم المصغرة -->
+    <div class="mini-grid">
+        <div class="mini-item calendar" id="calendarBtn">
+            <div class="mini-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3>التقويم</h3>
+            <p>المواعيد والأحداث</p>
+        </div>
+        <div class="mini-item entities" id="entitiesBtn">
+            <div class="mini-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <h3>الجهات</h3>
+            <p>الوزارات والهيئات</p>
+        </div>
+        <div class="mini-item personal" id="personalBtn">
+            <div class="mini-icon">
+                <i class="fas fa-user-friends"></i>
+            </div>
+            <h3>الشخصية</h3>
+            <p>خدمات الأفراد</p>
+        </div>
+    </div>
+
+    <!-- النشرة -->
+    <div class="newsletter-section">
         <div class="section-header">
-            <h2 class="section-title">الوصول السريع</h2>
+            <h2 class="section-title">النشرة</h2>
             <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
         </div>
-        <div class="quick-access-grid">
-            <div class="quick-item calendar" id="calendarBtn">
-                <div class="quick-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3>التقويم</h3>
-            </div>
-            <div class="quick-item ehsan" id="ehsanBtn">
-                <div class="quick-icon">
-                    <i class="fas fa-hands-helping"></i>
-                </div>
-                <h3>إحسان</h3>
-            </div>
-            <div class="quick-item documents" id="documentsBtn">
-                <div class="quick-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <h3>المستندات</h3>
-            </div>
-            <div class="quick-item entities" id="entitiesBtn">
-                <div class="quick-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <h3>الجهات</h3>
-            </div>
-        </div>
-    </div>
-
-    <!-- البطاقات المفضلة وسجل الأسرة -->
-    <div class="cards-section">
-        <div class="card-item favorite" id="favoriteCards">
-            <div class="card-icon">
-                <i class="fas fa-star"></i>
-            </div>
-            <h3>البطاقات المفضلة</h3>
-            <p>الوصول السريع لبطاقاتك المفضلة</p>
-        </div>
-        <div class="card-item family" id="familyRecord">
-            <div class="card-icon">
-                <i class="fas fa-users"></i>
-            </div>
-            <h3>سجل الأسرة</h3>
-            <p>إدارة بيانات العائلة</p>
-        </div>
-    </div>
-
-    <!-- استكشف التصنيفات -->
-    <div class="categories-section">
-        <div class="section-header">
-            <h2 class="section-title">استكشف التصنيفات</h2>
-        </div>
-        <div class="categories-grid">
-            <div class="category-item" id="personalCategory">
-                <div class="category-icon">
-                    <i class="fas fa-user-friends"></i>
-                </div>
-                <h3>الشخصية والأسرة</h3>
-                <p>خدمات الأفراد والعائلات</p>
-            </div>
-            <div class="category-item" id="servicesCategory">
-                <div class="category-icon">
+        <div class="newsletter-grid">
+            <div class="news-item services" id="servicesNews">
+                <div class="news-icon">
                     <i class="fas fa-sliders-h"></i>
                 </div>
-                <h3>الخدمات</h3>
-                <p>جميع الخدمات الحكومية</p>
-            </div>
-            <div class="category-item" id="vehiclesCategory">
-                <div class="category-icon">
-                    <i class="fas fa-car"></i>
+                <div class="news-content">
+                    <h3>الخدمات الحكومية</h3>
+                    <p>أحدث الخدمات والميزات المضافة للمنصة</p>
                 </div>
-                <h3>المركبات والمرور</h3>
-                <p>خدمات المرور والمركبات</p>
             </div>
-            <div class="category-item" id="workCategory">
-                <div class="category-icon">
+            <div class="news-item work" id="workNews">
+                <div class="news-icon">
                     <i class="fas fa-briefcase"></i>
                 </div>
-                <h3>العمل</h3>
-                <p>الخدمات الوظيفية والتوظيف</p>
-            </div>
-            <div class="category-item" id="tawakkalnaCategory">
-                <div class="category-icon">
-                    <i class="fas fa-hands-helping"></i>
+                <div class="news-content">
+                    <h3>فرص العمل</h3>
+                    <p>وظائف جديدة في القطاع الحكومي والخاص</p>
                 </div>
-                <h3>توكيلنا</h3>
-                <p>خدمات المنصة الرئيسية</p>
+            </div>
+            <div class="news-item education" id="educationNews">
+                <div class="news-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="news-content">
+                    <h3>التعليم والتدريب</h3>
+                    <p>برامج تدريبية ودورات تطويرية</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- البطاقات المفضلة -->
+    <div class="favorite-section">
+        <div class="section-header">
+            <h2 class="section-title">البطاقات المفضلة</h2>
+            <a href="#" class="view-all">إدارة <i class="fas fa-chevron-left"></i></a>
+        </div>
+        <div class="favorite-cards">
+            <div class="favorite-card" id="idCard">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div>
+                        <h3 class="card-title">الهوية الرقمية</h3>
+                        <p class="card-desc">الهوية الوطنية الرقمية</p>
+                    </div>
+                </div>
+                <div class="card-badges">
+                    <span class="badge">نشطة</span>
+                    <span class="badge">صالحة</span>
+                    <span class="badge">محدثة</span>
+                </div>
             </div>
         </div>
     </div>
@@ -499,11 +538,11 @@
                 </div>
                 <div class="nav-text">الرئيسية</div>
             </a>
-            <a href="#" class="nav-item" id="navCategories">
+            <a href="#" class="nav-item" id="navNews">
                 <div class="nav-icon">
-                    <i class="fas fa-th-large"></i>
+                    <i class="fas fa-newspaper"></i>
                 </div>
-                <div class="nav-text">التصنيفات</div>
+                <div class="nav-text">النشرة</div>
             </a>
             <a href="#" class="nav-item" id="navServices">
                 <div class="nav-icon">
@@ -549,43 +588,35 @@
         updateTime();
         setInterval(updateTime, 60000);
 
-        // تفاعل عناصر الوصول السريع
+        // تفاعل القوائم المصغرة
         document.getElementById('calendarBtn').addEventListener('click', () => {
-            alert('سيتم فتح التقويم');
-        });
-
-        document.getElementById('ehsanBtn').addEventListener('click', () => {
-            alert('سيتم فتح منصة إحسان');
-        });
-
-        document.getElementById('documentsBtn').addEventListener('click', () => {
-            alert('سيتم فتح المستندات');
+            alert('جاري فتح التقويم');
         });
 
         document.getElementById('entitiesBtn').addEventListener('click', () => {
-            alert('سيتم فتح الجهات الحكومية');
+            alert('جاري فتح قائمة الجهات الحكومية');
         });
 
-        // تفاعل البطاقات المفضلة وسجل الأسرة
-        document.getElementById('favoriteCards').addEventListener('click', () => {
-            alert('سيتم فتح البطاقات المفضلة');
+        document.getElementById('personalBtn').addEventListener('click', () => {
+            alert('جاري فتح الخدمات الشخصية');
         });
 
-        document.getElementById('familyRecord').addEventListener('click', () => {
-            alert('سيتم فتح سجل الأسرة');
+        // تفاعل النشرة
+        document.getElementById('servicesNews').addEventListener('click', () => {
+            alert('جاري فتح تفاصيل الخدمات الحكومية');
         });
 
-        // تفاعل التصنيفات
-        const categories = [
-            'personalCategory', 'servicesCategory', 'vehiclesCategory', 
-            'workCategory', 'tawakkalnaCategory'
-        ];
+        document.getElementById('workNews').addEventListener('click', () => {
+            alert('جاري فتح فرص العمل المتاحة');
+        });
 
-        categories.forEach(categoryId => {
-            document.getElementById(categoryId).addEventListener('click', function() {
-                const categoryName = this.querySelector('h3').textContent;
-                alert(`سيتم فتح قسم ${categoryName}`);
-            });
+        document.getElementById('educationNews').addEventListener('click', () => {
+            alert('جاري فتح برامج التعليم والتدريب');
+        });
+
+        // تفاعل البطاقات المفضلة
+        document.getElementById('idCard').addEventListener('click', () => {
+            alert('جاري فتح الهوية الرقمية');
         });
 
         // تفاعل الشريط السفلي
@@ -604,7 +635,7 @@
                 
                 // إذا لم تكن الصفحة الرئيسية، عرض رسالة
                 if (pageName !== 'الرئيسية') {
-                    alert(`جاري تحميل صفحة ${pageName}...`);
+                    alert(`جاري تحميل ${pageName}...`);
                 }
             });
         });
@@ -621,14 +652,16 @@
             this.parentElement.style.boxShadow = 'none';
         });
 
-        // إضافة تأثيرات عند التمرير
+        // تأثيرات عند التمرير
         window.addEventListener('scroll', function() {
             const scrollY = window.scrollY;
             const bottomNav = document.querySelector('.bottom-nav');
             
             if (scrollY > 100) {
-                bottomNav.style.opacity = '0.9';
+                bottomNav.style.backdropFilter = 'blur(15px)';
+                bottomNav.style.opacity = '0.95';
             } else {
+                bottomNav.style.backdropFilter = 'blur(25px)';
                 bottomNav.style.opacity = '1';
             }
         });
@@ -647,11 +680,30 @@
 
         // إضافة تأثيرات عند التحميل
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.querySelector('.welcome-section').style.opacity = '1';
-                document.querySelector('.search-bar').style.transform = 'translateY(0)';
-            }, 100);
+            // إضافة تأثيرات ظهور تدريجي
+            const elements = document.querySelectorAll('.mini-item, .news-item, .favorite-card');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
         });
+
+        // تغيير خلفية الشريط السفلي حسب الوقت
+        function updateNavBackground() {
+            const hour = new Date().getHours();
+            const bottomNav = document.querySelector('.bottom-nav');
+            
+            if (hour >= 6 && hour < 18) {
+                bottomNav.style.background = 'rgba(28, 28, 30, 0.85)';
+            } else {
+                bottomNav.style.background = 'rgba(20, 20, 22, 0.9)';
+            }
+        }
+
+        updateNavBackground();
+        setInterval(updateNavBackground, 60000);
     </script>
 </body>
 </html>
