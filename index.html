@@ -4,111 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Tawakkalna Interface Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>سَمُوّ | Digital Interface</title>
     <style>
-        body { background-color: #000000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: white; }
-        .card-bg { background-color: #121212; }
-        .icon-circle { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+        :root {
+            --bg-deep: #050505;
+            --accent-cyan: #00f2ff;
+        }
+        body { 
+            background-color: var(--bg-deep); 
+            font-family: 'Noto Sans Arabic', sans-serif;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        .digital-card {
+            background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+        .digital-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-icon {
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+        .text-samu {
+            background: linear-gradient(to left, #00f2ff, #0066ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
     </style>
 </head>
-<body class="p-4">
+<body class="p-6 pb-32">
 
-    <div class="flex justify-between items-center mb-6">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-gray-600 rounded-full"></div>
+    <div class="flex justify-between items-center mb-10">
+        <div class="flex items-center gap-4">
+            <div class="relative">
+                <div class="absolute -inset-1 bg-cyan-500 rounded-full blur opacity-25"></div>
+                <div class="relative w-12 h-12 bg-[#111] rounded-full border border-cyan-500/50 flex items-center justify-center">
+                    <span class="text-cyan-500 font-bold text-lg">S</span>
+                </div>
+            </div>
             <div>
-                <p class="text-xs text-gray-400">أهلاً،</p>
-                <p class="text-sm font-bold">اسم المستخدم</p>
+                <p class="text-[10px] text-gray-500 tracking-widest uppercase">Welcome to</p>
+                <h1 class="text-xl tracking-tight">أهلاً، <span class="text-samu">سَمُوّ</span></h1>
             </div>
         </div>
-        <div class="text-xs text-gray-400 flex items-center gap-1">
-            <span>27° - صحو في...</span>
-            <span class="text-yellow-500 text-lg">☀️</span>
+        <div class="text-left">
+            <p class="text-[10px] text-cyan-500 font-mono tracking-tighter">ENVIRONMENT</p>
+            <p class="text-sm font-light">26° <span class="text-gray-500">صحو في</span> KR</p>
         </div>
     </div>
 
-    <div class="relative mb-8">
-        <input type="text" placeholder="ابحث في توكلنا" class="w-full bg-[#121212] border border-gray-800 rounded-xl py-3 px-10 text-right text-sm outline-none focus:border-green-600">
-        <svg class="w-5 h-5 absolute left-3 top-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+    <div class="relative mb-10">
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+            <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        <input type="text" placeholder="ابحث في سَمُوّ..." 
+            class="w-full bg-[#0a0a0a] border border-gray-800 rounded-full py-4 pr-12 pl-6 text-sm focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all placeholder-gray-600">
     </div>
 
-    <div class="mb-8">
-        <h2 class="text-md font-bold mb-4">الوصول السريع</h2>
-        <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-            <div class="card-bg px-4 py-2 rounded-lg flex items-center gap-2 min-w-max">
-                <span class="text-green-500 text-sm">📅</span>
-                <span class="text-xs">التقويم</span>
+    <div class="mb-10">
+        <div class="flex gap-4">
+            <div class="digital-card flex-1 p-4 rounded-2xl flex flex-col items-center gap-2">
+                <div class="text-cyan-400 glow-icon text-2xl">⚡</div>
+                <span class="text-[11px] font-medium">التقويم الرقمي</span>
             </div>
-            <div class="card-bg px-4 py-2 rounded-lg flex items-center gap-2 min-w-max">
-                <span class="text-blue-400 text-sm">♻️</span>
-                <span class="text-xs">إحسان</span>
             </div>
-            <div class="card-bg px-4 py-2 rounded-lg flex items-center gap-2 min-w-max">
-                <span class="text-gray-300 text-sm">📄</span>
-                <span class="text-xs">المستندات</span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+        <div class="digital-card rounded-[2rem] p-6 flex flex-col items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 glow-icon text-2xl">
+                🧬
+            </div>
+            <span class="text-xs font-bold tracking-wide">الهوية الرقمية</span>
+        </div>
+
+        <div class="digital-card rounded-[2rem] p-6 flex flex-col items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 glow-icon text-2xl">
+                🩺
+            </div>
+            <span class="text-xs font-bold tracking-wide">المؤشرات الحيوية</span>
+        </div>
+
+        <div class="digital-card rounded-[2rem] p-6 flex flex-col items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 glow-icon text-2xl">
+                🕋
+            </div>
+            <span class="text-xs font-bold tracking-wide">الخدمات الدينية</span>
+        </div>
+
+        <div class="digital-card rounded-[2rem] p-6 flex flex-col items-center gap-4">
+            <div class="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 glow-icon text-2xl">
+                📡
+            </div>
+            <span class="text-xs font-bold tracking-wide">التعليم الذكي</span>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-6 left-6 right-6 h-20 glass-nav rounded-3xl flex items-center justify-around px-2 z-50">
+        <div class="flex flex-col items-center gap-1 text-gray-500 hover:text-cyan-400 transition-colors cursor-pointer">
+            <span class="text-xl">👤</span>
+            <span class="text-[9px]">ملفي</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-500 hover:text-cyan-400 transition-colors cursor-pointer">
+            <span class="text-xl">📩</span>
+            <span class="text-[9px]">الرسائل</span>
+        </div>
+        
+        <div class="relative -top-8">
+            <div class="absolute -inset-2 bg-cyan-500 rounded-full blur opacity-40 animate-pulse"></div>
+            <div class="relative w-16 h-16 bg-cyan-500 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,242,255,0.5)] border-4 border-black">
+                <span class="text-black font-black text-xs">سَمُوّ</span>
             </div>
         </div>
-    </div>
 
-    <div class="mb-4 flex justify-between items-center">
-        <h2 class="text-md font-bold">استكشف التصنيفات</h2>
-        <a href="#" class="text-blue-400 text-xs">عرض الكل</a>
-    </div>
-
-    <div class="grid grid-cols-3 gap-3">
-        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
-            <div class="icon-circle bg-purple-900/30 text-purple-400 text-xl">👥</div>
-            <span class="text-[10px] text-center leading-tight">الشخصية والأسرة</span>
+        <div class="flex flex-col items-center gap-1 text-gray-500 hover:text-cyan-400 transition-colors cursor-pointer">
+            <span class="text-xl">📊</span>
+            <span class="text-[9px]">الإحصائيات</span>
         </div>
-
-        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
-            <div class="icon-circle bg-red-900/30 text-red-500 text-xl">❤️</div>
-            <span class="text-[10px] text-center">الصحة</span>
+        <div class="flex flex-col items-center gap-1 text-gray-500 hover:text-cyan-400 transition-colors cursor-pointer">
+            <span class="text-xl">⚙️</span>
+            <span class="text-[9px]">الإعدادات</span>
         </div>
-
-        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
-            <div class="icon-circle bg-yellow-900/20 text-yellow-600 text-xl">🕌</div>
-            <span class="text-[10px] text-center">الدينية</span>
-        </div>
-
-        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
-            <div class="icon-circle bg-blue-900/30 text-blue-400 text-xl">🎓</div>
-            <span class="text-[10px] text-center">التعليم</span>
-        </div>
-
-        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
-            <div class="icon-circle bg-green-900/20 text-green-500 text-xl">💸</div>
-            <span class="text-[10px] text-center leading-tight">التجارة والمالية</span>
-        </div>
-
-        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
-            <div class="icon-circle bg-emerald-900/20 text-emerald-500 text-xl">🚗</div>
-            <span class="text-[10px] text-center leading-tight">المركبات والمرور</span>
-        </div>
-    </div>
-
-    <div class="fixed bottom-0 left-0 w-full bg-[#0a0a0a] border-t border-gray-900 flex justify-around py-3">
-        <div class="flex flex-col items-center gap-1 text-green-500">
-            <span class="text-xl">🛡️</span>
-            <span class="text-[10px]">توكلنا</span>
-        </div>
-        <div class="flex flex-col items-center gap-1 text-gray-500">
-            <span class="text-xl">🗞️</span>
-            <span class="text-[10px]">واكب</span>
-        </div>
-        <div class="flex flex-col items-center gap-1 text-gray-500">
-            <span class="text-xl">🔳</span>
-            <span class="text-[10px]">الخدمات</span>
-        </div>
-        <div class="flex flex-col items-center gap-1 text-gray-500">
-            <span class="text-xl">💬</span>
-            <span class="text-[10px]">الرسائل</span>
-        </div>
-        <div class="flex flex-col items-center gap-1 text-gray-500">
-            <span class="text-xl">📂</span>
-            <span class="text-[10px]">معلوماتي</span>
-        </div>
-    </div>
+    </nav>
 
 </body>
 </html>
