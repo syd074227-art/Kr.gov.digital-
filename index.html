@@ -2,18 +2,211 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة الهيئة الرقمية | KR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #0d1117; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }
-        .test-card { border: 2px solid #00c853; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 0 20px rgba(0,200,83,0.2); }
-        h1 { color: #00c853; margin-bottom: 10px; }
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-green: #00c853;
+            --accent-blue: #2196f3;
+            --accent-gold: #ffab00;
+            --text-main: #ffffff;
+            --text-dim: #8b949e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        /* الهيدر العلوي */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 20px;
+        }
+
+        /* البحث */
+        .search-bar {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            margin-right: 10px;
+            width: 100%;
+            outline: none;
+        }
+
+        /* العناوين */
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* الوصول السريع */
+        .quick-access {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .quick-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .quick-card i { font-size: 20px; }
+        .icon-blue { color: var(--accent-blue); }
+        .icon-green { color: var(--accent-green); }
+
+        /* كروت الجهات */
+        .dept-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-right: 5px solid transparent;
+            transition: 0.3s;
+        }
+
+        .dept-info { display: flex; align-items: center; gap: 15px; }
+        
+        .dept-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .dept-text h4 { margin: 0; font-size: 15px; }
+        .dept-text p { margin: 5px 0 0; font-size: 11px; color: var(--text-dim); }
+
+        .visit-btn {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--accent-green);
+            padding: 6px 18px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .visit-btn:hover { background: rgba(0, 200, 83, 0.2); }
+
+        /* التميز اللوني لكل جهة */
+        .border-interior { border-right-color: var(--accent-blue); }
+        .border-justice { border-right-color: var(--accent-gold); }
+        .border-health { border-right-color: var(--accent-green); }
+
     </style>
 </head>
 <body>
-    <div class="test-card">
-        <h1>الرابط شغال ✅</h1>
-        <p>هذه هي بوابة الهيئة الرقمية KR</p>
-        <p style="font-size: 12px; color: #8b949e;">جاري تجهيز النظام بالكامل...</p>
+
+<div class="container">
+    <div class="header">
+        <i class="fas fa-bars"></i>
+        <span style="font-weight: bold; font-size: 18px;">بوابة الهيئة الرقمية</span>
+        <i class="fas fa-bell"></i>
     </div>
+
+    <div class="search-bar">
+        <i class="fas fa-search" style="color: #8b949e;"></i>
+        <input type="text" placeholder="البحث عن الجهات...">
+    </div>
+
+    <div class="section-title">الوصول السريع</div>
+    <div class="quick-access">
+        <div class="quick-card">
+            <i class="fas fa-calendar-alt icon-blue"></i>
+            <span>التقويم</span>
+        </div>
+        <div class="quick-card">
+            <i class="fas fa-building icon-green"></i>
+            <span>الجهات</span>
+        </div>
+    </div>
+
+    <div class="section-title">الجهات الرسمية</div>
+
+    <div class="dept-card border-interior">
+        <div class="dept-info">
+            <div class="dept-logo" style="color: var(--accent-blue);">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="dept-text">
+                <h4>وزارة الداخلية KR</h4>
+                <p>الأمن العام والشرطة</p>
+            </div>
+        </div>
+        <a href="#" class="visit-btn">زيارة</a>
+    </div>
+
+    <div class="dept-card border-justice">
+        <div class="dept-info">
+            <div class="dept-logo" style="color: var(--accent-gold);">
+                <i class="fas fa-gavel"></i>
+            </div>
+            <div class="dept-text">
+                <h4>وزارة العدل KR</h4>
+                <p>المحاكم والخدمات العدلية</p>
+            </div>
+        </div>
+        <a href="#" class="visit-btn" style="color: var(--accent-gold); background: rgba(255,171,0,0.1);">زيارة</a>
+    </div>
+
+    <div class="dept-card border-health">
+        <div class="dept-info">
+            <div class="dept-logo" style="color: var(--accent-green);">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="dept-text">
+                <h4>وزارة الصحة KR</h4>
+                <p>المستشفيات والخدمات الطبية</p>
+            </div>
+        </div>
+        <a href="#" class="visit-btn">زيارة</a>
+    </div>
+
+</div>
+
 </body>
 </html>
