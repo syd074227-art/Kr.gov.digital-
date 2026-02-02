@@ -9,54 +9,59 @@
 
 <style>
 :root{
---primary:#007AFF;
---secondary:#34C759;
---health:#30D158;
---law:#5856D6;
---dark:#000;
+--bg:#000;
 --card:#1C1C1E;
---border:#2C2C2E;
 --text:#fff;
---text2:#8E8E93;
---glass:rgba(28,28,30,.9);
+--muted:#8E8E93;
+--blue:#0A84FF;
+--green:#30D158;
+--red:#FF453A;
+--yellow:#FFD60A;
+--purple:#5E5CE6;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
 
 body{
-background:var(--dark);
+background:var(--bg);
 color:var(--text);
 max-width:500px;
 margin:auto;
-padding:0 15px 90px;
+padding:0 16px 90px;
 }
 
+/* شريط الحالة */
 .status-bar{
 display:flex;
 justify-content:space-between;
-padding:15px 0;
+padding:14px 0;
 font-weight:600;
 }
 
 .status-icons i{margin-right:6px}
 
+/* الترحيب */
 .greeting{
-font-size:32px;
+font-size:30px;
 font-weight:700;
-background:linear-gradient(135deg,#007AFF,#5856D6);
--webkit-background-clip:text;
-color:transparent;
-margin-bottom:10px;
+margin-bottom:6px;
 }
 
+.weather{
+color:var(--muted);
+font-size:14px;
+margin-bottom:18px;
+}
+
+/* البحث */
 .search-bar{
 background:var(--card);
-border:1px solid var(--border);
-border-radius:14px;
-padding:14px;
+border-radius:16px;
+padding:14px 16px;
 display:flex;
+align-items:center;
 gap:10px;
-margin-bottom:25px;
+margin-bottom:24px;
 }
 
 .search-bar input{
@@ -64,84 +69,92 @@ flex:1;
 background:none;
 border:none;
 color:var(--text);
-font-size:16px;
+font-size:15px;
 }
 
+/* الوصول السريع */
 .mini-grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:12px;
-margin-bottom:25px;
+margin-bottom:26px;
 }
 
 .mini-item{
 background:var(--card);
-border:1px solid var(--border);
-border-radius:12px;
-padding:15px;
+border-radius:16px;
+padding:14px 10px;
 text-align:center;
-opacity:0;
-transform:translateY(10px);
-transition:.4s;
-cursor:pointer;
+box-shadow:0 6px 20px rgba(0,0,0,.6);
 }
 
 .mini-icon{
 width:40px;height:40px;
 margin:auto;
-border-radius:10px;
+border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-color:#fff;
+background:rgba(255,255,255,.06);
 margin-bottom:6px;
 }
 
-.calendar .mini-icon{background:linear-gradient(135deg,#007AFF,#5856D6)}
-.entities .mini-icon{background:linear-gradient(135deg,#34C759,#5AC8FA)}
-.personal .mini-icon{background:linear-gradient(135deg,#FF9500,#FF2D55)}
+/* النشرة */
+.section-title{
+font-size:18px;
+font-weight:700;
+margin-bottom:14px;
+}
 
-.newsletter-grid{
+.news-grid{
 display:grid;
-gap:12px;
+gap:14px;
 }
 
 .news-item{
 background:var(--card);
-border:1px solid var(--border);
-border-radius:14px;
-padding:18px;
+border-radius:18px;
+padding:16px;
 display:flex;
-gap:15px;
-opacity:0;
-transform:translateY(10px);
-transition:.4s;
-cursor:pointer;
+gap:14px;
+box-shadow:0 6px 22px rgba(0,0,0,.65);
 }
 
-.news-item:hover{transform:translateX(5px)}
-
 .news-icon{
-width:45px;height:45px;
-border-radius:10px;
+width:46px;height:46px;
+border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-color:#fff;
 font-size:20px;
+background:rgba(255,255,255,.06);
+flex-shrink:0;
 }
 
-.services .news-icon{background:linear-gradient(135deg,#007AFF,#5856D6)}
-.work .news-icon{background:linear-gradient(135deg,#34C759,#5AC8FA)}
-.education .news-icon{background:linear-gradient(135deg,#FF9500,#FF2D55)}
-.health .news-icon{background:linear-gradient(135deg,#34C759,#30D158)}
-.law .news-icon{background:linear-gradient(135deg,#5856D6,#007AFF)}
+.news h3{
+font-size:15px;
+font-weight:600;
+margin-bottom:4px;
+}
 
+.news p{
+font-size:13px;
+color:var(--muted);
+}
+
+/* ألوان الأقسام */
+.health i{color:var(--red)}
+.law i{color:var(--blue)}
+.services i{color:var(--purple)}
+.work i{color:var(--green)}
+.education i{color:var(--yellow)}
+
+/* الشريط السفلي */
 .bottom-nav{
 position:fixed;
 bottom:0;left:0;right:0;
-background:var(--glass);
-border-top:1px solid var(--border);
+background:rgba(28,28,30,.9);
+backdrop-filter:blur(25px);
 padding:10px 0;
 max-width:500px;
 margin:auto;
@@ -153,70 +166,93 @@ justify-content:space-around;
 }
 
 .nav-item{
-text-decoration:none;
-color:var(--text2);
-font-size:11px;
 text-align:center;
+font-size:11px;
+color:var(--muted);
+text-decoration:none;
 }
 
-.nav-item.active{color:var(--primary)}
-
+.nav-item.active{color:var(--blue)}
 </style>
 </head>
 
 <body>
 
+<!-- شريط الحالة -->
 <div class="status-bar">
-<div id="currentTime">٩:٤١</div>
+<div id="time">٩:٤١</div>
 <div class="status-icons">
 <i class="fas fa-signal"></i>
 <i class="fas fa-wifi"></i>
-<i id="batteryIcon" class="fas fa-battery-three-quarters"></i>
+<i id="battery" class="fas fa-battery-three-quarters"></i>
 </div>
 </div>
 
-<h1 class="greeting">أهلاً سليمان</h1>
+<!-- الترحيب -->
+<div class="greeting">أهلاً سليمان</div>
+<div class="weather">غائم جزئي في جازان الآن</div>
 
+<!-- البحث -->
 <div class="search-bar">
 <i class="fas fa-search"></i>
-<input placeholder="البحث في منصة سَمُوّ">
+<input placeholder="ابحث في منصة سَمُوّ">
 </div>
 
+<!-- الوصول السريع -->
 <div class="mini-grid">
-<div class="mini-item calendar"><div class="mini-icon"><i class="fas fa-calendar"></i></div>التقويم</div>
-<div class="mini-item entities"><div class="mini-icon"><i class="fas fa-building"></i></div>الجهات</div>
-<div class="mini-item personal"><div class="mini-icon"><i class="fas fa-user"></i></div>الشخصية</div>
+<div class="mini-item"><div class="mini-icon"><i class="fas fa-calendar"></i></div>التقويم</div>
+<div class="mini-item"><div class="mini-icon"><i class="fas fa-building"></i></div>الجهات</div>
+<div class="mini-item"><div class="mini-icon"><i class="fas fa-user"></i></div>الشخصية</div>
 </div>
 
-<div class="newsletter-grid">
+<!-- النشرة -->
+<div class="section-title">استكشف التصنيفات</div>
 
-<div class="news-item services">
+<div class="news-grid">
+
+<div class="news-item services news">
 <div class="news-icon"><i class="fas fa-sliders"></i></div>
-<div><h3>الخدمات الحكومية</h3><p>أحدث الخدمات المضافة</p></div>
+<div>
+<h3>الخدمات الحكومية</h3>
+<p>أحدث الخدمات المضافة</p>
+</div>
 </div>
 
-<div class="news-item health">
+<div class="news-item health news">
 <div class="news-icon"><i class="fas fa-heart-pulse"></i></div>
-<div><h3>الصحة</h3><p>الخدمات الصحية الموحدة</p></div>
+<div>
+<h3>الصحة</h3>
+<p>الخدمات الصحية الموحدة</p>
+</div>
 </div>
 
-<div class="news-item law">
+<div class="news-item law news">
 <div class="news-icon"><i class="fas fa-scale-balanced"></i></div>
-<div><h3>العدلية</h3><p>خدمات وزارة العدل والمحاكم</p></div>
+<div>
+<h3>العدلية</h3>
+<p>خدمات وزارة العدل</p>
+</div>
 </div>
 
-<div class="news-item work">
+<div class="news-item work news">
 <div class="news-icon"><i class="fas fa-briefcase"></i></div>
-<div><h3>فرص العمل</h3><p>وظائف حكومية وخاصة</p></div>
+<div>
+<h3>فرص العمل</h3>
+<p>وظائف حكومية وخاصة</p>
+</div>
 </div>
 
-<div class="news-item education">
+<div class="news-item education news">
 <div class="news-icon"><i class="fas fa-graduation-cap"></i></div>
-<div><h3>التعليم</h3><p>دورات وبرامج تدريبية</p></div>
+<div>
+<h3>التعليم</h3>
+<p>دورات وبرامج تدريبية</p>
+</div>
 </div>
 
 </div>
 
+<!-- الشريط السفلي -->
 <nav class="bottom-nav">
 <div class="nav-items">
 <a class="nav-item active"><i class="fas fa-home"></i><br>الرئيسية</a>
@@ -228,21 +264,16 @@ text-align:center;
 </nav>
 
 <script>
-function updateTime(){
-const n=new Date();
-const a=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-let h=n.getHours()%12||12,m=n.getMinutes();
-h=h.toString().split('').map(x=>a[x]).join('');
-m=m.toString().padStart(2,'0').split('').map(x=>a[x]).join('');
-currentTime.textContent=`${h}:${m}`;
+const nums=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+function time(){
+const d=new Date();
+let h=d.getHours()%12||12,m=d.getMinutes();
+h=h.toString().split('').map(n=>nums[n]).join('');
+m=m.toString().padStart(2,'0').split('').map(n=>nums[n]).join('');
+timeEl.textContent=`${h}:${m}`;
 }
-updateTime();setInterval(updateTime,60000);
-
-const items=document.querySelectorAll('.mini-item,.news-item');
-items.forEach((e,i)=>setTimeout(()=>{e.style.opacity=1;e.style.transform='none'},i*80));
-
-const battery=['fa-battery-empty','fa-battery-quarter','fa-battery-half','fa-battery-three-quarters','fa-battery-full'];
-setInterval(()=>batteryIcon.className='fas '+battery[Math.floor(Math.random()*5)],30000);
+const timeEl=document.getElementById('time');
+time();setInterval(time,60000);
 </script>
 
 </body>
