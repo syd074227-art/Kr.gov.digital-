@@ -2,221 +2,312 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة سَمُوّ - البوابة الشاملة</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>منصة سَمُوّ | البوابة الوطنية الموحدة</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root {
-    --bg: #0F172A;
-    --card: #1E293B;
-    --primary: #0EA5E9;
-    --success: #10B981;
+    --bg-main: #060912;
+    --bg-card: #111827;
+    --bg-card-alt: #1F2937;
+    --primary: #10B981; /* أخضر الداخلية */
+    --secondary: #0EA5E9; /* أزرق الصحة */
+    --accent: #D4AF37; /* ذهبي العدل */
+    --danger: #F43F5E;
     --warning: #F59E0B;
-    --danger: #EF4444;
-    --text: #F8FAFC;
-    --text-muted: #94A3B8;
-    --border: #334155;
+    --text-white: #F8FAFC;
+    --text-dim: #94A3B8;
+    --border-color: #374151;
+    --glass: rgba(17, 24, 39, 0.8);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--text); max-width: 480px; margin: auto; overflow-x: hidden; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg-main); color: var(--text-white); max-width: 550px; margin: auto; overflow-x: hidden; line-height: 1.6; }
 
-/* الهيدر وشريط الحالة */
-.header { position: sticky; top: 0; background: var(--bg); z-index: 1000; padding: 10px 16px; border-bottom: 1px solid var(--border); }
-.status-bar { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; font-weight: bold; }
+/* شريط الحالة الواقعي */
+.top-nav { position: sticky; top: 0; background: var(--glass); backdrop-filter: blur(20px); z-index: 5000; padding: 12px 20px; border-bottom: 1px solid var(--border-color); }
+.status-icons { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+.header-brand { display: flex; justify-content: space-between; align-items: center; }
+.user-info { display: flex; align-items: center; gap: 12px; }
+.avatar-frame { width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-/* التنقل بين الصفحات */
-.page { display: none; padding: 16px; animation: fadeIn 0.3s ease-in-out; }
-.page.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* محرك الصفحات SPA */
+.view { display: none; padding: 20px 16px 120px; animation: pageIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.view.active { display: block; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-/* الكروت والتصميم العام */
-.card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); }
-.section-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+/* المكونات الرسومية */
+.section-head { font-size: 18px; font-weight: 800; margin: 25px 0 15px; padding-right: 12px; border-right: 4px solid var(--primary); display: flex; align-items: center; gap: 10px; }
+.card { background: var(--bg-card); border-radius: 20px; padding: 18px; margin-bottom: 18px; border: 1px solid var(--border-color); position: relative; overflow: hidden; }
+.card-glow { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%); pointer-events: none; }
 
-/* شبكة الخدمات */
-.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.service-item { text-align: center; cursor: pointer; }
-.icon-box { background: rgba(14, 165, 233, 0.1); width: 100%; aspect-ratio: 1; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary); margin-bottom: 8px; transition: 0.2s; }
-.service-item:active .icon-box { transform: scale(0.9); background: var(--primary); color: white; }
-.service-item span { font-size: 11px; color: var(--text-muted); display: block; }
+/* المحفظة الرقمية الفاخرة */
+.wallet-card { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); border: none; color: white; min-height: 180px; }
+.wallet-card::before { content: ''; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+.id-photo { width: 75px; height: 95px; background: #e2e8f0; border-radius: 10px; border: 3px solid rgba(255,255,255,0.2); object-fit: cover; }
 
-/* المحفظة الرقمية */
-.id-card { background: linear-gradient(135deg, #0284c7, #0369a1); border-radius: 15px; padding: 20px; position: relative; overflow: hidden; }
-.id-card::after { content: 'SAUDI ID'; position: absolute; opacity: 0.1; font-size: 40px; right: -10px; bottom: -10px; font-weight: 900; }
+/* شبكة الخدمات الحكومية */
+.grid-menu { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 30px; }
+.grid-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: 0.3s; }
+.grid-item:active { transform: scale(0.9); }
+.icon-circle { width: 55px; height: 55px; background: var(--bg-card-alt); border: 1px solid var(--border-color); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary); transition: 0.3s; }
+.grid-item:hover .icon-circle { background: var(--primary); color: white; box-shadow: 0 0 20px rgba(16,185,129,0.4); }
+.grid-item span { font-size: 11px; font-weight: 600; color: var(--text-dim); text-align: center; }
 
-/* الخدمات الصحية */
-.health-item { display: flex; align-items: center; gap: 15px; padding: 12px; border-bottom: 1px solid var(--border); }
-.health-item:last-child { border: none; }
-.btn-request { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 600; cursor: pointer; }
+/* أنظمة التنبيهات */
+.notify-bar { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); padding: 12px; border-radius: 12px; display: flex; gap: 12px; align-items: center; font-size: 13px; margin-bottom: 20px; }
 
-/* التقديمات */
-.job-tag { background: rgba(16, 185, 129, 0.1); color: var(--success); padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+/* الخدمات التخصصية (داخلية، صحة، عدل) */
+.svc-row { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px dotted var(--border-color); cursor: pointer; }
+.svc-row:last-child { border: none; }
+.svc-icon-box { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.moi-bg { background: rgba(16, 185, 129, 0.1); color: var(--primary); }
+.moh-bg { background: rgba(14, 165, 233, 0.1); color: var(--secondary); }
+.moj-bg { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
 
-/* المنيو السفلي */
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); max-width: 480px; margin: auto; }
-.nav-link { text-decoration: none; color: var(--text-muted); text-align: center; font-size: 11px; cursor: pointer; }
-.nav-link.active { color: var(--primary); }
-.nav-link i { font-size: 20px; display: block; margin-bottom: 4px; }
+/* نظام الدفع (سداد) */
+.bill-card { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--bg-card-alt); border-radius: 10px; margin-top: 10px; }
+.pay-btn { background: var(--primary); color: white; border: none; padding: 6px 15px; border-radius: 6px; font-weight: bold; font-size: 12px; }
+
+/* شريط التنقل السفلي */
+.tab-navigator { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(11, 15, 18, 0.98); backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0 35px; max-width: 550px; margin: auto; z-index: 5000; }
+.tab-link { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-dim); text-decoration: none; width: 20%; transition: 0.3s; }
+.tab-link.active { color: var(--primary); }
+.tab-link i { font-size: 22px; }
+.tab-link span { font-size: 10px; font-weight: 700; }
+
 </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="status-bar">
-        <div id="time">--:--</div>
-        <div style="display: flex; gap: 8px;"><i class="fas fa-wifi"></i><i class="fas fa-signal"></i></div>
+<header class="top-nav">
+    <div class="status-icons">
+        <span id="live-time">٠٠:٠٠</span>
+        <div style="display: flex; gap: 8px;"><i class="fas fa-wifi"></i> <i class="fas fa-signal"></i></div>
     </div>
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 id="page-title">الرئيسية</h2>
-        <div style="width: 35px; height: 35px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">س م</div>
-    </div>
-</div>
-
-<div id="home" class="page active">
-    <div class="id-card card">
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <div style="width: 60px; height: 80px; background: #e2e8f0; border-radius: 4px; overflow: hidden;"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Suliman" alt="Avatar"></div>
+    <div class="header-brand">
+        <div class="user-info">
+            <div class="avatar-frame">س</div>
             <div>
-                <p style="font-size: 12px; opacity: 0.8;">الهوية الوطنية</p>
-                <h3 style="font-size: 16px;">سليمان بن محمد آل سعود</h3>
-                <p style="font-size: 14px; letter-spacing: 2px; margin-top: 5px;">١٠٩٨٧٦٥٤٣٢</p>
+                <p style="font-size: 11px; color: var(--text-dim);">البوابة الوطنية</p>
+                <h2 id="view-title" style="font-size: 16px;">الرئيسية</h2>
+            </div>
+        </div>
+        <div style="display: flex; gap: 15px; color: var(--text-dim);">
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-qrcode"></i>
+        </div>
+    </div>
+</header>
+
+<div id="home-view" class="view active">
+    <div class="card wallet-card" onclick="switchView('wallet', 'المحفظة الرقمية')">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+            <i class="fas fa-crown" style="color: var(--accent);"></i>
+            <span style="font-size: 11px; font-weight: 700;">المملكة العربية السعودية</span>
+        </div>
+        <div style="display: flex; gap: 15px;">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Suliman" class="id-photo" alt="Suliman">
+            <div>
+                <p style="font-size: 11px; opacity: 0.8;">الاسم</p>
+                <h3 style="font-size: 15px;">سليمان بن محمد بن عبدالله آل سعود</h3>
+                <p style="font-size: 11px; opacity: 0.8; margin-top: 8px;">رقم الهوية</p>
+                <h3 style="letter-spacing: 3px;">١٠٩٨٧٦٥٤٣٢</h3>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title"><i class="fas fa-th-large" style="color: var(--primary);"></i> خدمات لوحة التحكم</h2>
-    <div class="services-grid">
-        <div class="service-item" onclick="showPage('health', 'الخدمات الصحية')">
-            <div class="icon-box"><i class="fas fa-heartbeat"></i></div>
+    <div class="notify-bar">
+        <i class="fas fa-info-circle"></i>
+        <span>لديك (٣) خدمات حكومية تتطلب إجراءً فورياً.</span>
+    </div>
+
+    <h2 class="section-head"><i class="fas fa-layer-group"></i> القطاعات الرئيسية</h2>
+    <div class="grid-menu">
+        <div class="grid-item" onclick="switchView('moi', 'وزارة الداخلية')">
+            <div class="icon-circle"><i class="fas fa-shield-halved"></i></div>
+            <span>الداخلية</span>
+        </div>
+        <div class="grid-item" onclick="switchView('moh', 'وزارة الصحة')">
+            <div class="icon-circle" style="color: var(--secondary);"><i class="fas fa-heart-pulse"></i></div>
             <span>الصحة</span>
         </div>
-        <div class="service-item" onclick="showPage('jobs', 'التقديمات والوظائف')">
-            <div class="icon-box"><i class="fas fa-briefcase"></i></div>
-            <span>التقديمات</span>
+        <div class="grid-item" onclick="switchView('moj', 'وزارة العدل')">
+            <div class="icon-circle" style="color: var(--accent);"><i class="fas fa-gavel"></i></div>
+            <span>العدل</span>
         </div>
-        <div class="service-item" onclick="showPage('calendar', 'التقويم الرسمي')">
-            <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
-            <span>التقويم</span>
+        <div class="grid-item" onclick="switchView('jobs', 'التوظيف')">
+            <div class="icon-circle" style="color: var(--warning);"><i class="fas fa-user-tie"></i></div>
+            <span>التوظيف</span>
         </div>
-        <div class="service-item" onclick="showPage('accounts', 'إدارة الحسابات')">
-            <div class="icon-box"><i class="fas fa-user-cog"></i></div>
-            <span>الحسابات</span>
+    </div>
+
+    <h2 class="section-head"><i class="fas fa-wallet"></i> المستحقات المالية (سداد)</h2>
+    <div class="card">
+        <div class="bill-card">
+            <div><p style="font-size: 13px;">مخالفات مرورية</p><p style="font-size: 11px; color: var(--text-dim);">رقم المفوتر: ٠٠١</p></div>
+            <div><b style="color: var(--danger);">١٥٠ ر.س</b> <button class="pay-btn">سداد</button></div>
+        </div>
+        <div class="bill-card">
+            <div><p style="font-size: 13px;">رسوم تجديد جواز</p><p style="font-size: 11px; color: var(--text-dim);">رقم المفوتر: ٠٤٥</p></div>
+            <div><b style="color: var(--text-white);">٣٠٠ ر.س</b> <button class="pay-btn">سداد</button></div>
         </div>
     </div>
 </div>
 
-<div id="health" class="page">
+<div id="moi-view" class="view">
+    <div class="card" style="background: var(--primary); color: white;">
+        <h3>خدمات أبشر الذكية</h3>
+        <p style="font-size: 12px; opacity: 0.9;">بوابتك لإدارة الهوية والجوازات والمرور</p>
+    </div>
+    <h2 class="section-head">خدمات المركبات</h2>
     <div class="card">
-        <h3>الحالة الصحية: <span style="color: var(--success);">محصن</span></h3>
-        <p style="font-size: 12px; color: var(--text-muted);">آخر تحديث: منذ ساعة واحدة</p>
-    </div>
-    <h2 class="section-title">الخدمات المتاحة</h2>
-    <div class="card" style="padding: 0;">
-        <div class="health-item">
-            <i class="fas fa-syringe" style="color: var(--primary);"></i>
-            <div style="flex: 1;"><h5>لقاحات كورونا (كوفيد-١٩)</h5><p style="font-size: 11px; color: var(--text-muted);">عرض الشهادات والجرعات</p></div>
-            <i class="fas fa-chevron-left" style="font-size: 12px;"></i>
+        <div class="svc-row">
+            <div class="svc-icon-box moi-bg"><i class="fas fa-car"></i></div>
+            <div style="flex: 1;"><h5>رخص السير (الاستمارة)</h5><p style="font-size: 11px; color: var(--text-dim);">تجديد، نقل ملكية، إسقاط</p></div>
         </div>
-        <div class="health-item">
-            <i class="fas fa-file-medical" style="color: var(--primary);"></i>
-            <div style="flex: 1;"><h5>التقرير الطبي الرقمي</h5><p style="font-size: 11px; color: var(--text-muted);">طلب تقرير معتمد للجهات</p></div>
-            <i class="fas fa-chevron-left" style="font-size: 12px;"></i>
+        <div class="svc-row">
+            <div class="svc-icon-box moi-bg"><i class="fas fa-id-badge"></i></div>
+            <div style="flex: 1;"><h5>رخص القيادة</h5><p style="font-size: 11px; color: var(--text-dim);">تجديد رخصة، طلب بدل فاقد</p></div>
         </div>
     </div>
-    <button class="btn-request" onclick="alert('تم إرسال طلب موعد جديد')">حجز موعد طبي جديد</button>
+    <h2 class="section-head">الأحوال المدنية</h2>
+    <div class="card">
+        <div class="svc-row">
+            <div class="svc-icon-box moi-bg"><i class="fas fa-address-card"></i></div>
+            <div style="flex: 1;"><h5>تجديد الهوية الوطنية</h5><p style="font-size: 11px; color: var(--text-dim);">طلب إلكتروني عبر العنوان الوطني</p></div>
+        </div>
+    </div>
 </div>
 
-<div id="jobs" class="page">
-    <h2 class="section-title">التقديمات المتاحة</h2>
+<div id="moh-view" class="view">
+    <div class="card" style="background: var(--secondary); color: white;">
+        <h3>منظومة صحتي</h3>
+        <p style="font-size: 12px; opacity: 0.9;">إدارة المواعيد والملف الطبي الموحد</p>
+    </div>
+    <h2 class="section-head">الرعاية والحجز</h2>
     <div class="card">
+        <div class="svc-row" onclick="alert('جاري الاتصال بالطبيب...')">
+            <div class="svc-icon-box moh-bg"><i class="fas fa-video"></i></div>
+            <div style="flex: 1;"><h5>الاستشارات الطبية عن بعد</h5><p style="font-size: 11px; color: var(--text-dim);">تواصل مع طبيب معتمد فوراً</p></div>
+        </div>
+        <div class="svc-row">
+            <div class="svc-icon-box moh-bg"><i class="fas fa-calendar-check"></i></div>
+            <div style="flex: 1;"><h5>حجز موعد حضوري</h5><p style="font-size: 11px; color: var(--text-dim);">المراكز الصحية والمستشفيات</p></div>
+        </div>
+    </div>
+</div>
+
+<div id="moj-view" class="view">
+    <div class="card" style="background: var(--accent); color: black;">
+        <h3 style="font-weight: 800;">بوابة ناجز العدلية</h3>
+        <p style="font-size: 12px;">القضاء، العقارات، والوكالات</p>
+    </div>
+    <h2 class="section-head">الثروة العقارية</h2>
+    <div class="card">
+        <div class="svc-row">
+            <div class="svc-icon-box moj-bg"><i class="fas fa-file-contract"></i></div>
+            <div style="flex: 1;"><h5>الصكوك العقارية</h5><p style="font-size: 11px; color: var(--text-dim);">استعراض، تحديث، أو رهن الصك</p></div>
+        </div>
+        <div class="svc-row">
+            <div class="svc-icon-box moj-bg"><i class="fas fa-handshake"></i></div>
+            <div style="flex: 1;"><h5>البورصة العقارية</h5><p style="font-size: 11px; color: var(--text-dim);">متابعة صفقات السوق العقاري</p></div>
+        </div>
+    </div>
+</div>
+
+<div id="wallet-view" class="view">
+    <h2 class="section-head">الوثائق الرقمية</h2>
+    <div class="card" style="background: #1e293b; border-right: 5px solid var(--primary);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h4>وزارة الطاقة</h4>
-            <span class="job-tag">تقديم نشط</span>
+            <div><h5>رخصة قيادة رقمية</h5><p style="font-size: 11px; color: var(--text-dim);">صالح حتى: ٢٠٣٠/٠١/٠١</p></div>
+            <i class="fas fa-id-card" style="font-size: 25px; color: var(--primary);"></i>
         </div>
-        <p style="font-size: 12px; margin: 8px 0; color: var(--text-muted);">برنامج تطوير الخريجين ٢٠٢٦</p>
-        <button class="btn-request" style="background: var(--card); border: 1px solid var(--primary); color: var(--primary);">تفاصيل التقديم</button>
     </div>
-    <div class="card">
+    <div class="card" style="background: #1e293b; border-right: 5px solid var(--secondary);">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h4>برنامج كفاءات</h4>
-            <span class="job-tag">متاح الآن</span>
+            <div><h5>تأمين طبي فئة (أ)</h5><p style="font-size: 11px; color: var(--text-dim);">شركة بوبا العربية</p></div>
+            <i class="fas fa-shield-heart" style="font-size: 25px; color: var(--secondary);"></i>
         </div>
-        <p style="font-size: 12px; margin: 8px 0; color: var(--text-muted);">مسار التحول الرقمي والذكاء الاصطناعي</p>
-        <button class="btn-request">تقديم الآن</button>
     </div>
-</div>
-
-<div id="calendar" class="page">
-    <div class="card" style="text-align: center;">
-        <h2 style="color: var(--primary);" id="hijri-date">٢٢ رجب ١٤٤٧ هـ</h2>
-        <p style="color: var(--text-muted);">٢ فبراير ٢٠٢٦ م</p>
-    </div>
-    <h2 class="section-title">المواعيد القادمة</h2>
-    <div class="card">
-        <div style="display: flex; gap: 15px;">
-            <div style="background: var(--primary); padding: 5px 12px; border-radius: 8px; text-align: center;">
-                <span style="display: block; font-size: 10px;">فبراير</span><b style="font-size: 18px;">١٥</b>
-            </div>
-            <div>
-                <h5>موعد تجديد الرخصة</h5>
-                <p style="font-size: 11px; color: var(--text-muted);">مرور منطقة الرياض - ٠٩:٠٠ ص</p>
-            </div>
+    <div class="card" style="background: #1e293b; border-right: 5px solid var(--accent);">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div><h5>صك ملكية إلكتروني</h5><p style="font-size: 11px; color: var(--text-dim);">حي الياسمين، الرياض</p></div>
+            <i class="fas fa-home" style="font-size: 25px; color: var(--accent);"></i>
         </div>
     </div>
 </div>
 
-<div id="accounts" class="page">
-    <div class="card">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="width: 50px; height: 50px; background: var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-building"></i></div>
-            <div>
-                <h5>مؤسسة سليمان للتجارة</h5>
-                <p style="font-size: 11px; color: var(--text-muted);">سجل تجاري: ٤٠٣٠٢٠١٠</p>
-            </div>
-            <span class="job-tag" style="margin-right: auto;">نشط</span>
-        </div>
+<nav class="tab-navigator">
+    <div class="tab-link active" onclick="switchView('home', 'الرئيسية')">
+        <i class="fas fa-house"></i>
+        <span>الرئيسية</span>
     </div>
-    <div class="card">
-        <h5>التابعين (٣)</h5>
-        <div style="margin-top: 10px;">
-            <p style="font-size: 13px; padding: 5px 0;">- محمد سليمان (ابن)</p>
-            <p style="font-size: 13px; padding: 5px 0;">- نورة سليمان (ابنة)</p>
-        </div>
+    <div class="tab-link" onclick="switchView('wallet', 'المحفظة')">
+        <i class="fas fa-wallet"></i>
+        <span>المحفظة</span>
     </div>
-</div>
-
-<nav class="bottom-nav">
-    <div class="nav-link active" onclick="showPage('home', 'الرئيسية')"><i class="fas fa-home"></i><span>الرئيسية</span></div>
-    <div class="nav-link" onclick="showPage('health', 'الصحة')"><i class="fas fa-heartbeat"></i><span>الصحة</span></div>
-    <div class="nav-link" onclick="showPage('jobs', 'التقديمات')"><i class="fas fa-briefcase"></i><span>التقديمات</span></div>
-    <div class="nav-link" onclick="showPage('accounts', 'حسابي')"><i class="fas fa-user-circle"></i><span>حسابي</span></div>
+    <div class="tab-link" onclick="alert('فتح الماسح الضوئي الحكومي...')">
+        <i class="fas fa-qrcode" style="font-size: 30px; color: var(--primary);"></i>
+        <span>QR</span>
+    </div>
+    <div class="tab-link" onclick="switchView('moh', 'صحتي')">
+        <i class="fas fa-heart-pulse"></i>
+        <span>صحتي</span>
+    </div>
+    <div class="tab-link" onclick="switchView('moj', 'ناجز')">
+        <i class="fas fa-gavel"></i>
+        <span>ناجز</span>
+    </div>
 </nav>
 
 <script>
-    // نظام التنقل بين الصفحات
-    function showPage(pageId, title) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    // نظام تبديل الصفحات المتطور
+    function switchView(viewId, title) {
+        // إخفاء كل المشاهد
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        // إظهار المشهد المطلوب
+        document.getElementById(viewId + '-view').classList.add('active');
+        // تحديث العنوان
+        document.getElementById('view-title').innerText = title;
         
-        document.getElementById(pageId).classList.add('active');
-        document.getElementById('page-title').innerText = title;
+        // تحديث حالة الأزرار السفلية
+        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
         
-        // تفعيل الأيقونة في الشريط السفلي
-        event.currentTarget.classList.add('active');
+        // منطق تحديد الزر النشط
+        const links = document.querySelectorAll('.tab-link');
+        links.forEach(link => {
+            if(link.innerText.includes(title) || (viewId === 'home' && link.innerText.includes('الرئيسية'))) {
+                link.classList.add('active');
+            }
+        });
+
+        window.scrollTo(0, 0);
     }
 
-    // الساعة الرقمية
-    function updateTime() {
+    // تحديث الساعة بالعربية
+    function updateLiveClock() {
         const now = new Date();
-        let h = now.getHours(), m = now.getMinutes();
+        let h = now.getHours();
+        let m = now.getMinutes();
+        let ampm = h >= 12 ? 'م' : 'ص';
         h = h % 12 || 12;
-        m = m < 10 ? '0' + m : m;
-        const arab = n => n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-        document.getElementById('time').textContent = arab(h) + ':' + arab(m);
+        m = m < 10 ? '٠' + m : m;
+        
+        const arabize = (num) => num.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        
+        document.getElementById('live-time').textContent = 
+            arabize(h) + ':' + arabize(m) + ' ' + ampm;
     }
-    setInterval(updateTime, 1000);
-    updateTime();
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
+
+    // منع السحب للأسفل للتحديث (تجربة تطبيق)
+    document.addEventListener('touchmove', function(e) {
+        if (e.touches[0].pageY > 0 && window.scrollY === 0) {
+            // e.preventDefault(); 
+        }
+    }, { passive: false });
 </script>
 </body>
 </html>
