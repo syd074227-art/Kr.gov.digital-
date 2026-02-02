@@ -36,6 +36,7 @@ body {
     margin: auto;
     padding: 0 20px 100px;
     line-height: 1.5;
+    overflow-x: hidden;
 }
 
 /* شريط الحالة */
@@ -134,6 +135,8 @@ body {
     border: 1px solid var(--border);
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .mini-item:hover {
@@ -296,6 +299,7 @@ body {
     padding: 6px 12px;
     border-radius: 12px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .nav-item.active {
@@ -311,6 +315,236 @@ body {
 .nav-item i {
     font-size: 22px;
     margin-bottom: 5px;
+}
+
+/* نافذة التقويم */
+.calendar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.calendar-overlay.show {
+    opacity: 1;
+}
+
+.calendar-container {
+    background: var(--card);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(30px);
+    transition: transform 0.3s ease;
+}
+
+.calendar-overlay.show .calendar-container {
+    transform: translateY(0);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.calendar-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.close-calendar {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.close-calendar:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+/* أزرار نوع التاريخ */
+.calendar-type {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid var(--border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.type-btn.active {
+    border-color: var(--blue);
+    background: rgba(10, 132, 255, 0.15);
+    color: var(--blue);
+    box-shadow: 0 5px 15px rgba(10, 132, 255, 0.2);
+}
+
+/* عرض التاريخ */
+.date-display {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 25px;
+    border: 1px solid var(--border);
+}
+
+.current-date {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.date-info {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.full-date {
+    font-size: 16px;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+/* التقويم الشهري */
+.month-calendar {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+}
+
+.month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.month-year {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.day-cell:hover {
+    background: rgba(10, 132, 255, 0.15);
+    transform: scale(1.1);
+}
+
+.day-cell.today {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white;
+    box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+    border-color: var(--blue);
+}
+
+.day-cell.other-month {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.day-cell.selected {
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    color: white;
+    box-shadow: 0 4px 12px rgba(48, 209, 88, 0.3);
+    border-color: var(--green);
 }
 
 /* تأثيرات تفاعلية */
@@ -347,6 +581,14 @@ body {
     .nav-item i {
         font-size: 20px;
     }
+    
+    .calendar-container {
+        padding: 20px;
+    }
+    
+    .current-date {
+        font-size: 36px;
+    }
 }
 </style>
 </head>
@@ -367,7 +609,7 @@ body {
 
 <!-- الوصول السريع -->
 <div class="mini-grid">
-    <div class="mini-item" onclick="openService('التقويم')">
+    <div class="mini-item" id="calendarBtn">
         <div class="mini-icon"><i class="fas fa-calendar-alt"></i></div>
         <span>التقويم</span>
     </div>
@@ -429,6 +671,61 @@ body {
     </div>
 </div>
 
+<!-- نافذة التقويم -->
+<div class="calendar-overlay" id="calendarOverlay">
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h2>التقويم</h2>
+            <button class="close-calendar" onclick="closeCalendar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- اختيار نوع التاريخ -->
+        <div class="calendar-type">
+            <button class="type-btn active" onclick="setCalendarType('hijri')" id="hijriBtn">هجري</button>
+            <button class="type-btn" onclick="setCalendarType('gregorian')" id="gregorianBtn">ميلادي</button>
+        </div>
+
+        <!-- عرض التاريخ الحالي -->
+        <div class="date-display">
+            <div class="current-date" id="currentDay">١٥</div>
+            <div class="date-info">
+                <span id="currentMonth">رمضان</span>
+                <span id="currentYear">١٤٤٥</span>
+            </div>
+            <div class="full-date" id="fullDate">السبت ١٥ رمضان ١٤٤٥ هـ</div>
+        </div>
+
+        <!-- التقويم الشهري -->
+        <div class="month-calendar">
+            <div class="month-header">
+                <button class="nav-btn" onclick="changeMonth(-1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="month-year" id="monthYear">رمضان ١٤٤٥</div>
+                <button class="nav-btn" onclick="changeMonth(1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+
+            <div class="week-days">
+                <div>أ</div>
+                <div>ب</div>
+                <div>ج</div>
+                <div>د</div>
+                <div>هـ</div>
+                <div>و</div>
+                <div>ز</div>
+            </div>
+
+            <div class="days-grid" id="daysGrid">
+                <!-- سيتم ملء الأيام بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- الشريط السفلي -->
 <nav class="bottom-nav">
     <div class="nav-items">
@@ -456,43 +753,186 @@ body {
 </nav>
 
 <script>
-// تحديث الوقت
+// بيانات التقويم
 const arabicNumbers = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-function updateTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    
-    // تحويل إلى تنسيق 12 ساعة
-    hours = hours % 12 || 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    
-    // تحويل الأرقام إلى عربية
-    const hoursStr = hours.toString().split('').map(n => arabicNumbers[n] || n).join('');
-    const minutesStr = minutes.toString().split('').map(n => arabicNumbers[n] || n).join('');
-    
-    document.getElementById('time').textContent = `${hoursStr}:${minutesStr}`;
+const weekDays = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+const hijriMonths = ['محرم', 'صفر', 'ربيع الأول', 'ربيع الآخر', 'جمادى الأولى', 'جمادى الآخرة', 
+                    'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'];
+const gregorianMonths = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 
+                        'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+
+let currentDate = new Date();
+let currentMonth = currentDate.getMonth();
+let currentYear = currentDate.getFullYear();
+let calendarType = 'hijri'; // هجري أو ميلادي
+let selectedDate = null;
+
+// تحويل الأرقام إلى عربية
+function toArabic(num) {
+    return num.toString().split('').map(n => arabicNumbers[n] || n).join('');
 }
 
-updateTime();
-setInterval(updateTime, 60000);
+// تحويل التاريخ الهجري (محاكاة)
+function getHijriDate(date) {
+    // هذه محاكاة بسيطة، في الواقع تحتاج مكتبة لحساب التاريخ الهجري بدقة
+    const hijriYear = 1445 + Math.floor((date - new Date(2023, 6, 19)) / (365.25 * 24 * 60 * 60 * 1000));
+    const hijriMonth = (date.getMonth() + 7) % 12;
+    const hijriDay = date.getDate() % 30;
+    
+    return {
+        year: hijriYear,
+        month: hijriMonth,
+        day: hijriDay || 1,
+        monthName: hijriMonths[hijriMonth],
+        weekday: weekDays[date.getDay()]
+    };
+}
 
-// تغيير حالة البطارية بشكل عشوائي
-setInterval(() => {
-    const batteryIcons = [
-        'fa-battery-empty',
-        'fa-battery-quarter',
-        'fa-battery-half',
-        'fa-battery-three-quarters',
-        'fa-battery-full'
-    ];
-    const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
-    document.getElementById('battery').className = `fas ${randomIcon}`;
-}, 30000);
+// تحديث عرض التاريخ
+function updateDateDisplay() {
+    let dateInfo;
+    
+    if (calendarType === 'hijri') {
+        dateInfo = getHijriDate(currentDate);
+        document.getElementById('currentDay').textContent = toArabic(dateInfo.day);
+        document.getElementById('currentMonth').textContent = dateInfo.monthName;
+        document.getElementById('currentYear').textContent = toArabic(dateInfo.year);
+        document.getElementById('fullDate').textContent = 
+            `${dateInfo.weekday} ${toArabic(dateInfo.day)} ${dateInfo.monthName} ${toArabic(dateInfo.year)} هـ`;
+    } else {
+        document.getElementById('currentDay').textContent = toArabic(currentDate.getDate());
+        document.getElementById('currentMonth').textContent = gregorianMonths[currentDate.getMonth()];
+        document.getElementById('currentYear').textContent = toArabic(currentDate.getFullYear());
+        document.getElementById('fullDate').textContent = 
+            `${weekDays[currentDate.getDay()]} ${toArabic(currentDate.getDate())} ${gregorianMonths[currentDate.getMonth()]} ${toArabic(currentDate.getFullYear())} م`;
+    }
+}
+
+// تغيير نوع التقويم
+function setCalendarType(type) {
+    calendarType = type;
+    
+    // تحديث الأزرار
+    document.getElementById('hijriBtn').classList.toggle('active', type === 'hijri');
+    document.getElementById('gregorianBtn').classList.toggle('active', type === 'gregorian');
+    
+    // تحديث العرض
+    updateDateDisplay();
+    generateCalendar();
+}
+
+// توليد التقويم الشهري
+function generateCalendar() {
+    const daysGrid = document.getElementById('daysGrid');
+    daysGrid.innerHTML = '';
+    
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startingDay = firstDay.getDay();
+    
+    // اليوم الحالي للمقارنة
+    const today = new Date();
+    const isToday = (day) => {
+        return day === today.getDate() && 
+               currentMonth === today.getMonth() && 
+               currentYear === today.getFullYear();
+    };
+    
+    // الأيام من الشهر السابق
+    const prevMonth = new Date(currentYear, currentMonth, 0);
+    const prevMonthDays = prevMonth.getDate();
+    
+    for (let i = 0; i < startingDay; i++) {
+        const day = document.createElement('div');
+        day.className = 'day-cell other-month';
+        day.textContent = toArabic(prevMonthDays - startingDay + i + 1);
+        daysGrid.appendChild(day);
+    }
+    
+    // أيام الشهر الحالي
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'day-cell';
+        dayCell.textContent = toArabic(day);
+        
+        if (isToday(day)) {
+            dayCell.classList.add('today');
+        }
+        
+        if (selectedDate && day === selectedDate.getDate() && 
+            currentMonth === selectedDate.getMonth() && 
+            currentYear === selectedDate.getFullYear()) {
+            dayCell.classList.add('selected');
+        }
+        
+        dayCell.onclick = () => selectDate(day);
+        daysGrid.appendChild(dayCell);
+    }
+    
+    // تحديث عنوان الشهر والسنة
+    if (calendarType === 'hijri') {
+        const hijriDate = getHijriDate(firstDay);
+        document.getElementById('monthYear').textContent = `${hijriDate.monthName} ${toArabic(hijriDate.year)}`;
+    } else {
+        document.getElementById('monthYear').textContent = 
+            `${gregorianMonths[currentMonth]} ${toArabic(currentYear)}`;
+    }
+}
+
+// اختيار تاريخ
+function selectDate(day) {
+    selectedDate = new Date(currentYear, currentMonth, day);
+    currentDate = new Date(selectedDate);
+    updateDateDisplay();
+    generateCalendar();
+}
+
+// تغيير الشهر
+function changeMonth(delta) {
+    currentMonth += delta;
+    
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    } else if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    
+    generateCalendar();
+}
+
+// فتح التقويم
+function openCalendar() {
+    const overlay = document.getElementById('calendarOverlay');
+    overlay.style.display = 'flex';
+    setTimeout(() => overlay.classList.add('show'), 10);
+    
+    // تحديث التاريخ الحالي
+    currentDate = new Date();
+    currentMonth = currentDate.getMonth();
+    currentYear = currentDate.getFullYear();
+    updateDateDisplay();
+    generateCalendar();
+}
+
+// إغلاق التقويم
+function closeCalendar() {
+    const overlay = document.getElementById('calendarOverlay');
+    overlay.classList.remove('show');
+    setTimeout(() => overlay.style.display = 'none', 300);
+}
 
 // تفاعل الأزرار
+document.getElementById('calendarBtn').onclick = openCalendar;
+
 function openService(serviceName) {
-    alert(`جاري فتح خدمة ${serviceName}...`);
+    if (serviceName === 'التقويم') {
+        openCalendar();
+    } else {
+        alert(`جاري فتح خدمة ${serviceName}...`);
+    }
 }
 
 function openNews(newsName) {
@@ -524,11 +964,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // تأثيرات تدريجية
     const items = document.querySelectorAll('.mini-item, .news-item');
     items.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        
         setTimeout(() => {
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
         }, index * 100);
     });
+});
+
+// إغلاق التقويم عند الضغط على ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeCalendar();
+    }
+});
+
+// إغلاق التقويم عند النقر خارج الصندوق
+document.getElementById('calendarOverlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeCalendar();
+    }
 });
 </script>
 </body>
