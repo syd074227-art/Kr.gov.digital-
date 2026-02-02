@@ -174,54 +174,113 @@ body {
     font-weight: 600;
 }
 
-/* النشرة */
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
+/* صفحة الخدمات */
+.services-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg);
+    z-index: 3000;
+    overflow-y: auto;
+    padding-bottom: 100px;
 }
 
-.section-title {
+/* شريط التنقل في صفحة الخدمات */
+.services-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--blue);
+    font-size: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(10, 132, 255, 0.1);
+}
+
+.services-title {
     font-size: 20px;
     font-weight: 700;
+    flex: 1;
+}
+
+/* قائمة الخدمات */
+.services-list {
+    padding: 0 20px;
+}
+
+.service-category {
+    margin-bottom: 30px;
+}
+
+.category-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
     color: var(--text);
+    padding-right: 10px;
+    border-right: 3px solid var(--blue);
 }
 
-.view-all {
-    color: var(--blue);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.news-grid {
-    display: grid;
-    gap: 16px;
-}
-
-.news-item {
+.service-item {
     background: var(--card);
     border-radius: 16px;
     padding: 20px;
-    display: flex;
-    gap: 16px;
-    align-items: center;
+    margin-bottom: 15px;
     border: 1px solid var(--border);
-    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.news-item:hover {
+.service-item:hover {
     transform: translateX(-8px);
-    border-color: var(--purple);
-    box-shadow: 0 10px 25px rgba(94, 92, 230, 0.15);
+    border-color: var(--blue);
+    box-shadow: 0 10px 25px rgba(10, 132, 255, 0.2);
 }
 
-.news-icon {
+.service-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--blue), var(--purple));
+    transition: width 0.3s ease;
+    border-radius: 0 16px 16px 0;
+}
+
+.service-item:hover::before {
+    width: 8px;
+}
+
+.service-icon {
     width: 50px;
     height: 50px;
     border-radius: 12px;
@@ -233,38 +292,76 @@ body {
     flex-shrink: 0;
 }
 
-/* ألوان الأيقونات */
-.news-item.services .news-icon {
-    background: linear-gradient(135deg, var(--purple), #7E5CFF);
+/* ألوان الأيقونات للخدمات */
+.health-service .service-icon {
+    background: linear-gradient(135deg, #FF453A, #FF6B6B);
 }
 
-.news-item.health .news-icon {
-    background: linear-gradient(135deg, var(--red), #FF6B6B);
+.employment-service .service-icon {
+    background: linear-gradient(135deg, #30D158, #4CD964);
 }
 
-.news-item.law .news-icon {
-    background: linear-gradient(135deg, var(--blue), #5AC8FA);
+.media-service .service-icon {
+    background: linear-gradient(135deg, #5E5CE6, #7E5CFF);
 }
 
-.news-item.work .news-icon {
-    background: linear-gradient(135deg, var(--green), #4CD964);
+.report-service .service-icon {
+    background: linear-gradient(135deg, #FF9500, #FFD60A);
 }
 
-.news-item.education .news-icon {
-    background: linear-gradient(135deg, var(--orange), #FFD700);
+.newsletter-service .service-icon {
+    background: linear-gradient(135deg, #FF2D55, #FF6B6B);
 }
 
-.news-content h3 {
+.employee-service .service-icon {
+    background: linear-gradient(135deg, #5856D6, #AF52DE);
+}
+
+.service-info {
+    flex: 1;
+}
+
+.service-name {
     font-size: 17px;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     color: var(--text);
 }
 
-.news-content p {
+.service-description {
     font-size: 14px;
     color: var(--text-muted);
     line-height: 1.4;
+}
+
+.employee-only {
+    display: inline-block;
+    background: rgba(255, 193, 7, 0.15);
+    color: #FFC107;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+/* قسم رئيسي للموظفين */
+.employee-section {
+    background: rgba(88, 86, 214, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(88, 86, 214, 0.3);
+}
+
+.employee-section .category-title {
+    color: #5E5CE6;
+    border-right-color: #5E5CE6;
+}
+
+.employee-section .service-item {
+    background: rgba(88, 86, 214, 0.05);
 }
 
 /* الشريط السفلي */
@@ -317,474 +414,8 @@ body {
     margin-bottom: 5px;
 }
 
-/* صفحة الجهات */
-.entities-page {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg);
-    z-index: 3000;
-    overflow-y: auto;
-    padding-bottom: 100px;
-}
-
-/* شريط التنقل في صفحة الجهات */
-.entities-header {
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 100;
-}
-
-.back-btn {
-    background: none;
-    border: none;
-    color: var(--blue);
-    font-size: 20px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-    background: rgba(10, 132, 255, 0.1);
-}
-
-.entities-title {
-    font-size: 20px;
-    font-weight: 700;
-    flex: 1;
-}
-
-/* شريط البحث في الجهات */
-.entities-search {
-    padding: 0 20px 20px;
-}
-
-.search-box {
-    width: 100%;
-    padding: 16px 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    color: var(--text);
-    font-size: 16px;
-}
-
-/* قائمة الجهات */
-.entities-list {
-    padding: 0 20px;
-}
-
-.entity-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 15px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.entity-card:hover {
-    transform: translateX(-8px);
-    border-color: var(--blue);
-    box-shadow: 0 10px 25px rgba(10, 132, 255, 0.2);
-}
-
-.entity-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: white;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
-.entity-icon.interior {
-    border-radius: 50%;
-    background: linear-gradient(135deg, #1a5fb4, #26a269);
-}
-
-.entity-icon.health {
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FF453A, #FF6B6B);
-}
-
-.entity-icon.justice {
-    border-radius: 12px;
-    background: linear-gradient(135deg, #5E5CE6, #7E5CFF);
-}
-
-.entity-icon.recruitment {
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FF9500, #FFD60A);
-}
-
-.entity-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.entity-info {
-    flex: 1;
-}
-
-.entity-name {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text);
-}
-
-.entity-description {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-}
-
-.entity-stats {
-    display: flex;
-    gap: 15px;
-}
-
-.entity-stat {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 13px;
-    color: var(--text-muted);
-}
-
-.entity-stat i {
-    color: var(--blue);
-}
-
-.entity-follow {
-    background: rgba(48, 209, 88, 0.15);
-    color: var(--green);
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    min-width: 80px;
-    text-align: center;
-}
-
-.entity-follow.not-following {
-    background: rgba(10, 132, 255, 0.15);
-    color: var(--blue);
-}
-
-/* صفحة الجهة التفصيلية */
-.entity-detail-page {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--bg);
-    z-index: 4000;
-    overflow-y: auto;
-    padding-bottom: 100px;
-}
-
-/* ترويسة الجهة */
-.entity-header {
-    position: relative;
-    padding: 25px 20px;
-    background: linear-gradient(135deg, rgba(0, 40, 85, 0.9), rgba(0, 20, 40, 0.9));
-    border-bottom: 1px solid var(--border);
-    min-height: 180px;
-}
-
-.entity-cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.2;
-    z-index: 1;
-}
-
-.entity-profile {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.entity-avatar {
-    width: 80px;
-    height: 80px;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    flex-shrink: 0;
-}
-
-.entity-avatar.interior, .entity-avatar.health, .entity-avatar.recruitment {
-    border-radius: 50%;
-}
-
-.entity-avatar.justice {
-    border-radius: 15px;
-}
-
-.entity-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.entity-details {
-    flex: 1;
-}
-
-.entity-detail-name {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text);
-}
-
-.entity-detail-subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-}
-
-.followers-count {
-    font-size: 13px;
-    color: var(--blue);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* أزرار المتابعة والإشعارات */
-.action-buttons {
-    padding: 20px;
-    display: flex;
-    gap: 12px;
-    border-bottom: 1px solid var(--border);
-}
-
-.action-btn {
-    flex: 1;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.follow-btn {
-    background: linear-gradient(135deg, var(--blue), #5E5CE6);
-    color: white;
-    box-shadow: 0 4px 15px rgba(10, 132, 255, 0.3);
-}
-
-.follow-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4);
-}
-
-.follow-btn.following {
-    background: linear-gradient(135deg, var(--green), #30D158);
-}
-
-.notification-btn {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-
-.notification-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.notification-btn.active {
-    background: rgba(255, 193, 7, 0.15);
-    color: #FFC107;
-    border-color: rgba(255, 193, 7, 0.3);
-}
-
-/* قسم الوصف */
-.description-section {
-    padding: 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.section-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-title i {
-    color: var(--blue);
-}
-
-.description-content {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    padding: 18px;
-    border: 1px solid var(--border);
-    line-height: 1.6;
-}
-
-.description-content p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-}
-
-/* قسم الخيارات */
-.options-section {
-    padding: 20px;
-}
-
-.options-grid {
-    display: grid;
-    gap: 15px;
-}
-
-.option-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.option-card:hover {
-    transform: translateX(-8px);
-    border-color: var(--blue);
-    box-shadow: 0 10px 25px rgba(10, 132, 255, 0.15);
-}
-
-.option-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--blue), var(--purple));
-    transition: width 0.3s ease;
-}
-
-.option-card:hover::before {
-    width: 8px;
-}
-
-.option-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.option-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: white;
-    flex-shrink: 0;
-}
-
-.services-option .option-icon {
-    background: linear-gradient(135deg, #5E5CE6, #7E5CFF);
-}
-
-.posts-option .option-icon {
-    background: linear-gradient(135deg, #30D158, #4CD964);
-}
-
-.messages-option .option-icon {
-    background: linear-gradient(135deg, #FF9500, #FFD60A);
-}
-
-.option-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text);
-}
-
-.option-subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
-.apply-btn {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: rgba(10, 132, 255, 0.1);
-    color: var(--blue);
-    border: 1px solid rgba(10, 132, 255, 0.3);
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.apply-btn:hover {
-    background: rgba(10, 132, 255, 0.2);
-    transform: translateY(-2px);
-}
-
 /* تأثيرات تفاعلية */
-.mini-item:active, .news-item:active, .entity-card:active, .option-card:active {
+.mini-item:active, .service-item:active {
     transform: scale(0.98);
 }
 
@@ -806,8 +437,8 @@ body {
         padding: 16px 10px;
     }
     
-    .news-item {
-        padding: 18px;
+    .service-item {
+        padding: 16px;
     }
     
     .nav-item {
@@ -818,18 +449,10 @@ body {
         font-size: 20px;
     }
     
-    .entity-card {
-        padding: 16px;
-    }
-    
-    .entity-icon {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .entity-avatar {
-        width: 70px;
-        height: 70px;
+    .service-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
     }
 }
 </style>
@@ -861,9 +484,9 @@ body {
             <div class="mini-icon"><i class="fas fa-building"></i></div>
             <span>الجهات</span>
         </div>
-        <div class="mini-item" onclick="openService('الشخصية')">
-            <div class="mini-icon"><i class="fas fa-user-circle"></i></div>
-            <span>الشخصية</span>
+        <div class="mini-item" id="servicesBtn">
+            <div class="mini-icon"><i class="fas fa-sliders-h"></i></div>
+            <span>الخدمات</span>
         </div>
     </div>
 
@@ -900,129 +523,128 @@ body {
     </div>
 </div>
 
-<!-- صفحة الجهات -->
-<div class="entities-page" id="entitiesPage">
+<!-- صفحة الخدمات -->
+<div class="services-page" id="servicesPage">
     <!-- شريط التنقل -->
-    <div class="entities-header">
-        <button class="back-btn" onclick="closeEntities()">
+    <div class="services-header">
+        <button class="back-btn" onclick="closeServices()">
             <i class="fas fa-arrow-right"></i>
         </button>
-        <h1 class="entities-title">الجهات</h1>
+        <h1 class="services-title">الخدمات</h1>
     </div>
 
-    <!-- قائمة الجهات -->
-    <div class="entities-list" id="entitiesList">
-        <!-- ستتم إضافة الجهات بواسطة JavaScript -->
-    </div>
-</div>
-
-<!-- صفحة الجهة التفصيلية -->
-<div class="entity-detail-page" id="entityDetailPage">
-    <!-- شريط التنقل -->
-    <div class="entities-header">
-        <button class="back-btn" onclick="closeEntityDetail()">
-            <i class="fas fa-arrow-right"></i>
-        </button>
-        <h1 class="entities-title" id="entityDetailTitle">الجهة</h1>
-    </div>
-
-    <!-- ترويسة الجهة -->
-    <div class="entity-header" id="entityHeader">
-        <div class="entity-cover" id="entityCover"></div>
-        <div class="entity-profile">
-            <div class="entity-avatar" id="entityAvatar">
-                <img id="entityAvatarImg" alt="شعار الجهة">
+    <!-- قائمة الخدمات -->
+    <div class="services-list">
+        <!-- الخدمات العامة -->
+        <div class="service-category">
+            <h2 class="category-title">الخدمات العامة</h2>
+            
+            <!-- الصحة -->
+            <div class="service-item health-service" onclick="openService('الصحة', 'health')">
+                <div class="service-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">الصحة</div>
+                    <div class="service-description">الخدمات الصحية والرعاية الطبية والتطعيمات والتأمين الصحي</div>
+                </div>
             </div>
-            <div class="entity-details">
-                <h1 class="entity-detail-name" id="entityDetailName">اسم الجهة</h1>
-                <div class="entity-detail-subtitle" id="entitySubtitle">الوصف</div>
-                <div class="followers-count">
-                    <i class="fas fa-users"></i>
-                    <span id="entityFollowersCount">٠</span> متابع
+
+            <!-- التوظيف -->
+            <div class="service-item employment-service" onclick="openService('التوظيف', 'employment')">
+                <div class="service-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">التوظيف</div>
+                    <div class="service-description">الوظائف المتاحة والتقديم للوظائف الحكومية والقطاع الخاص</div>
+                </div>
+            </div>
+
+            <!-- الإعلام -->
+            <div class="service-item media-service" onclick="openService('الإعلام', 'media')">
+                <div class="service-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">الإعلام</div>
+                    <div class="service-description">الأخبار الرسمية والتقارير الإعلامية والبيانات الصحفية</div>
+                </div>
+            </div>
+
+            <!-- منصة إبلاغ -->
+            <div class="service-item report-service" onclick="openService('منصة إبلاغ', 'report')">
+                <div class="service-icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">منصة إبلاغ</div>
+                    <div class="service-description">الإبلاغ عن المخالفات والشكاوى والاقتراحات للجهات المعنية</div>
+                </div>
+            </div>
+
+            <!-- النشرة -->
+            <div class="service-item newsletter-service" onclick="openService('النشرة', 'newsletter')">
+                <div class="service-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">النشرة</div>
+                    <div class="service-description">آخر التحديثات والأخبار والمنشورات الرسمية من الجهات الحكومية</div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- أزرار المتابعة والإشعارات -->
-    <div class="action-buttons">
-        <button class="action-btn follow-btn" id="followDetailBtn" onclick="toggleFollowDetail()">
-            <i class="fas fa-user-plus"></i>
-            <span id="followDetailText">متابعة</span>
-        </button>
-        <button class="action-btn notification-btn" id="notificationBtn" onclick="toggleNotifications()">
-            <i class="fas fa-bell"></i>
-            <span id="notificationText">الإشعارات</span>
-        </button>
-    </div>
-
-    <!-- قسم الوصف -->
-    <div class="description-section">
-        <h2 class="section-title">
-            <i class="fas fa-align-left"></i>
-            الوصف
-        </h2>
-        <div class="description-content" id="entityDescription">
-            <!-- سيتم تعبئة الوصف هنا -->
-        </div>
-    </div>
-
-    <!-- قسم الخيارات -->
-    <div class="options-section">
-        <h2 class="section-title">
-            <i class="fas fa-sliders-h"></i>
-            الخيارات
-        </h2>
-        <div class="options-grid">
-            <!-- الخدمات -->
-            <div class="option-card services-option" onclick="openServices()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-concierge-bell"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">الخدمات</h3>
-                        <p class="option-subtitle">الخدمات الإلكترونية المقدمة</p>
-                    </div>
+        <!-- الخدمات للموظفين فقط -->
+        <div class="employee-section">
+            <h2 class="category-title">خدمات الموظفين</h2>
+            
+            <!-- عملي -->
+            <div class="service-item employee-service" onclick="openEmployeeService('عملي')">
+                <div class="service-icon">
+                    <i class="fas fa-briefcase"></i>
                 </div>
-                <button class="apply-btn">
-                    <i class="fas fa-external-link-alt"></i>
-                    عرض الخدمات
-                </button>
+                <div class="service-info">
+                    <div class="service-name">عملي</div>
+                    <div class="service-description">نظام إدارة المهام والتقارير والاجتماعات الداخلية للموظفين</div>
+                    <div class="employee-only">للموظفين فقط</div>
+                </div>
             </div>
 
-            <!-- المنشورات -->
-            <div class="option-card posts-option" onclick="openPosts()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">المنشورات</h3>
-                        <p class="option-subtitle">آخر التحديثات والأخيار</p>
-                    </div>
+            <!-- إدارة الملفات -->
+            <div class="service-item employee-service" onclick="openEmployeeService('إدارة الملفات')">
+                <div class="service-icon">
+                    <i class="fas fa-folder"></i>
                 </div>
-                <button class="apply-btn">
-                    <i class="fas fa-external-link-alt"></i>
-                    عرض المنشورات
-                </button>
+                <div class="service-info">
+                    <div class="service-name">إدارة الملفات</div>
+                    <div class="service-description">التخزين السحابي والمشاركة الآمنة للملفات والمستندات الداخلية</div>
+                    <div class="employee-only">للموظفين فقط</div>
+                </div>
             </div>
 
-            <!-- الرسائل -->
-            <div class="option-card messages-option" onclick="openMessages()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">الرسائل</h3>
-                        <p class="option-subtitle">الاتصال والمراسلة</p>
-                    </div>
+            <!-- التدريب والتطوير -->
+            <div class="service-item employee-service" onclick="openEmployeeService('التدريب والتطوير')">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
                 </div>
-                <button class="apply-btn">
-                    <i class="fas fa-external-link-alt"></i>
-                    فتح الرسائل
-                </button>
+                <div class="service-info">
+                    <div class="service-name">التدريب والتطوير</div>
+                    <div class="service-description">برامج التدريب والدورات التطويرية وورش العمل للموظفين</div>
+                    <div class="employee-only">للموظفين فقط</div>
+                </div>
+            </div>
+
+            <!-- المراسلات الداخلية -->
+            <div class="service-item employee-service" onclick="openEmployeeService('المراسلات الداخلية')">
+                <div class="service-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="service-info">
+                    <div class="service-name">المراسلات الداخلية</div>
+                    <div class="service-description">نظام المراسلات والتواصل الداخلي بين الإدارات والموظفين</div>
+                    <div class="employee-only">للموظفين فقط</div>
+                </div>
             </div>
         </div>
     </div>
@@ -1055,281 +677,50 @@ body {
 </nav>
 
 <script>
-// بيانات الجهات
-const entities = [
-    {
-        id: 1,
-        name: "وزارة الداخلية",
-        description: "الحساب الرسمي لوزارة الداخلية في KR",
-        icon: "fa-shield-alt",
-        iconClass: "interior",
-        logo: "https://image2url.com/r2/default/images/1770049494107-03f3c4cf-a495-431e-8b2d-6a159701f22e.jpeg",
-        followers: "٠",
-        posts: "٠",
-        following: false,
-        notifications: false,
-        detailDescription: `وزارة الداخلية هي الوزارة المسؤولة عن الأمن الداخلي والنظام العام في المملكة. تقوم بتنفيذ السياسات الأمنية والإشراف على الجهات الأمنية التابعة لها.
-
-المهام الرئيسية:
-• حفظ الأمن والنظام العام
-• إدارة شؤون الجوازات والإقامة
-• الإشراف على المرور والمركبات
-• تنفيذ الأنظمة الأمنية
-• توفير الخدمات الأمنية للمواطنين والمقيمين
-
-تسعى الوزارة لتحقيق أعلى معايير الأمن والاستقرار في المجتمع.`
-    },
-    {
-        id: 2,
-        name: "وزارة الصحة",
-        description: "الحساب الرسمي لوزارة الصحة في KR",
-        icon: "fa-heartbeat",
-        iconClass: "health",
-        logo: "https://image2url.com/r2/default/images/1770052014780-745edd72-e682-4bc4-bd23-e91eea6d4c14.jpeg",
-        followers: "٠",
-        posts: "٠",
-        following: false,
-        notifications: false,
-        detailDescription: `وزارة الصحة هي الوزارة المسؤولة عن الخدمات الصحية والرعاية الطبية في المملكة. تهدف لتحسين الصحة العامة وتوفير الرعاية الصحية الشاملة.
-
-المهام الرئيسية:
-• تقديم الخدمات الصحية العلاجية والوقائية
-• الإشراف على المستشفيات والمراكز الصحية
-• تنظيم الممارسة الطبية والصيدلانية
-• تنفيذ البرامج الصحية الوطنية
-• مراقبة ومكافحة الأمراض والأوبئة
-
-تعمل الوزارة على توفير نظام صحي متكامل يلبي احتياجات المواطنين والمقيمين.`
-    },
-    {
-        id: 3,
-        name: "وزارة العدل",
-        description: "الحساب الرسمي لوزارة العدل في KR",
-        icon: "fa-balance-scale",
-        iconClass: "justice",
-        logo: "https://image2url.com/r2/default/images/1770052292164-ef3f9c7c-096a-488c-870c-6934d40c108d.png",
-        followers: "٠",
-        posts: "٠",
-        following: false,
-        notifications: false,
-        detailDescription: `وزارة العدل هي الوزارة المسؤولة عن الشؤون القضائية والقانونية في المملكة. تعمل على تطوير النظام القضائي وضمان العدالة.
-
-المهام الرئيسية:
-• الإشراف على المحاكم والقضاء
-• تنظيم الممارسة القانونية والمحاماة
-• تطوير التشريعات والأنظمة
-• إدارة السجون والإصلاحيات
-• تسهيل الوصول إلى العدالة
-
-تهدف الوزارة لتحقيق العدالة الناجزة وحماية الحقوق والحريات في إطار القانون.`
-    },
-    {
-        id: 4,
-        name: "الإدارة العامة للقبول والتجنيد",
-        description: "الحساب الرسمي للإدارة العامة للقبول والتجنيد بوزارة الداخلية في KR",
-        icon: "fa-user-tie",
-        iconClass: "recruitment",
-        logo: "https://i.ibb.co/LrKJkKN/Photoroom-20260202-205224.png",
-        followers: "٠",
-        posts: "٠",
-        following: false,
-        notifications: false,
-        detailDescription: `الإدارة العامة للقبول والتجنيد بوزارة الداخلية هي الجهة المعنية بشؤون القبول والتجنيد في القطاعات الأمنية والعسكرية التابعة للوزارة.
-
-المهام الرئيسية:
-• إدارة عمليات القبول والتسجيل للمتقدمين
-• الإشراف على معايير ومعايير التجنيد
-• تنظيم الاختبارات والمقابلات الخاصة بالقبول
-• متابعة أوضاع المجندين والمقبولين
-• تطوير أنظمة القبول والتجنيد الإلكترونية
-
-تهدف الإدارة إلى جذب الكفاءات واختيار الأفضل لخدمة الوطن في المجالات الأمنية، وتضمن تطبيق المعايير المهنية العالية في جميع مراحل القبول والتجنيد.`
-    }
-];
-
-// متغيرات الحالة
-let currentEntity = null;
-let isFollowing = false;
-let notificationsEnabled = false;
-
-// فتح صفحة الجهات
-function openEntities() {
+// فتح صفحة الخدمات
+function openServices() {
     document.getElementById('mainPage').style.display = 'none';
-    document.getElementById('entitiesPage').style.display = 'block';
-    document.getElementById('entityDetailPage').style.display = 'none';
-    renderEntitiesList();
-    updateNav('الجهات');
+    document.getElementById('servicesPage').style.display = 'block';
+    updateNav('الخدمات');
 }
 
-// إغلاق صفحة الجهات
-function closeEntities() {
-    document.getElementById('entitiesPage').style.display = 'none';
+// إغلاق صفحة الخدمات
+function closeServices() {
+    document.getElementById('servicesPage').style.display = 'none';
     document.getElementById('mainPage').style.display = 'block';
     updateNav('الرئيسية');
 }
 
-// عرض قائمة الجهات
-function renderEntitiesList() {
-    const container = document.getElementById('entitiesList');
-    container.innerHTML = '';
+// فتح خدمة معينة
+function openService(serviceName, serviceType) {
+    let description = '';
     
-    entities.forEach(entity => {
-        const card = document.createElement('div');
-        card.className = 'entity-card';
-        card.onclick = () => openEntityDetail(entity);
-        
-        card.innerHTML = `
-            <div class="entity-icon ${entity.iconClass}">
-                <img src="${entity.logo}" alt="${entity.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/60?text=${entity.name.charAt(0)}'">
-            </div>
-            <div class="entity-info">
-                <div class="entity-name">${entity.name}</div>
-                <div class="entity-description">${entity.description}</div>
-                <div class="entity-stats">
-                    <div class="entity-stat">
-                        <i class="fas fa-users"></i>
-                        <span>${entity.followers} متابع</span>
-                    </div>
-                    <div class="entity-stat">
-                        <i class="fas fa-newspaper"></i>
-                        <span>${entity.posts} منشور</span>
-                    </div>
-                </div>
-            </div>
-            <div class="entity-follow ${entity.following ? '' : 'not-following'}">
-                ${entity.following ? 'متابع' : 'متابعة'}
-            </div>
-        `;
-        
-        container.appendChild(card);
-    });
-}
-
-// فتح صفحة الجهة التفصيلية
-function openEntityDetail(entity) {
-    currentEntity = entity;
-    isFollowing = entity.following;
-    notificationsEnabled = entity.notifications;
-    
-    // تحديث العنوان
-    document.getElementById('entityDetailTitle').textContent = entity.name;
-    document.getElementById('entityDetailName').textContent = entity.name;
-    document.getElementById('entitySubtitle').textContent = entity.description;
-    document.getElementById('entityFollowersCount').textContent = entity.followers;
-    
-    // تحديث الصور
-    document.getElementById('entityAvatarImg').src = entity.logo;
-    document.getElementById('entityAvatar').className = `entity-avatar ${entity.iconClass}`;
-    
-    // تحديث خلفية الغلاف
-    const header = document.getElementById('entityHeader');
-    if (entity.iconClass === 'interior') {
-        header.style.background = 'linear-gradient(135deg, rgba(26, 95, 180, 0.9), rgba(38, 162, 105, 0.9))';
-    } else if (entity.iconClass === 'health') {
-        header.style.background = 'linear-gradient(135deg, rgba(255, 69, 58, 0.9), rgba(255, 107, 107, 0.9))';
-    } else if (entity.iconClass === 'justice') {
-        header.style.background = 'linear-gradient(135deg, rgba(94, 92, 230, 0.9), rgba(126, 92, 255, 0.9))';
-    } else if (entity.iconClass === 'recruitment') {
-        header.style.background = 'linear-gradient(135deg, rgba(255, 149, 0, 0.9), rgba(255, 214, 0, 0.9))';
+    switch(serviceType) {
+        case 'health':
+            description = 'الخدمات الصحية تشمل: الحجز الطبي، الاستشارات الطبية، نتائج الفحوصات، التطعيمات، والتأمين الصحي';
+            break;
+        case 'employment':
+            description = 'خدمات التوظيف تشمل: البحث عن الوظائف، التقديم الإلكتروني، متابعة الطلبات، اختبارات التوظيف، والمقابلات';
+            break;
+        case 'media':
+            description = 'خدمات الإعلام تشمل: الأخبار الرسمية، البث المباشر، الأرشيف الإعلامي، البيانات الصحفية، والتقارير السنوية';
+            break;
+        case 'report':
+            description = 'منصة الإبلاغ تشمل: الإبلاغ عن المخالفات، تقديم الشكاوى، الاقتراحات، الاستفسارات، وتتبع البلاغات';
+            break;
+        case 'newsletter':
+            description = 'النشرة تشمل: آخر الأخبار، التحديثات المهمة، المنشورات الرسمية، الإعلانات الهامة، والتنبيهات';
+            break;
+        default:
+            description = 'جاري فتح الخدمة...';
     }
     
-    // تحديث الوصف
-    document.getElementById('entityDescription').innerHTML = entity.detailDescription.split('\n').map(line => {
-        if (line.trim() === '') return '<br>';
-        if (line.includes(':')) return `<p><strong>${line}</strong></p>`;
-        return `<p>${line}</p>`;
-    }).join('');
-    
-    // تحديث أزرار المتابعة والإشعارات
-    updateFollowButton();
-    updateNotificationButton();
-    
-    // إظهار الصفحة
-    document.getElementById('mainPage').style.display = 'none';
-    document.getElementById('entitiesPage').style.display = 'none';
-    document.getElementById('entityDetailPage').style.display = 'block';
-    updateNav('الجهات');
+    alert(`جاري فتح خدمة ${serviceName}\n\n${description}`);
 }
 
-// إغلاق صفحة الجهة التفصيلية
-function closeEntityDetail() {
-    document.getElementById('entityDetailPage').style.display = 'none';
-    document.getElementById('entitiesPage').style.display = 'block';
-}
-
-// تحديث زر المتابعة
-function updateFollowButton() {
-    const btn = document.getElementById('followDetailBtn');
-    const text = document.getElementById('followDetailText');
-    
-    if (isFollowing) {
-        btn.classList.add('following');
-        text.textContent = 'متابَع';
-        btn.innerHTML = '<i class="fas fa-user-check"></i> <span id="followDetailText">متابَع</span>';
-    } else {
-        btn.classList.remove('following');
-        text.textContent = 'متابعة';
-        btn.innerHTML = '<i class="fas fa-user-plus"></i> <span id="followDetailText">متابعة</span>';
-    }
-}
-
-// تحديث زر الإشعارات
-function updateNotificationButton() {
-    const btn = document.getElementById('notificationBtn');
-    const text = document.getElementById('notificationText');
-    
-    if (notificationsEnabled) {
-        btn.classList.add('active');
-        text.textContent = 'مفعلة';
-        btn.innerHTML = '<i class="fas fa-bell"></i> <span id="notificationText">مفعلة</span>';
-    } else {
-        btn.classList.remove('active');
-        text.textContent = 'الإشعارات';
-        btn.innerHTML = '<i class="fas fa-bell"></i> <span id="notificationText">الإشعارات</span>';
-    }
-}
-
-// تبديل المتابعة
-function toggleFollowDetail() {
-    isFollowing = !isFollowing;
-    
-    // تحديث العداد
-    const countEl = document.getElementById('entityFollowersCount');
-    let count = parseInt(countEl.textContent);
-    count = isFollowing ? count + 1 : count - 1;
-    if (count < 0) count = 0;
-    countEl.textContent = count.toString();
-    
-    // تحديث الزر
-    updateFollowButton();
-    
-    // رسالة تأكيد
-    alert(isFollowing ? `تمت متابعة ${currentEntity.name}` : `تم إلغاء متابعة ${currentEntity.name}`);
-}
-
-// تبديل الإشعارات
-function toggleNotifications() {
-    notificationsEnabled = !notificationsEnabled;
-    updateNotificationButton();
-    
-    alert(notificationsEnabled ? 
-        `تم تفعيل الإشعارات لـ ${currentEntity.name}` : 
-        `تم إلغاء تفعيل الإشعارات لـ ${currentEntity.name}`);
-}
-
-// فتح الخدمات
-function openServices() {
-    alert(`جاري فتح خدمات ${currentEntity.name}`);
-}
-
-// فتح المنشورات
-function openPosts() {
-    alert(`جاري فتح منشورات ${currentEntity.name}`);
-}
-
-// فتح الرسائل
-function openMessages() {
-    alert(`جاري فتح رسائل ${currentEntity.name}`);
+// فتح خدمات الموظفين
+function openEmployeeService(serviceName) {
+    alert(`جاري فتح ${serviceName}\n\nهذه الخدمة متاحة للموظفين المسجلين فقط. يرجى تسجيل الدخول بحساب الموظف.`);
 }
 
 // تحديث التنقل
@@ -1346,34 +737,32 @@ function updateNav(pageName) {
 }
 
 function changeNav(pageName) {
-    if (pageName === 'الجهات') {
-        openEntities();
+    if (pageName === 'الخدمات') {
+        openServices();
     } else if (pageName === 'الرئيسية') {
-        document.getElementById('entityDetailPage').style.display = 'none';
-        document.getElementById('entitiesPage').style.display = 'none';
+        document.getElementById('servicesPage').style.display = 'none';
         document.getElementById('mainPage').style.display = 'block';
         updateNav('الرئيسية');
-    } else {
-        alert(`جاري تحميل صفحة ${pageName}...`);
-        updateNav(pageName);
+    } else if (pageName === 'النشرة') {
+        alert('جاري تحميل النشرة...');
+        updateNav('النشرة');
+    } else if (pageName === 'الرسائل') {
+        alert('جاري تحميل الرسائل...');
+        updateNav('الرسائل');
+    } else if (pageName === 'حسابي') {
+        alert('جاري تحميل حسابي...');
+        updateNav('حسابي');
     }
 }
 
 // تفاعل الأزرار
 document.getElementById('calendarBtn').onclick = () => alert('جاري فتح التقويم...');
-document.getElementById('entitiesBtn').onclick = openEntities;
-
-function openService(serviceName) {
-    alert(`جاري فتح خدمة ${serviceName}...`);
-}
-
-function openNews(newsName) {
-    alert(`جاري فتح ${newsName}...`);
-}
+document.getElementById('entitiesBtn').onclick = () => alert('جاري فتح الجهات... (يمكنك إضافة هذه الصفحة لاحقاً)');
+document.getElementById('servicesBtn').onclick = openServices;
 
 // تأثيرات عند التحميل
 document.addEventListener('DOMContentLoaded', function() {
-    const items = document.querySelectorAll('.mini-item, .news-item');
+    const items = document.querySelectorAll('.mini-item');
     items.forEach((item, index) => {
         item.style.opacity = '0';
         item.style.transform = 'translateY(20px)';
@@ -1383,6 +772,21 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.opacity = '1';
             item.style.transform = 'translateY(0)';
         }, index * 100);
+    });
+});
+
+// تأثيرات ظهور الخدمات
+window.addEventListener('load', function() {
+    const services = document.querySelectorAll('.service-item');
+    services.forEach((service, index) => {
+        service.style.opacity = '0';
+        service.style.transform = 'translateX(30px)';
+        
+        setTimeout(() => {
+            service.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            service.style.opacity = '1';
+            service.style.transform = 'translateX(0)';
+        }, index * 100 + 300);
     });
 });
 </script>
