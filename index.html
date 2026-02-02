@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق توكلنا | الخدمات الحكومية الذكية</title>
+    <title>توكلنا | الخدمات الحكومية الذكية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,19 +14,25 @@
         }
 
         :root {
-            --primary-color: #1a5fb4;
-            --secondary-color: #26a269;
-            --accent-color: #e5a50a;
-            --light-color: #f6f5f4;
-            --dark-color: #241f31;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --primary-color: #00a8ff;
+            --secondary-color: #00d2d3;
+            --accent-color: #ff9f43;
+            --dark-bg: #0d0d0d;
+            --card-bg: #1a1a1a;
+            --card-border: #2a2a2a;
+            --text-light: #f5f5f5;
+            --text-muted: #aaa;
+            --glass-bg: rgba(15, 15, 15, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
             --transition: all 0.3s ease;
         }
 
         body {
-            background-color: #f8f9fa;
-            color: var(--dark-color);
+            background-color: var(--dark-bg);
+            color: var(--text-light);
             line-height: 1.6;
+            padding-bottom: 80px; /* مساحة للشريط السفلي */
         }
 
         /* تحسينات التمرير */
@@ -35,7 +41,7 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #1a1a1a;
             border-radius: 5px;
         }
 
@@ -44,7 +50,6 @@
             border-radius: 5px;
         }
 
-        /* التصميم الأساسي */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -53,13 +58,13 @@
 
         /* الهيدر */
         header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, #0d4a9c 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.1) 0%, rgba(13, 13, 13, 0.9) 100%);
             padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .header-content {
@@ -77,11 +82,15 @@
         .logo i {
             font-size: 2.2rem;
             color: var(--accent-color);
+            filter: drop-shadow(0 0 5px rgba(255, 159, 67, 0.5));
         }
 
         .logo h1 {
             font-size: 1.8rem;
             font-weight: 700;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .user-info {
@@ -91,12 +100,14 @@
         }
 
         .weather-info {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 168, 255, 0.1);
             padding: 8px 15px;
             border-radius: 20px;
             display: flex;
             align-items: center;
             gap: 8px;
+            border: 1px solid rgba(0, 168, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .weather-info i {
@@ -107,7 +118,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -115,19 +126,18 @@
             font-size: 1.3rem;
             cursor: pointer;
             transition: var(--transition);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .user-avatar:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 168, 255, 0.4);
         }
 
         /* قسم الترحيب */
         .welcome-section {
             padding: 30px 0;
-            background-color: white;
-            border-radius: 0 0 20px 20px;
-            box-shadow: var(--card-shadow);
             margin-bottom: 25px;
         }
 
@@ -139,21 +149,24 @@
 
         .welcome-text h2 {
             font-size: 2rem;
-            color: var(--primary-color);
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
         }
 
         .welcome-text p {
-            color: #666;
+            color: var(--text-muted);
             font-size: 1.1rem;
         }
 
         .date-info {
-            background-color: var(--light-color);
+            background: rgba(255, 255, 255, 0.05);
             padding: 15px 25px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: var(--card-shadow);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
         }
 
         .date-info .date {
@@ -177,18 +190,20 @@
         }
 
         .section-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 20px;
             padding: 25px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--card-border);
         }
 
         .section-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 168, 255, 0.3);
         }
 
         .section-card::before {
@@ -213,7 +228,7 @@
             align-items: center;
             gap: 12px;
             font-size: 1.4rem;
-            color: var(--primary-color);
+            color: var(--text-light);
         }
 
         .section-title i {
@@ -243,7 +258,7 @@
         }
 
         .fav-card {
-            background: linear-gradient(135deg, var(--primary-color), #2d7cd6);
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.15), rgba(0, 210, 211, 0.1));
             color: white;
             border-radius: 15px;
             padding: 20px 15px;
@@ -255,23 +270,30 @@
             align-items: center;
             justify-content: center;
             min-height: 120px;
+            border: 1px solid rgba(0, 168, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .fav-card:nth-child(2) {
-            background: linear-gradient(135deg, var(--secondary-color), #4caf50);
+            background: linear-gradient(135deg, rgba(0, 210, 211, 0.15), rgba(76, 175, 80, 0.1));
+            border-color: rgba(0, 210, 211, 0.2);
         }
 
         .fav-card:nth-child(3) {
-            background: linear-gradient(135deg, #a347ba, #c56cd6);
+            background: linear-gradient(135deg, rgba(163, 71, 186, 0.15), rgba(197, 108, 214, 0.1));
+            border-color: rgba(163, 71, 186, 0.2);
         }
 
         .fav-card:hover {
             transform: scale(1.05);
+            border-color: rgba(0, 168, 255, 0.5);
+            box-shadow: 0 8px 15px rgba(0, 168, 255, 0.2);
         }
 
         .fav-card i {
             font-size: 2rem;
             margin-bottom: 10px;
+            color: var(--primary-color);
         }
 
         /* سجل الأسرة */
@@ -286,35 +308,38 @@
             align-items: center;
             gap: 15px;
             padding: 15px;
-            background-color: var(--light-color);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             transition: var(--transition);
             cursor: pointer;
+            border: 1px solid transparent;
         }
 
         .family-member:hover {
-            background-color: #e8f4ff;
+            background: rgba(0, 168, 255, 0.1);
+            border-color: rgba(0, 168, 255, 0.3);
         }
 
         .member-avatar {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), #2d7cd6);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .member-info h4 {
-            color: var(--dark-color);
+            color: var(--text-light);
             margin-bottom: 5px;
         }
 
         .member-info p {
-            color: #666;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
@@ -327,7 +352,7 @@
         }
 
         .category-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 15px;
             padding: 25px 20px;
             text-align: center;
@@ -336,11 +361,13 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--card-border);
         }
 
         .category-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 168, 255, 0.4);
         }
 
         .category-card::after {
@@ -362,35 +389,42 @@
             width: 70px;
             height: 70px;
             margin: 0 auto 15px;
-            background: linear-gradient(135deg, var(--primary-color), #2d7cd6);
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.2), rgba(0, 210, 211, 0.15));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--primary-color);
             font-size: 1.8rem;
+            border: 2px solid rgba(0, 168, 255, 0.3);
         }
 
         .category-card:nth-child(2) .category-icon {
-            background: linear-gradient(135deg, var(--secondary-color), #4caf50);
+            background: linear-gradient(135deg, rgba(0, 210, 211, 0.2), rgba(76, 175, 80, 0.15));
+            border-color: rgba(0, 210, 211, 0.3);
+            color: var(--secondary-color);
         }
 
         .category-card:nth-child(3) .category-icon {
-            background: linear-gradient(135deg, #a347ba, #c56cd6);
+            background: linear-gradient(135deg, rgba(163, 71, 186, 0.2), rgba(197, 108, 214, 0.15));
+            border-color: rgba(163, 71, 186, 0.3);
+            color: #a347ba;
         }
 
         .category-card:nth-child(4) .category-icon {
-            background: linear-gradient(135deg, #e5a50a, #ffc107);
+            background: linear-gradient(135deg, rgba(229, 165, 10, 0.2), rgba(255, 193, 7, 0.15));
+            border-color: rgba(229, 165, 10, 0.3);
+            color: var(--accent-color);
         }
 
         .category-card h3 {
-            color: var(--dark-color);
+            color: var(--text-light);
             margin-bottom: 10px;
             font-size: 1.2rem;
         }
 
         .category-card p {
-            color: #666;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
@@ -413,16 +447,19 @@
         .search-box {
             width: 100%;
             padding: 18px 60px 18px 20px;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 168, 255, 0.3);
             border-radius: 15px;
             font-size: 1.1rem;
             transition: var(--transition);
+            color: var(--text-light);
         }
 
         .search-box:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(26, 95, 180, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .search-icon {
@@ -430,7 +467,7 @@
             left: 25px;
             top: 50%;
             transform: translateY(-50%);
-            color: #999;
+            color: var(--text-muted);
             font-size: 1.2rem;
         }
 
@@ -441,7 +478,7 @@
         }
 
         .entity-card {
-            background-color: white;
+            background-color: var(--card-bg);
             border-radius: 15px;
             padding: 25px;
             box-shadow: var(--card-shadow);
@@ -449,11 +486,13 @@
             justify-content: space-between;
             align-items: center;
             transition: var(--transition);
+            border: 1px solid var(--card-border);
         }
 
         .entity-card:hover {
             transform: translateX(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 168, 255, 0.4);
         }
 
         .entity-info {
@@ -467,18 +506,19 @@
         }
 
         .entity-info p {
-            color: #666;
+            color: var(--text-muted);
             max-width: 600px;
         }
 
         .entity-status {
-            background-color: rgba(38, 162, 105, 0.1);
+            background: rgba(0, 210, 211, 0.15);
             color: var(--secondary-color);
             padding: 8px 15px;
             border-radius: 20px;
             font-weight: 600;
             display: inline-block;
             margin-top: 10px;
+            border: 1px solid rgba(0, 210, 211, 0.3);
         }
 
         .entity-actions {
@@ -501,77 +541,88 @@
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #0097e6);
             color: white;
+            box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
         }
 
         .btn-primary:hover {
-            background-color: #0d4a9c;
+            background: linear-gradient(135deg, #0097e6, var(--primary-color));
+            box-shadow: 0 6px 15px rgba(0, 168, 255, 0.5);
+            transform: translateY(-2px);
         }
 
         .btn-secondary {
-            background-color: var(--light-color);
-            color: var(--dark-color);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
-            background-color: #e0e0e0;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* الفوتر */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 40px 0 20px;
-            margin-top: 60px;
+        /* الشريط السفلي */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid var(--glass-border);
+            padding: 12px 0;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #ddd;
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-decoration: none;
+            color: var(--text-muted);
             transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: 12px;
+            min-width: 80px;
         }
 
-        .footer-links a:hover {
-            color: white;
-            padding-right: 8px;
+        .nav-item.active {
+            color: var(--primary-color);
+            background: rgba(0, 168, 255, 0.1);
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
-            font-size: 0.9rem;
+        .nav-item:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .nav-text {
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         /* زر العودة */
         .back-btn {
             display: none;
-            background-color: var(--light-color);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--primary-color);
-            border: none;
+            border: 1px solid rgba(0, 168, 255, 0.3);
             padding: 12px 25px;
             border-radius: 10px;
             font-weight: 600;
@@ -580,10 +631,12 @@
             transition: var(--transition);
             align-items: center;
             gap: 10px;
+            backdrop-filter: blur(5px);
         }
 
         .back-btn:hover {
-            background-color: #e0e0e0;
+            background: rgba(0, 168, 255, 0.1);
+            border-color: rgba(0, 168, 255, 0.5);
         }
 
         /* تصميم متجاوب */
@@ -623,6 +676,15 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .nav-text {
+                font-size: 0.75rem;
+            }
+            
+            .nav-item {
+                min-width: 70px;
+                padding: 8px 10px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -637,6 +699,24 @@
             .btn {
                 padding: 10px 15px;
                 font-size: 0.9rem;
+            }
+            
+            .nav-items {
+                justify-content: space-between;
+                padding: 0 10px;
+            }
+            
+            .nav-item {
+                min-width: 60px;
+                padding: 5px 8px;
+            }
+            
+            .nav-icon {
+                font-size: 1.2rem;
+            }
+            
+            .nav-text {
+                font-size: 0.7rem;
             }
         }
     </style>
@@ -667,22 +747,22 @@
             العودة للرئيسية
         </button>
 
-        <!-- قسم الترحيب -->
-        <section class="welcome-section">
-            <div class="welcome-content">
-                <div class="welcome-text">
-                    <h2>أهلاً بك في توكلنا</h2>
-                    <p>منصة الخدمات الحكومية الذكية في المملكة العربية السعودية</p>
-                </div>
-                <div class="date-info">
-                    <div class="date">الاثنين 15 صفر 1445هـ</div>
-                    <div class="hijri-date">1 أكتوبر 2023م</div>
-                </div>
-            </div>
-        </section>
-
         <!-- الصفحة الرئيسية -->
         <div id="mainPage">
+            <!-- قسم الترحيب -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <h2>أهلاً بك في توكلنا</h2>
+                        <p>منصة الخدمات الحكومية الذكية في المملكة العربية السعودية</p>
+                    </div>
+                    <div class="date-info">
+                        <div class="date">الاثنين 15 صفر 1445هـ</div>
+                        <div class="hijri-date">1 أكتوبر 2023م</div>
+                    </div>
+                </div>
+            </section>
+
             <!-- الأقسام الرئيسية -->
             <div class="main-sections">
                 <!-- البطاقات المفضلة -->
@@ -827,15 +907,6 @@
                         <p>خدمات المرور والمركبات</p>
                     </div>
 
-                    <!-- التجارة والمالية -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>التجارة والمالية</h3>
-                        <p>الخدمات التجارية والمالية</p>
-                    </div>
-
                     <!-- التعليم -->
                     <div class="category-card">
                         <div class="category-icon">
@@ -867,24 +938,6 @@
                     <div class="entity-info">
                         <h3>وزارة الداخلية</h3>
                         <p>الحساب الرسمي لوزارة الداخلية في توكلنا. يمكنك من خلاله الوصول إلى خدمات الوزارة المختلفة.</p>
-                        <span class="entity-status">متابع</span>
-                    </div>
-                    <div class="entity-actions">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-external-link-alt"></i>
-                            زيارة
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-bell"></i>
-                            إشعارات
-                        </button>
-                    </div>
-                </div>
-
-                <div class="entity-card">
-                    <div class="entity-info">
-                        <h3>وزارة التعليم</h3>
-                        <p>الحساب الرسمي لوزارة التعليم في توكلنا. يوفر خدمات تعليمية للطلاب والمعلمين وأولياء الأمور.</p>
                         <span class="entity-status">متابع</span>
                     </div>
                     <div class="entity-actions">
@@ -934,68 +987,39 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="entity-card">
-                    <div class="entity-info">
-                        <h3>وزارة التجارة</h3>
-                        <p>الحساب الرسمي لوزارة التجارة في توكلنا. يقدم خدمات تجارية واستثمارية للشركات والأفراد.</p>
-                        <span class="entity-status">غير متابع</span>
-                    </div>
-                    <div class="entity-actions">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-external-link-alt"></i>
-                            زيارة
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-plus"></i>
-                            متابعة
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </main>
 
-    <!-- الفوتر -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>عن توكلنا</h3>
-                    <p>منصة وطنية توفر خدمات حكومية ذكية للمواطنين والمقيمين في المملكة العربية السعودية، تسهل الوصول إلى الخدمات والجهات الحكومية.</p>
+    <!-- الشريط السفلي -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a href="#" class="nav-item active" id="navHome">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
                 </div>
-                <div class="footer-section">
-                    <h3>روابط سريعة</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">الخدمات</a></li>
-                        <li><a href="#">الجهات</a></li>
-                        <li><a href="#">المستندات</a></li>
-                        <li><a href="#">الدعم الفني</a></li>
-                    </ul>
+                <div class="nav-text">الرئيسية</div>
+            </a>
+            <a href="#" class="nav-item" id="navServices">
+                <div class="nav-icon">
+                    <i class="fas fa-th-large"></i>
                 </div>
-                <div class="footer-section">
-                    <h3>التطبيقات</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fab fa-apple"></i> تحميل للتوقيع</a></li>
-                        <li><a href="#"><i class="fab fa-google-play"></i> تحميل للأندرويد</a></li>
-                        <li><a href="#"><i class="fas fa-globe"></i> النسخة الويب</a></li>
-                    </ul>
+                <div class="nav-text">الخدمات</div>
+            </a>
+            <a href="#" class="nav-item" id="navMessages">
+                <div class="nav-icon">
+                    <i class="fas fa-envelope"></i>
                 </div>
-                <div class="footer-section">
-                    <h3>اتصل بنا</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-phone-alt"></i> 920020000</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> info@tawakkalna.sa</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i> @TawakkalnaCare</a></li>
-                    </ul>
+                <div class="nav-text">الرسائل</div>
+            </a>
+            <a href="#" class="nav-item" id="navProfile">
+                <div class="nav-icon">
+                    <i class="fas fa-user"></i>
                 </div>
-            </div>
-            <div class="copyright">
-                © 2023 توكلنا - منصة الخدمات الحكومية الذكية. جميع الحقوق محفوظة.
-            </div>
+                <div class="nav-text">معلوماتي</div>
+            </a>
         </div>
-    </footer>
+    </nav>
 
     <script>
         // عناصر DOM
@@ -1003,16 +1027,27 @@
         const entitiesPage = document.getElementById('entitiesPage');
         const entitiesCard = document.getElementById('entitiesCard');
         const backBtn = document.getElementById('backBtn');
-        const categoryCards = document.querySelectorAll('.category-card');
-        const viewAllLinks = document.querySelectorAll('.view-all');
-        const entityVisitButtons = document.querySelectorAll('.entity-actions .btn-primary');
-        const entityFollowButtons = document.querySelectorAll('.entity-actions .btn-secondary');
+        
+        // عناصر الشريط السفلي
+        const navHome = document.getElementById('navHome');
+        const navServices = document.getElementById('navServices');
+        const navMessages = document.getElementById('navMessages');
+        const navProfile = document.getElementById('navProfile');
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // البحث عن الجهات
+        const searchBox = document.querySelector('.search-box');
+        const entityCards = document.querySelectorAll('.entity-card');
 
         // الانتقال إلى صفحة الجهات
         entitiesCard.addEventListener('click', () => {
             mainPage.style.display = 'none';
             entitiesPage.style.display = 'block';
             backBtn.style.display = 'flex';
+            
+            // تحديث الشريط السفلي
+            navItems.forEach(item => item.classList.remove('active'));
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
@@ -1021,63 +1056,19 @@
             entitiesPage.style.display = 'none';
             mainPage.style.display = 'block';
             backBtn.style.display = 'none';
+            
+            // تحديث الشريط السفلي
+            navItems.forEach(item => item.classList.remove('active'));
+            navHome.classList.add('active');
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // إضافة تفاعل لأزرار "عرض الكل"
-        viewAllLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const sectionTitle = link.closest('.section-header').querySelector('.section-title').textContent;
-                alert(`سيتم عرض جميع العناصر في قسم "${sectionTitle}"`);
-            });
-        });
-
-        // تفاعل بطاقات التصنيفات
-        categoryCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const categoryName = this.querySelector('h3').textContent;
-                
-                if (categoryName !== 'الجهات') {
-                    alert(`سيتم فتح قسم "${categoryName}"`);
-                }
-            });
-        });
-
-        // تفاعل أزرار زيارة الجهات
-        entityVisitButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const entityName = this.closest('.entity-card').querySelector('h3').textContent;
-                alert(`سيتم تحويلك إلى صفحة "${entityName}"`);
-            });
-        });
-
-        // تفاعل أزرار متابعة الجهات
-        entityFollowButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const entityCard = this.closest('.entity-card');
-                const entityName = entityCard.querySelector('h3').textContent;
-                const statusElement = entityCard.querySelector('.entity-status');
-                
-                if (this.innerHTML.includes('متابعة')) {
-                    statusElement.textContent = 'متابع';
-                    statusElement.style.backgroundColor = 'rgba(38, 162, 105, 0.1)';
-                    statusElement.style.color = 'var(--secondary-color)';
-                    this.innerHTML = '<i class="fas fa-bell"></i> إشعارات';
-                    alert(`تمت متابعة "${entityName}"`);
-                } else {
-                    alert(`سيتم فتح إعدادات الإشعارات لـ "${entityName}"`);
-                }
-            });
-        });
-
         // وظيفة البحث في الجهات
-        const searchBox = document.querySelector('.search-box');
         searchBox.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
-            const entities = document.querySelectorAll('.entity-card');
             
-            entities.forEach(entity => {
+            entityCards.forEach(entity => {
                 const entityName = entity.querySelector('h3').textContent.toLowerCase();
                 const entityDesc = entity.querySelector('p').textContent.toLowerCase();
                 
@@ -1089,17 +1080,126 @@
             });
         });
 
+        // التنقل بين الصفحات عبر الشريط السفلي
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // إخفاء جميع الصفحات
+            entitiesPage.style.display = 'none';
+            
+            // إظهار الصفحة الرئيسية
+            mainPage.style.display = 'block';
+            backBtn.style.display = 'none';
+            
+            // تحديث الشريط السفلي
+            navItems.forEach(item => item.classList.remove('active'));
+            navHome.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        navServices.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // إخفاء جميع الصفحات
+            entitiesPage.style.display = 'none';
+            
+            // إظهار الصفحة الرئيسية
+            mainPage.style.display = 'block';
+            backBtn.style.display = 'none';
+            
+            // التمرير إلى قسم التصنيفات
+            const categoriesSection = document.querySelector('.categories-grid');
+            categoriesSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // تحديث الشريط السفلي
+            navItems.forEach(item => item.classList.remove('active'));
+            navServices.classList.add('active');
+        });
+
+        navMessages.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // في الواقع، هنا سيتم فتح صفحة الرسائل
+            // لكن لأغراض العرض، سنظهر رسالة
+            alert('صفحة الرسائل قيد التطوير');
+            
+            // تحديث الشريط السفلي
+            navItems.forEach(item => item.classList.remove('active'));
+            navMessages.classList.add('active');
+        });
+
+        navProfile.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // في الواقع، هنا سيتم فتح صفحة الملف الشخصي
+            // لكن لأغراض العرض، سنظهر رسالة
+            alert('صفحة معلوماتي قيد التطوير');
+            
+            // تحديث الشريط السفلي
+            navItems.forEach(item => item.classList.remove('active'));
+            navProfile.classList.add('active');
+        });
+
+        // إضافة تفاعل لأزرار "عرض الكل"
+        const viewAllLinks = document.querySelectorAll('.view-all');
+        viewAllLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionTitle = link.closest('.section-header').querySelector('.section-title').textContent;
+                alert(`سيتم عرض جميع العناصر في قسم "${sectionTitle}"`);
+            });
+        });
+
+        // تفاعل بطاقات التصنيفات
+        const categoryCards = document.querySelectorAll('.category-card');
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const categoryName = this.querySelector('h3').textContent;
+                
+                if (categoryName !== 'الجهات') {
+                    alert(`سيتم فتح قسم "${categoryName}"`);
+                }
+            });
+        });
+
+        // تفاعل أزرار زيارة الجهات
+        const entityVisitButtons = document.querySelectorAll('.entity-actions .btn-primary');
+        entityVisitButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const entityName = this.closest('.entity-card').querySelector('h3').textContent;
+                alert(`سيتم تحويلك إلى صفحة "${entityName}"`);
+            });
+        });
+
+        // تفاعل أزرار متابعة الجهات
+        const entityFollowButtons = document.querySelectorAll('.entity-actions .btn-secondary');
+        entityFollowButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const entityCard = this.closest('.entity-card');
+                const entityName = entityCard.querySelector('h3').textContent;
+                const statusElement = entityCard.querySelector('.entity-status');
+                
+                if (this.innerHTML.includes('متابعة')) {
+                    statusElement.textContent = 'متابع';
+                    statusElement.style.background = 'rgba(0, 210, 211, 0.15)';
+                    statusElement.style.color = 'var(--secondary-color)';
+                    this.innerHTML = '<i class="fas fa-bell"></i> إشعارات';
+                    alert(`تمت متابعة "${entityName}"`);
+                } else {
+                    alert(`سيتم فتح إعدادات الإشعارات لـ "${entityName}"`);
+                }
+            });
+        });
+
         // تحميل البيانات الأولية
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('مرحباً بك في تطبيق توكلنا المحسن!');
+            
             // إضافة تأثيرات عند التحميل
             setTimeout(() => {
                 document.querySelector('.welcome-section').style.opacity = '1';
             }, 100);
-            
-            // عرض رسالة ترحيبية
-            setTimeout(() => {
-                console.log('مرحباً بك في تطبيق توكلنا المحسن! تم تحميل التطبيق بنجاح.');
-            }, 500);
         });
     </script>
 </body>
