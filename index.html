@@ -3,505 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>توكلنا</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tawakkalna Interface Clone</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-        }
-
-        :root {
-            --primary-color: #007AFF;
-            --secondary-color: #34C759;
-            --accent-color: #FF9500;
-            --dark-bg: #000000;
-            --card-bg: #1C1C1E;
-            --text-primary: #FFFFFF;
-            --text-secondary: #8E8E93;
-            --border-color: #2C2C2E;
-            --glass-bg: rgba(28, 28, 30, 0.9);
-        }
-
-        body {
-            background-color: var(--dark-bg);
-            color: var(--text-primary);
-            line-height: 1.5;
-            padding: 20px 15px 100px 15px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        /* شريط الحالة العلوي */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-
-        .time {
-            font-weight: 600;
-            font-size: 17px;
-        }
-
-        .status-icons {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .status-icons i {
-            font-size: 14px;
-        }
-
-        /* قسم الترحيب */
-        .welcome-section {
-            margin-bottom: 30px;
-        }
-
-        .greeting {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .weather-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        /* الأقسام الرئيسية */
-        .main-sections {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .section-box {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 20px;
-            height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid var(--border-color);
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        /* قسم استكشاف التصنيفات */
-        .categories-section {
-            margin-bottom: 30px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        /* قائمة التصنيفات */
-        .categories-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .category-item {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 18px 15px;
-            border: 1px solid var(--border-color);
-        }
-
-        .category-item h3 {
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-
-        /* أزرار عرض الكل */
-        .view-all-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .view-all-btn {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 17px;
-            text-decoration: none;
-        }
-
-        /* القائمة الثانية */
-        .categories-list-secondary {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        /* الشريط السفلي */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color);
-            padding: 10px 0;
-            z-index: 1000;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .nav-items {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: all 0.2s;
-            padding: 8px 12px;
-            border-radius: 10px;
-            min-width: 70px;
-        }
-
-        .nav-item.active {
-            color: var(--primary-color);
-            background-color: rgba(0, 122, 255, 0.1);
-        }
-
-        .nav-icon {
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
-
-        .nav-text {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        /* تأثيرات تفاعلية */
-        .section-box, .category-item, .nav-item {
-            transition: all 0.2s ease;
-        }
-
-        .section-box:active, .category-item:active {
-            background-color: rgba(120, 120, 128, 0.2);
-            transform: scale(0.98);
-        }
-
-        /* تخصيص الألوان للتصنيفات */
-        .category-item:nth-child(1) h3 { color: #007AFF; }
-        .category-item:nth-child(2) h3 { color: #34C759; }
-        .category-item:nth-child(3) h3 { color: #FF9500; }
-        .category-item:nth-child(4) h3 { color: #AF52DE; }
-        
-        .categories-list-secondary .category-item:nth-child(1) h3 { color: #5856D6; }
-        .categories-list-secondary .category-item:nth-child(2) h3 { color: #FF3B30; }
-        .categories-list-secondary .category-item:nth-child(3) h3 { color: #5AC8FA; }
-        .categories-list-secondary .category-item:nth-child(4) h3 { color: #FFCC00; }
-        .categories-list-secondary .category-item:nth-child(5) h3 { color: #FF2D55; }
-        .categories-list-secondary .category-item:nth-child(6) h3 { color: #4CD964; }
-
-        /* التكيف مع الشاشات المختلفة */
-        @media (max-width: 400px) {
-            body {
-                padding: 15px 12px 90px 12px;
-            }
-            
-            .section-box {
-                padding: 15px;
-                height: 110px;
-            }
-            
-            .category-item {
-                padding: 15px 12px;
-            }
-        }
+        body { background-color: #000000; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: white; }
+        .card-bg { background-color: #121212; }
+        .icon-circle { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
     </style>
 </head>
-<body>
-    <!-- شريط الحالة العلوي -->
-    <div class="status-bar">
-        <div class="time">٩:٤١</div>
-        <div class="status-icons">
-            <i class="fas fa-signal"></i>
-            <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-three-quarters"></i>
+<body class="p-4">
+
+    <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-gray-600 rounded-full"></div>
+            <div>
+                <p class="text-xs text-gray-400">أهلاً،</p>
+                <p class="text-sm font-bold">اسم المستخدم</p>
+            </div>
+        </div>
+        <div class="text-xs text-gray-400 flex items-center gap-1">
+            <span>27° - صحو في...</span>
+            <span class="text-yellow-500 text-lg">☀️</span>
         </div>
     </div>
 
-    <!-- قسم الترحيب -->
-    <div class="welcome-section">
-        <h1 class="greeting">أهلاً</h1>
-        <div class="weather-info">
-            <i class="fas fa-sun"></i>
-            <span>27° - صحيح في الاثنين</span>
-        </div>
+    <div class="relative mb-8">
+        <input type="text" placeholder="ابحث في توكلنا" class="w-full bg-[#121212] border border-gray-800 rounded-xl py-3 px-10 text-right text-sm outline-none focus:border-green-600">
+        <svg class="w-5 h-5 absolute left-3 top-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
     </div>
 
-    <!-- الأقسام الرئيسية -->
-    <div class="main-sections">
-        <div class="section-box" id="favoriteCards">
-            <h2 class="section-title">البطاقات المفضلة</h2>
-            <div class="section-content"></div>
-        </div>
-        
-        <div class="section-box" id="familyRecord">
-            <h2 class="section-title">سجل الأسرة</h2>
-            <div class="section-content"></div>
-        </div>
-    </div>
-
-    <!-- قسم استكشاف التصنيفات -->
-    <div class="categories-section">
-        <div class="section-header">
-            <h2>استكشاف التصنيفات</h2>
-        </div>
-
-        <!-- القائمة الأولى -->
-        <div class="categories-list">
-            <div class="category-item" id="entitiesCategory">
-                <h3>الجهات</h3>
+    <div class="mb-8">
+        <h2 class="text-md font-bold mb-4">الوصول السريع</h2>
+        <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+            <div class="card-bg px-4 py-2 rounded-lg flex items-center gap-2 min-w-max">
+                <span class="text-green-500 text-sm">📅</span>
+                <span class="text-xs">التقويم</span>
             </div>
-            
-            <div class="category-item">
-                <h3>المستندات</h3>
+            <div class="card-bg px-4 py-2 rounded-lg flex items-center gap-2 min-w-max">
+                <span class="text-blue-400 text-sm">♻️</span>
+                <span class="text-xs">إحسان</span>
             </div>
-            
-            <div class="category-item">
-                <h3>إحسان</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>التقويم</h3>
-            </div>
-        </div>
-
-        <!-- أزرار عرض الكل -->
-        <div class="view-all-buttons">
-            <a href="#" class="view-all-btn">
-                <span>عرض الكل</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            
-            <a href="#" class="view-all-btn">
-                <span>عرض الكل</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            
-            <a href="#" class="view-all-btn">
-                <span>عرض الكل</span>
-                <i class="fas fa-chevron-left"></i>
-            </a>
-        </div>
-
-        <!-- القائمة الثانية -->
-        <div class="categories-list-secondary">
-            <div class="category-item">
-                <h3>الدينية</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>الصحة</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>الشخصية والأسرة</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>المركبات والمرور</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>التجارة والمالية</h3>
-            </div>
-            
-            <div class="category-item">
-                <h3>التعليم</h3>
+            <div class="card-bg px-4 py-2 rounded-lg flex items-center gap-2 min-w-max">
+                <span class="text-gray-300 text-sm">📄</span>
+                <span class="text-xs">المستندات</span>
             </div>
         </div>
     </div>
 
-    <!-- الشريط السفلي -->
-    <nav class="bottom-nav">
-        <div class="nav-items">
-            <a href="#" class="nav-item active">
-                <div class="nav-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <div class="nav-text">الرئيسية</div>
-            </a>
-            
-            <a href="#" class="nav-item">
-                <div class="nav-icon">
-                    <i class="fas fa-compass"></i>
-                </div>
-                <div class="nav-text">استكشاف</div>
-            </a>
-            
-            <a href="#" class="nav-item">
-                <div class="nav-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="nav-text">الرسائل</div>
-            </a>
-            
-            <a href="#" class="nav-item">
-                <div class="nav-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <div class="nav-text">الخدمات</div>
-            </a>
-            
-            <a href="#" class="nav-item">
-                <div class="nav-icon">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="nav-text">معلوماتي</div>
-            </a>
+    <div class="mb-4 flex justify-between items-center">
+        <h2 class="text-md font-bold">استكشف التصنيفات</h2>
+        <a href="#" class="text-blue-400 text-xs">عرض الكل</a>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3">
+        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
+            <div class="icon-circle bg-purple-900/30 text-purple-400 text-xl">👥</div>
+            <span class="text-[10px] text-center leading-tight">الشخصية والأسرة</span>
         </div>
-    </nav>
 
-    <script>
-        // عناصر DOM
-        const favoriteCards = document.getElementById('favoriteCards');
-        const familyRecord = document.getElementById('familyRecord');
-        const entitiesCategory = document.getElementById('entitiesCategory');
-        const viewAllBtns = document.querySelectorAll('.view-all-btn');
-        const categoryItems = document.querySelectorAll('.category-item');
-        const navItems = document.querySelectorAll('.nav-item');
+        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
+            <div class="icon-circle bg-red-900/30 text-red-500 text-xl">❤️</div>
+            <span class="text-[10px] text-center">الصحة</span>
+        </div>
 
-        // تفاعل البطاقات المفضلة
-        favoriteCards.addEventListener('click', function() {
-            alert('سيتم فتح البطاقات المفضلة');
-        });
+        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
+            <div class="icon-circle bg-yellow-900/20 text-yellow-600 text-xl">🕌</div>
+            <span class="text-[10px] text-center">الدينية</span>
+        </div>
 
-        // تفاعل سجل الأسرة
-        familyRecord.addEventListener('click', function() {
-            alert('سيتم فتح سجل الأسرة');
-        });
+        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
+            <div class="icon-circle bg-blue-900/30 text-blue-400 text-xl">🎓</div>
+            <span class="text-[10px] text-center">التعليم</span>
+        </div>
 
-        // تفاعل تصنيف الجهات
-        entitiesCategory.addEventListener('click', function() {
-            alert('سيتم فتح قائمة الجهات');
-        });
+        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
+            <div class="icon-circle bg-green-900/20 text-green-500 text-xl">💸</div>
+            <span class="text-[10px] text-center leading-tight">التجارة والمالية</span>
+        </div>
 
-        // تفاعل أزرار عرض الكل
-        viewAllBtns.forEach((btn, index) => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                let sectionName = '';
-                
-                if (index === 0) {
-                    sectionName = 'البطاقات المفضلة';
-                } else if (index === 1) {
-                    sectionName = 'سجل الأسرة';
-                } else {
-                    sectionName = 'التصنيفات';
-                }
-                
-                alert(`سيتم عرض جميع عناصر قسم "${sectionName}"`);
-            });
-        });
+        <div class="card-bg rounded-2xl p-4 flex flex-col items-center justify-center aspect-square">
+            <div class="icon-circle bg-emerald-900/20 text-emerald-500 text-xl">🚗</div>
+            <span class="text-[10px] text-center leading-tight">المركبات والمرور</span>
+        </div>
+    </div>
 
-        // تفاعل عناصر التصنيفات
-        categoryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const categoryName = this.querySelector('h3').textContent;
-                alert(`سيتم فتح قسم "${categoryName}"`);
-            });
-        });
+    <div class="fixed bottom-0 left-0 w-full bg-[#0a0a0a] border-t border-gray-900 flex justify-around py-3">
+        <div class="flex flex-col items-center gap-1 text-green-500">
+            <span class="text-xl">🛡️</span>
+            <span class="text-[10px]">توكلنا</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-500">
+            <span class="text-xl">🗞️</span>
+            <span class="text-[10px]">واكب</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-500">
+            <span class="text-xl">🔳</span>
+            <span class="text-[10px]">الخدمات</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-500">
+            <span class="text-xl">💬</span>
+            <span class="text-[10px]">الرسائل</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-500">
+            <span class="text-xl">📂</span>
+            <span class="text-[10px]">معلوماتي</span>
+        </div>
+    </div>
 
-        // تفاعل شريط التنقل السفلي
-        navItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                navItems.forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-                
-                const pageName = this.querySelector('.nav-text').textContent;
-                
-                if (pageName !== 'الرئيسية') {
-                    alert(`سيتم فتح صفحة "${pageName}"`);
-                }
-            });
-        });
-
-        // تحديث الوقت كل دقيقة
-        function updateTime() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            
-            // تحويل إلى تنسيق 12 ساعة
-            const isPM = hours >= 12;
-            hours = hours % 12 || 12;
-            
-            // إضافة صفر أمام الأرقام أقل من 10
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            
-            // تحويل الأرقام إلى عربية
-            const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-            const hoursStr = hours.toString().split('').map(d => arabicNumbers[d] || d).join('');
-            const minutesStr = minutes.toString().split('').map(d => arabicNumbers[d] || d).join('');
-            
-            document.querySelector('.time').textContent = `${hoursStr}:${minutesStr}`;
-        }
-
-        // تحديث الوقت أولاً ثم كل دقيقة
-        updateTime();
-        setInterval(updateTime, 60000);
-
-        // محاكاة تغيير حالة البطارية
-        setInterval(() => {
-            const batteryIcons = ['fa-battery-empty', 'fa-battery-quarter', 'fa-battery-half', 'fa-battery-three-quarters', 'fa-battery-full'];
-            const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
-            
-            const batteryIcon = document.querySelector('.fa-battery-three-quarters');
-            if (batteryIcon) {
-                batteryIcon.className = `fas ${randomIcon}`;
-            }
-        }, 30000);
-    </script>
 </body>
 </html>
