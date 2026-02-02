@@ -3,217 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>توكلنا | الخدمات الحكومية الذكية</title>
+    <title>توكلنا</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
 
         :root {
-            --primary-color: #00a8ff;
-            --secondary-color: #00d2d3;
-            --accent-color: #ff9f43;
-            --dark-bg: #0d0d0d;
-            --card-bg: #1a1a1a;
-            --card-border: #2a2a2a;
-            --text-light: #f5f5f5;
-            --text-muted: #aaa;
-            --glass-bg: rgba(15, 15, 15, 0.9);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s ease;
+            --primary-color: #007AFF;
+            --secondary-color: #34C759;
+            --accent-color: #FF9500;
+            --dark-bg: #000000;
+            --card-bg: #1C1C1E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8E8E93;
+            --border-color: #2C2C2E;
+            --glass-bg: rgba(28, 28, 30, 0.9);
         }
 
         body {
             background-color: var(--dark-bg);
-            color: var(--text-light);
-            line-height: 1.6;
-            padding-bottom: 80px; /* مساحة للشريط السفلي */
-        }
-
-        /* تحسينات التمرير */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 5px;
-        }
-
-        .container {
-            max-width: 1200px;
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: 20px 15px 100px 15px;
+            max-width: 500px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        /* الهيدر */
-        header {
-            background: linear-gradient(135deg, rgba(0, 168, 255, 0.1) 0%, rgba(13, 13, 13, 0.9) 100%);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .header-content {
+        /* شريط الحالة العلوي */
+        .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
         }
 
-        .logo {
+        .time {
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .status-icons {
             display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo i {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-            filter: drop-shadow(0 0 5px rgba(255, 159, 67, 0.5));
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .weather-info {
-            background: rgba(0, 168, 255, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
             gap: 8px;
-            border: 1px solid rgba(0, 168, 255, 0.2);
-            backdrop-filter: blur(5px);
-        }
-
-        .weather-info i {
-            color: var(--accent-color);
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .user-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0, 168, 255, 0.4);
+        .status-icons i {
+            font-size: 14px;
         }
 
         /* قسم الترحيب */
         .welcome-section {
-            padding: 30px 0;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .welcome-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .welcome-text h2 {
-            font-size: 2rem;
-            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .greeting {
+            font-size: 28px;
+            font-weight: 700;
             margin-bottom: 5px;
+            color: var(--text-primary);
         }
 
-        .welcome-text p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .date-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-
-        .date-info .date {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .date-info .hijri-date {
-            color: var(--secondary-color);
-            font-size: 0.9rem;
-            margin-top: 5px;
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 16px;
         }
 
         /* الأقسام الرئيسية */
         .main-sections {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .section-card {
+        .section-box {
             background-color: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 20px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--border-color);
         }
 
-        .section-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
-            border-color: rgba(0, 168, 255, 0.3);
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
-        .section-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        /* قسم استكشاف التصنيفات */
+        .categories-section {
+            margin-bottom: 30px;
         }
 
         .section-header {
@@ -223,366 +115,80 @@
             margin-bottom: 20px;
         }
 
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.4rem;
-            color: var(--text-light);
+        .section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
-        .section-title i {
-            color: var(--secondary-color);
-        }
-
-        .view-all {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
-        }
-
-        .view-all:hover {
-            color: var(--secondary-color);
-            gap: 8px;
-        }
-
-        /* البطاقات المفضلة */
-        .favorite-cards {
+        /* قائمة التصنيفات */
+        .categories-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
+            margin-bottom: 25px;
         }
 
-        .fav-card {
-            background: linear-gradient(135deg, rgba(0, 168, 255, 0.15), rgba(0, 210, 211, 0.1));
-            color: white;
-            border-radius: 15px;
-            padding: 20px 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 120px;
-            border: 1px solid rgba(0, 168, 255, 0.2);
-            backdrop-filter: blur(5px);
+        .category-item {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 18px 15px;
+            border: 1px solid var(--border-color);
         }
 
-        .fav-card:nth-child(2) {
-            background: linear-gradient(135deg, rgba(0, 210, 211, 0.15), rgba(76, 175, 80, 0.1));
-            border-color: rgba(0, 210, 211, 0.2);
-        }
-
-        .fav-card:nth-child(3) {
-            background: linear-gradient(135deg, rgba(163, 71, 186, 0.15), rgba(197, 108, 214, 0.1));
-            border-color: rgba(163, 71, 186, 0.2);
-        }
-
-        .fav-card:hover {
-            transform: scale(1.05);
-            border-color: rgba(0, 168, 255, 0.5);
-            box-shadow: 0 8px 15px rgba(0, 168, 255, 0.2);
-        }
-
-        .fav-card i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        /* سجل الأسرة */
-        .family-record {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .family-member {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            transition: var(--transition);
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .family-member:hover {
-            background: rgba(0, 168, 255, 0.1);
-            border-color: rgba(0, 168, 255, 0.3);
-        }
-
-        .member-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .member-info h4 {
-            color: var(--text-light);
+        .category-item h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 5px;
         }
 
-        .member-info p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* خدمات التصنيفات */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .category-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px 20px;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--card-border);
-        }
-
-        .category-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            border-color: rgba(0, 168, 255, 0.4);
-        }
-
-        .category-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
-            transition: var(--transition);
-        }
-
-        .category-card:hover::after {
-            height: 8px;
-        }
-
-        .category-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
-            background: linear-gradient(135deg, rgba(0, 168, 255, 0.2), rgba(0, 210, 211, 0.15));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            border: 2px solid rgba(0, 168, 255, 0.3);
-        }
-
-        .category-card:nth-child(2) .category-icon {
-            background: linear-gradient(135deg, rgba(0, 210, 211, 0.2), rgba(76, 175, 80, 0.15));
-            border-color: rgba(0, 210, 211, 0.3);
-            color: var(--secondary-color);
-        }
-
-        .category-card:nth-child(3) .category-icon {
-            background: linear-gradient(135deg, rgba(163, 71, 186, 0.2), rgba(197, 108, 214, 0.15));
-            border-color: rgba(163, 71, 186, 0.3);
-            color: #a347ba;
-        }
-
-        .category-card:nth-child(4) .category-icon {
-            background: linear-gradient(135deg, rgba(229, 165, 10, 0.2), rgba(255, 193, 7, 0.15));
-            border-color: rgba(229, 165, 10, 0.3);
-            color: var(--accent-color);
-        }
-
-        .category-card h3 {
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .category-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* صفحة الجهات */
-        .entities-page {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .search-container {
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 18px 60px 18px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(0, 168, 255, 0.3);
-            border-radius: 15px;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            color: var(--text-light);
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.1);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 1.2rem;
-        }
-
-        .entities-list {
+        /* أزرار عرض الكل */
+        .view-all-buttons {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .entity-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: var(--card-shadow);
+        .view-all-btn {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: var(--transition);
-            border: 1px solid var(--card-border);
-        }
-
-        .entity-card:hover {
-            transform: translateX(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            border-color: rgba(0, 168, 255, 0.4);
-        }
-
-        .entity-info {
-            flex: 1;
-        }
-
-        .entity-info h3 {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
             color: var(--primary-color);
-            margin-bottom: 8px;
-            font-size: 1.4rem;
-        }
-
-        .entity-info p {
-            color: var(--text-muted);
-            max-width: 600px;
-        }
-
-        .entity-status {
-            background: rgba(0, 210, 211, 0.15);
-            color: var(--secondary-color);
-            padding: 8px 15px;
-            border-radius: 20px;
             font-weight: 600;
-            display: inline-block;
-            margin-top: 10px;
-            border: 1px solid rgba(0, 210, 211, 0.3);
+            font-size: 17px;
+            text-decoration: none;
         }
 
-        .entity-actions {
-            display: flex;
+        /* القائمة الثانية */
+        .categories-list-secondary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), #0097e6);
-            color: white;
-            box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0097e6, var(--primary-color));
-            box-shadow: 0 6px 15px rgba(0, 168, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* الشريط السفلي */
         .bottom-nav {
             position: fixed;
             bottom: 0;
+            right: 0;
             left: 0;
-            width: 100%;
             background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid var(--glass-border);
-            padding: 12px 0;
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-color);
+            padding: 10px 0;
             z-index: 1000;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .nav-items {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         .nav-item {
@@ -590,429 +196,204 @@
             flex-direction: column;
             align-items: center;
             text-decoration: none;
-            color: var(--text-muted);
-            transition: var(--transition);
-            padding: 8px 15px;
-            border-radius: 12px;
-            min-width: 80px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            padding: 8px 12px;
+            border-radius: 10px;
+            min-width: 70px;
         }
 
         .nav-item.active {
             color: var(--primary-color);
-            background: rgba(0, 168, 255, 0.1);
-        }
-
-        .nav-item:hover {
-            color: var(--primary-color);
-            transform: translateY(-3px);
+            background-color: rgba(0, 122, 255, 0.1);
         }
 
         .nav-icon {
-            font-size: 1.4rem;
+            font-size: 22px;
             margin-bottom: 5px;
         }
 
         .nav-text {
-            font-size: 0.85rem;
+            font-size: 12px;
             font-weight: 500;
         }
 
-        /* زر العودة */
-        .back-btn {
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--primary-color);
-            border: 1px solid rgba(0, 168, 255, 0.3);
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 25px;
-            transition: var(--transition);
-            align-items: center;
-            gap: 10px;
-            backdrop-filter: blur(5px);
+        /* تأثيرات تفاعلية */
+        .section-box, .category-item, .nav-item {
+            transition: all 0.2s ease;
         }
 
-        .back-btn:hover {
-            background: rgba(0, 168, 255, 0.1);
-            border-color: rgba(0, 168, 255, 0.5);
+        .section-box:active, .category-item:active {
+            background-color: rgba(120, 120, 128, 0.2);
+            transform: scale(0.98);
         }
 
-        /* تصميم متجاوب */
-        @media (max-width: 992px) {
-            .main-sections {
-                grid-template-columns: 1fr;
-            }
-            
-            .categories-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-        }
+        /* تخصيص الألوان للتصنيفات */
+        .category-item:nth-child(1) h3 { color: #007AFF; }
+        .category-item:nth-child(2) h3 { color: #34C759; }
+        .category-item:nth-child(3) h3 { color: #FF9500; }
+        .category-item:nth-child(4) h3 { color: #AF52DE; }
+        
+        .categories-list-secondary .category-item:nth-child(1) h3 { color: #5856D6; }
+        .categories-list-secondary .category-item:nth-child(2) h3 { color: #FF3B30; }
+        .categories-list-secondary .category-item:nth-child(3) h3 { color: #5AC8FA; }
+        .categories-list-secondary .category-item:nth-child(4) h3 { color: #FFCC00; }
+        .categories-list-secondary .category-item:nth-child(5) h3 { color: #FF2D55; }
+        .categories-list-secondary .category-item:nth-child(6) h3 { color: #4CD964; }
 
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
+        /* التكيف مع الشاشات المختلفة */
+        @media (max-width: 400px) {
+            body {
+                padding: 15px 12px 90px 12px;
             }
             
-            .welcome-content {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
+            .section-box {
+                padding: 15px;
+                height: 110px;
             }
             
-            .categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .entity-card {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .entity-actions {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .nav-text {
-                font-size: 0.75rem;
-            }
-            
-            .nav-item {
-                min-width: 70px;
-                padding: 8px 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .favorite-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .btn {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-            
-            .nav-items {
-                justify-content: space-between;
-                padding: 0 10px;
-            }
-            
-            .nav-item {
-                min-width: 60px;
-                padding: 5px 8px;
-            }
-            
-            .nav-icon {
-                font-size: 1.2rem;
-            }
-            
-            .nav-text {
-                font-size: 0.7rem;
+            .category-item {
+                padding: 15px 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- الهيدر -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <i class="fas fa-hands-helping"></i>
-                <h1>توكلنا</h1>
-            </div>
-            <div class="user-info">
-                <div class="weather-info">
-                    <i class="fas fa-sun"></i>
-                    <span>27° - صحيح في الاثنين</span>
-                </div>
-                <div class="user-avatar">م</div>
-            </div>
+    <!-- شريط الحالة العلوي -->
+    <div class="status-bar">
+        <div class="time">٩:٤١</div>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
         </div>
-    </header>
+    </div>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="container">
-        <!-- زر العودة -->
-        <button class="back-btn" id="backBtn">
-            <i class="fas fa-arrow-right"></i>
-            العودة للرئيسية
-        </button>
+    <!-- قسم الترحيب -->
+    <div class="welcome-section">
+        <h1 class="greeting">أهلاً</h1>
+        <div class="weather-info">
+            <i class="fas fa-sun"></i>
+            <span>27° - صحيح في الاثنين</span>
+        </div>
+    </div>
 
-        <!-- الصفحة الرئيسية -->
-        <div id="mainPage">
-            <!-- قسم الترحيب -->
-            <section class="welcome-section">
-                <div class="welcome-content">
-                    <div class="welcome-text">
-                        <h2>أهلاً بك في توكلنا</h2>
-                        <p>منصة الخدمات الحكومية الذكية في المملكة العربية السعودية</p>
-                    </div>
-                    <div class="date-info">
-                        <div class="date">الاثنين 15 صفر 1445هـ</div>
-                        <div class="hijri-date">1 أكتوبر 2023م</div>
-                    </div>
-                </div>
-            </section>
+    <!-- الأقسام الرئيسية -->
+    <div class="main-sections">
+        <div class="section-box" id="favoriteCards">
+            <h2 class="section-title">البطاقات المفضلة</h2>
+            <div class="section-content"></div>
+        </div>
+        
+        <div class="section-box" id="familyRecord">
+            <h2 class="section-title">سجل الأسرة</h2>
+            <div class="section-content"></div>
+        </div>
+    </div>
 
-            <!-- الأقسام الرئيسية -->
-            <div class="main-sections">
-                <!-- البطاقات المفضلة -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <h2 class="section-title">
-                            <i class="fas fa-star"></i>
-                            البطاقات المفضلة
-                        </h2>
-                        <a href="#" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="favorite-cards">
-                        <div class="fav-card">
-                            <i class="fas fa-id-card"></i>
-                            <span>الهوية الرقمية</span>
-                        </div>
-                        <div class="fav-card">
-                            <i class="fas fa-heartbeat"></i>
-                            <span>حالة الصحة</span>
-                        </div>
-                        <div class="fav-card">
-                            <i class="fas fa-car"></i>
-                            <span>رخصة القيادة</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- قسم استكشاف التصنيفات -->
+    <div class="categories-section">
+        <div class="section-header">
+            <h2>استكشاف التصنيفات</h2>
+        </div>
 
-                <!-- سجل الأسرة -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <h2 class="section-title">
-                            <i class="fas fa-users"></i>
-                            سجل الأسرة
-                        </h2>
-                        <a href="#" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="family-record">
-                        <div class="family-member">
-                            <div class="member-avatar">م</div>
-                            <div class="member-info">
-                                <h4>محمد أحمد</h4>
-                                <p>صاحب الحساب - حالة صحية: محصن</p>
-                            </div>
-                        </div>
-                        <div class="family-member">
-                            <div class="member-avatar">س</div>
-                            <div class="member-info">
-                                <h4>سارة أحمد</h4>
-                                <p>الزوجة - حالة صحية: محصنة</p>
-                            </div>
-                        </div>
-                        <div class="family-member">
-                            <div class="member-avatar">خ</div>
-                            <div class="member-info">
-                                <h4>خالد محمد</h4>
-                                <p>الابن - حالة صحية: محصن</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- القائمة الأولى -->
+        <div class="categories-list">
+            <div class="category-item" id="entitiesCategory">
+                <h3>الجهات</h3>
             </div>
-
-            <!-- استكشاف التصنيفات -->
-            <div class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <i class="fas fa-compass"></i>
-                        استكشاف التصنيفات
-                    </h2>
-                    <a href="#" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                </div>
-                <div class="categories-grid">
-                    <!-- الجهات -->
-                    <div class="category-card" id="entitiesCard">
-                        <div class="category-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <h3>الجهات</h3>
-                        <p>الوزارات والهيئات الحكومية</p>
-                    </div>
-
-                    <!-- المستندات -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <h3>المستندات</h3>
-                        <p>الوثائق والمستندات الرقمية</p>
-                    </div>
-
-                    <!-- إحسان -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-hands-helping"></i>
-                        </div>
-                        <h3>إحسان</h3>
-                        <p>المنصة الوطنية للعمل الخيري</p>
-                    </div>
-
-                    <!-- التقويم -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <h3>التقويم</h3>
-                        <p>المواعيد والأحداث المهمة</p>
-                    </div>
-
-                    <!-- الدينية -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-mosque"></i>
-                        </div>
-                        <h3>الدينية</h3>
-                        <p>الخدمات والمعلومات الدينية</p>
-                    </div>
-
-                    <!-- الصحة -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <h3>الصحة</h3>
-                        <p>الخدمات والمعلومات الصحية</p>
-                    </div>
-
-                    <!-- الشخصية والأسرة -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-user-friends"></i>
-                        </div>
-                        <h3>الشخصية والأسرة</h3>
-                        <p>خدمات الأفراد والعائلات</p>
-                    </div>
-
-                    <!-- المركبات والمرور -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-car"></i>
-                        </div>
-                        <h3>المركبات والمرور</h3>
-                        <p>خدمات المرور والمركبات</p>
-                    </div>
-
-                    <!-- التعليم -->
-                    <div class="category-card">
-                        <div class="category-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>التعليم</h3>
-                        <p>الخدمات والمعلومات التعليمية</p>
-                    </div>
-                </div>
+            
+            <div class="category-item">
+                <h3>المستندات</h3>
+            </div>
+            
+            <div class="category-item">
+                <h3>إحسان</h3>
+            </div>
+            
+            <div class="category-item">
+                <h3>التقويم</h3>
             </div>
         </div>
 
-        <!-- صفحة الجهات -->
-        <div class="entities-page" id="entitiesPage">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <i class="fas fa-building"></i>
-                    الجهات
-                </h2>
+        <!-- أزرار عرض الكل -->
+        <div class="view-all-buttons">
+            <a href="#" class="view-all-btn">
+                <span>عرض الكل</span>
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            
+            <a href="#" class="view-all-btn">
+                <span>عرض الكل</span>
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            
+            <a href="#" class="view-all-btn">
+                <span>عرض الكل</span>
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+
+        <!-- القائمة الثانية -->
+        <div class="categories-list-secondary">
+            <div class="category-item">
+                <h3>الدينية</h3>
             </div>
-
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="البحث عن الجهات">
-                <i class="fas fa-search search-icon"></i>
+            
+            <div class="category-item">
+                <h3>الصحة</h3>
             </div>
-
-            <div class="entities-list">
-                <div class="entity-card">
-                    <div class="entity-info">
-                        <h3>وزارة الداخلية</h3>
-                        <p>الحساب الرسمي لوزارة الداخلية في توكلنا. يمكنك من خلاله الوصول إلى خدمات الوزارة المختلفة.</p>
-                        <span class="entity-status">متابع</span>
-                    </div>
-                    <div class="entity-actions">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-external-link-alt"></i>
-                            زيارة
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-bell"></i>
-                            إشعارات
-                        </button>
-                    </div>
-                </div>
-
-                <div class="entity-card">
-                    <div class="entity-info">
-                        <h3>وزارة العدل</h3>
-                        <p>الحساب الرسمي لوزارة العدل في توكلنا. يوفر خدمات قانونية وقضائية للجمهور.</p>
-                        <span class="entity-status">متابع</span>
-                    </div>
-                    <div class="entity-actions">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-external-link-alt"></i>
-                            زيارة
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-bell"></i>
-                            إشعارات
-                        </button>
-                    </div>
-                </div>
-
-                <div class="entity-card">
-                    <div class="entity-info">
-                        <h3>وزارة الصحة</h3>
-                        <p>الحساب الرسمي لوزارة الصحة في توكلنا. يقدم خدمات صحية ومعلومات عن الحملات التطعيمية.</p>
-                        <span class="entity-status">متابع</span>
-                    </div>
-                    <div class="entity-actions">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-external-link-alt"></i>
-                            زيارة
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-bell"></i>
-                            إشعارات
-                        </button>
-                    </div>
-                </div>
+            
+            <div class="category-item">
+                <h3>الشخصية والأسرة</h3>
+            </div>
+            
+            <div class="category-item">
+                <h3>المركبات والمرور</h3>
+            </div>
+            
+            <div class="category-item">
+                <h3>التجارة والمالية</h3>
+            </div>
+            
+            <div class="category-item">
+                <h3>التعليم</h3>
             </div>
         </div>
-    </main>
+    </div>
 
     <!-- الشريط السفلي -->
     <nav class="bottom-nav">
         <div class="nav-items">
-            <a href="#" class="nav-item active" id="navHome">
+            <a href="#" class="nav-item active">
                 <div class="nav-icon">
                     <i class="fas fa-home"></i>
                 </div>
                 <div class="nav-text">الرئيسية</div>
             </a>
-            <a href="#" class="nav-item" id="navServices">
+            
+            <a href="#" class="nav-item">
                 <div class="nav-icon">
-                    <i class="fas fa-th-large"></i>
+                    <i class="fas fa-compass"></i>
                 </div>
-                <div class="nav-text">الخدمات</div>
+                <div class="nav-text">استكشاف</div>
             </a>
-            <a href="#" class="nav-item" id="navMessages">
+            
+            <a href="#" class="nav-item">
                 <div class="nav-icon">
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div class="nav-text">الرسائل</div>
             </a>
-            <a href="#" class="nav-item" id="navProfile">
+            
+            <a href="#" class="nav-item">
+                <div class="nav-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-text">الخدمات</div>
+            </a>
+            
+            <a href="#" class="nav-item">
                 <div class="nav-icon">
                     <i class="fas fa-user"></i>
                 </div>
@@ -1023,184 +404,104 @@
 
     <script>
         // عناصر DOM
-        const mainPage = document.getElementById('mainPage');
-        const entitiesPage = document.getElementById('entitiesPage');
-        const entitiesCard = document.getElementById('entitiesCard');
-        const backBtn = document.getElementById('backBtn');
-        
-        // عناصر الشريط السفلي
-        const navHome = document.getElementById('navHome');
-        const navServices = document.getElementById('navServices');
-        const navMessages = document.getElementById('navMessages');
-        const navProfile = document.getElementById('navProfile');
+        const favoriteCards = document.getElementById('favoriteCards');
+        const familyRecord = document.getElementById('familyRecord');
+        const entitiesCategory = document.getElementById('entitiesCategory');
+        const viewAllBtns = document.querySelectorAll('.view-all-btn');
+        const categoryItems = document.querySelectorAll('.category-item');
         const navItems = document.querySelectorAll('.nav-item');
-        
-        // البحث عن الجهات
-        const searchBox = document.querySelector('.search-box');
-        const entityCards = document.querySelectorAll('.entity-card');
 
-        // الانتقال إلى صفحة الجهات
-        entitiesCard.addEventListener('click', () => {
-            mainPage.style.display = 'none';
-            entitiesPage.style.display = 'block';
-            backBtn.style.display = 'flex';
-            
-            // تحديث الشريط السفلي
-            navItems.forEach(item => item.classList.remove('active'));
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // تفاعل البطاقات المفضلة
+        favoriteCards.addEventListener('click', function() {
+            alert('سيتم فتح البطاقات المفضلة');
         });
 
-        // العودة للصفحة الرئيسية
-        backBtn.addEventListener('click', () => {
-            entitiesPage.style.display = 'none';
-            mainPage.style.display = 'block';
-            backBtn.style.display = 'none';
-            
-            // تحديث الشريط السفلي
-            navItems.forEach(item => item.classList.remove('active'));
-            navHome.classList.add('active');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // تفاعل سجل الأسرة
+        familyRecord.addEventListener('click', function() {
+            alert('سيتم فتح سجل الأسرة');
         });
 
-        // وظيفة البحث في الجهات
-        searchBox.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            
-            entityCards.forEach(entity => {
-                const entityName = entity.querySelector('h3').textContent.toLowerCase();
-                const entityDesc = entity.querySelector('p').textContent.toLowerCase();
-                
-                if (entityName.includes(searchTerm) || entityDesc.includes(searchTerm)) {
-                    entity.style.display = 'flex';
-                } else {
-                    entity.style.display = 'none';
-                }
-            });
+        // تفاعل تصنيف الجهات
+        entitiesCategory.addEventListener('click', function() {
+            alert('سيتم فتح قائمة الجهات');
         });
 
-        // التنقل بين الصفحات عبر الشريط السفلي
-        navHome.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // إخفاء جميع الصفحات
-            entitiesPage.style.display = 'none';
-            
-            // إظهار الصفحة الرئيسية
-            mainPage.style.display = 'block';
-            backBtn.style.display = 'none';
-            
-            // تحديث الشريط السفلي
-            navItems.forEach(item => item.classList.remove('active'));
-            navHome.classList.add('active');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        navServices.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // إخفاء جميع الصفحات
-            entitiesPage.style.display = 'none';
-            
-            // إظهار الصفحة الرئيسية
-            mainPage.style.display = 'block';
-            backBtn.style.display = 'none';
-            
-            // التمرير إلى قسم التصنيفات
-            const categoriesSection = document.querySelector('.categories-grid');
-            categoriesSection.scrollIntoView({ behavior: 'smooth' });
-            
-            // تحديث الشريط السفلي
-            navItems.forEach(item => item.classList.remove('active'));
-            navServices.classList.add('active');
-        });
-
-        navMessages.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // في الواقع، هنا سيتم فتح صفحة الرسائل
-            // لكن لأغراض العرض، سنظهر رسالة
-            alert('صفحة الرسائل قيد التطوير');
-            
-            // تحديث الشريط السفلي
-            navItems.forEach(item => item.classList.remove('active'));
-            navMessages.classList.add('active');
-        });
-
-        navProfile.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // في الواقع، هنا سيتم فتح صفحة الملف الشخصي
-            // لكن لأغراض العرض، سنظهر رسالة
-            alert('صفحة معلوماتي قيد التطوير');
-            
-            // تحديث الشريط السفلي
-            navItems.forEach(item => item.classList.remove('active'));
-            navProfile.classList.add('active');
-        });
-
-        // إضافة تفاعل لأزرار "عرض الكل"
-        const viewAllLinks = document.querySelectorAll('.view-all');
-        viewAllLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+        // تفاعل أزرار عرض الكل
+        viewAllBtns.forEach((btn, index) => {
+            btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                const sectionTitle = link.closest('.section-header').querySelector('.section-title').textContent;
-                alert(`سيتم عرض جميع العناصر في قسم "${sectionTitle}"`);
-            });
-        });
-
-        // تفاعل بطاقات التصنيفات
-        const categoryCards = document.querySelectorAll('.category-card');
-        categoryCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const categoryName = this.querySelector('h3').textContent;
+                let sectionName = '';
                 
-                if (categoryName !== 'الجهات') {
-                    alert(`سيتم فتح قسم "${categoryName}"`);
-                }
-            });
-        });
-
-        // تفاعل أزرار زيارة الجهات
-        const entityVisitButtons = document.querySelectorAll('.entity-actions .btn-primary');
-        entityVisitButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const entityName = this.closest('.entity-card').querySelector('h3').textContent;
-                alert(`سيتم تحويلك إلى صفحة "${entityName}"`);
-            });
-        });
-
-        // تفاعل أزرار متابعة الجهات
-        const entityFollowButtons = document.querySelectorAll('.entity-actions .btn-secondary');
-        entityFollowButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const entityCard = this.closest('.entity-card');
-                const entityName = entityCard.querySelector('h3').textContent;
-                const statusElement = entityCard.querySelector('.entity-status');
-                
-                if (this.innerHTML.includes('متابعة')) {
-                    statusElement.textContent = 'متابع';
-                    statusElement.style.background = 'rgba(0, 210, 211, 0.15)';
-                    statusElement.style.color = 'var(--secondary-color)';
-                    this.innerHTML = '<i class="fas fa-bell"></i> إشعارات';
-                    alert(`تمت متابعة "${entityName}"`);
+                if (index === 0) {
+                    sectionName = 'البطاقات المفضلة';
+                } else if (index === 1) {
+                    sectionName = 'سجل الأسرة';
                 } else {
-                    alert(`سيتم فتح إعدادات الإشعارات لـ "${entityName}"`);
+                    sectionName = 'التصنيفات';
+                }
+                
+                alert(`سيتم عرض جميع عناصر قسم "${sectionName}"`);
+            });
+        });
+
+        // تفاعل عناصر التصنيفات
+        categoryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const categoryName = this.querySelector('h3').textContent;
+                alert(`سيتم فتح قسم "${categoryName}"`);
+            });
+        });
+
+        // تفاعل شريط التنقل السفلي
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                const pageName = this.querySelector('.nav-text').textContent;
+                
+                if (pageName !== 'الرئيسية') {
+                    alert(`سيتم فتح صفحة "${pageName}"`);
                 }
             });
         });
 
-        // تحميل البيانات الأولية
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('مرحباً بك في تطبيق توكلنا المحسن!');
+        // تحديث الوقت كل دقيقة
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
             
-            // إضافة تأثيرات عند التحميل
-            setTimeout(() => {
-                document.querySelector('.welcome-section').style.opacity = '1';
-            }, 100);
-        });
+            // تحويل إلى تنسيق 12 ساعة
+            const isPM = hours >= 12;
+            hours = hours % 12 || 12;
+            
+            // إضافة صفر أمام الأرقام أقل من 10
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            // تحويل الأرقام إلى عربية
+            const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+            const hoursStr = hours.toString().split('').map(d => arabicNumbers[d] || d).join('');
+            const minutesStr = minutes.toString().split('').map(d => arabicNumbers[d] || d).join('');
+            
+            document.querySelector('.time').textContent = `${hoursStr}:${minutesStr}`;
+        }
+
+        // تحديث الوقت أولاً ثم كل دقيقة
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // محاكاة تغيير حالة البطارية
+        setInterval(() => {
+            const batteryIcons = ['fa-battery-empty', 'fa-battery-quarter', 'fa-battery-half', 'fa-battery-three-quarters', 'fa-battery-full'];
+            const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
+            
+            const batteryIcon = document.querySelector('.fa-battery-three-quarters');
+            if (batteryIcon) {
+                batteryIcon.className = `fas ${randomIcon}`;
+            }
+        }, 30000);
     </script>
 </body>
 </html>
