@@ -3,823 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة سَمُوّ</title>
+<title>منصة سَمُوّ - البوابة الشاملة</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
-    --bg: #000000;
-    --card: #1C1C1E;
-    --card-light: #2C2C2E;
-    --text: #FFFFFF;
-    --text-muted: #8E8E93;
-    --blue: #0A84FF;
-    --green: #30D158;
-    --red: #FF453A;
-    --yellow: #FFD60A;
-    --purple: #5E5CE6;
-    --orange: #FF9F0A;
-    --border: #3A3A3C;
-    --glass: rgba(28, 28, 30, 0.95);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    max-width: 500px;
-    margin: auto;
-    padding: 0 20px 100px;
-    line-height: 1.5;
-    overflow-x: hidden;
-}
-
-/* شريط الحالة */
-.status-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 0 15px;
-    font-weight: 600;
-    font-size: 15px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 100;
-}
-
-.status-icons {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.status-icons i {
-    font-size: 14px;
-    color: var(--text-muted);
-}
-
-/* الترحيب */
-.welcome-section {
-    margin-bottom: 25px;
-    padding-top: 10px;
-}
-
-.greeting {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    background: linear-gradient(90deg, #0A84FF, #5E5CE6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.weather {
-    color: var(--text-muted);
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.weather i {
-    color: #FFD60A;
-}
-
-/* البحث */
-.search-section {
-    margin-bottom: 30px;
-}
-
-.search-bar {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-}
-
-.search-bar:focus-within {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.15);
-}
-
-.search-bar i {
-    color: var(--text-muted);
-    font-size: 18px;
-}
-
-.search-bar input {
-    flex: 1;
-    background: none;
-    border: none;
-    color: var(--text);
-    font-size: 16px;
-    outline: none;
-}
-
-.search-bar input::placeholder {
-    color: var(--text-muted);
-}
-
-/* الوصول السريع */
-.quick-access-section {
-    margin-bottom: 30px;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-}
-
-.section-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text);
-}
-
-.view-all {
-    color: var(--blue);
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.3s ease;
-}
-
-.view-all:hover {
-    transform: translateX(-5px);
-}
-
-.quick-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.quick-item {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 15px 10px;
-    text-align: center;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.quick-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--blue);
-    box-shadow: 0 8px 20px rgba(10, 132, 255, 0.2);
-}
-
-.quick-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    color: white;
-}
-
-.quick-item:nth-child(1) .quick-icon {
-    background: linear-gradient(135deg, var(--blue), #5E5CE6);
-}
-
-.quick-item:nth-child(2) .quick-icon {
-    background: linear-gradient(135deg, var(--green), #30D158);
-}
-
-.quick-item:nth-child(3) .quick-icon {
-    background: linear-gradient(135deg, var(--red), #FF6B6B);
-}
-
-.quick-item:nth-child(4) .quick-icon {
-    background: linear-gradient(135deg, var(--orange), #FFD60A);
-}
-
-.quick-item span {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-}
-
-/* النشرة المختصرة */
-.news-brief-section {
-    margin-bottom: 30px;
-}
-
-.news-brief-grid {
-    display: grid;
-    gap: 15px;
-}
-
-.news-brief-item {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 18px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.news-brief-item:hover {
-    transform: translateX(-5px);
-    border-color: var(--purple);
-    box-shadow: 0 8px 20px rgba(94, 92, 230, 0.15);
-}
-
-.news-brief-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: white;
-    flex-shrink: 0;
-}
-
-.news-brief-item:nth-child(1) .news-brief-icon {
-    background: linear-gradient(135deg, var(--purple), #7E5CFF);
-}
-
-.news-brief-item:nth-child(2) .news-brief-icon {
-    background: linear-gradient(135deg, var(--green), #4CD964);
-}
-
-.news-brief-item:nth-child(3) .news-brief-icon {
-    background: linear-gradient(135deg, var(--orange), #FFD700);
-}
-
-.news-brief-content {
-    flex: 1;
-}
-
-.news-brief-content h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: var(--text);
-}
-
-.news-brief-content p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.4;
-    margin-bottom: 8px;
-}
-
-.news-date {
-    font-size: 12px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* الإحصائيات السريعة */
-.stats-section {
-    margin-bottom: 30px;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.stat-card {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 18px;
-    border: 1px solid var(--border);
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.stat-value {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    background: linear-gradient(90deg, var(--blue), var(--purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.stat-label {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 500;
-}
-
-/* البطاقات المميزة */
-.featured-section {
-    margin-bottom: 30px;
-}
-
-.featured-grid {
-    display: grid;
-    gap: 15px;
-}
-
-.featured-card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-}
-
-.featured-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--blue);
-    box-shadow: 0 10px 25px rgba(10, 132, 255, 0.2);
-}
-
-.featured-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 5px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--green), var(--blue));
-    transition: width 0.3s ease;
-}
-
-.featured-card:hover::before {
-    width: 8px;
-}
-
-.featured-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.featured-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: white;
-    background: linear-gradient(135deg, var(--blue), #5E5CE6);
-}
-
-.featured-content h3 {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text);
-}
-
-.featured-content p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
-/* الشريط السفلي */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--glass);
-    backdrop-filter: blur(25px);
-    border-top: 1px solid var(--border);
-    padding: 12px 0 18px;
-    max-width: 500px;
-    margin: auto;
-    z-index: 1000;
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.nav-items {
-    display: flex;
-    justify-content: space-around;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-muted);
-    font-size: 11px;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.nav-item.active {
-    color: var(--blue);
-    background: rgba(10, 132, 255, 0.12);
-}
-
-.nav-item:hover {
-    color: var(--blue);
-    transform: translateY(-2px);
-}
-
-.nav-item i {
-    font-size: 22px;
-    margin-bottom: 5px;
-}
-
-/* تأثيرات تفاعلية */
-.quick-item:active, .news-brief-item:active, .featured-card:active {
-    transform: scale(0.98);
-}
-
-/* التكيف مع الشاشات */
-@media (max-width: 400px) {
-    body {
-        padding: 0 16px 95px;
-    }
-    
-    .greeting {
-        font-size: 28px;
-    }
-    
-    .quick-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    
-    .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .nav-item {
-        padding: 5px 10px;
-    }
-    
-    .nav-item i {
-        font-size: 20px;
-    }
-    
-    .featured-card {
-        padding: 16px;
-    }
-}
-
-@media (min-width: 768px) {
-    .quick-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-    
-    .news-brief-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+    --bg: #0F172A;
+    --card: #1E293B;
+    --primary: #0EA5E9;
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --text: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border: #334155;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
+body { background: var(--bg); color: var(--text); max-width: 480px; margin: auto; overflow-x: hidden; }
+
+/* الهيدر وشريط الحالة */
+.header { position: sticky; top: 0; background: var(--bg); z-index: 1000; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.status-bar { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 10px; font-weight: bold; }
+
+/* التنقل بين الصفحات */
+.page { display: none; padding: 16px; animation: fadeIn 0.3s ease-in-out; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* الكروت والتصميم العام */
+.card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border); }
+.section-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+
+/* شبكة الخدمات */
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.service-item { text-align: center; cursor: pointer; }
+.icon-box { background: rgba(14, 165, 233, 0.1); width: 100%; aspect-ratio: 1; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary); margin-bottom: 8px; transition: 0.2s; }
+.service-item:active .icon-box { transform: scale(0.9); background: var(--primary); color: white; }
+.service-item span { font-size: 11px; color: var(--text-muted); display: block; }
+
+/* المحفظة الرقمية */
+.id-card { background: linear-gradient(135deg, #0284c7, #0369a1); border-radius: 15px; padding: 20px; position: relative; overflow: hidden; }
+.id-card::after { content: 'SAUDI ID'; position: absolute; opacity: 0.1; font-size: 40px; right: -10px; bottom: -10px; font-weight: 900; }
+
+/* الخدمات الصحية */
+.health-item { display: flex; align-items: center; gap: 15px; padding: 12px; border-bottom: 1px solid var(--border); }
+.health-item:last-child { border: none; }
+.btn-request { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 600; cursor: pointer; }
+
+/* التقديمات */
+.job-tag { background: rgba(16, 185, 129, 0.1); color: var(--success); padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+
+/* المنيو السفلي */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); max-width: 480px; margin: auto; }
+.nav-link { text-decoration: none; color: var(--text-muted); text-align: center; font-size: 11px; cursor: pointer; }
+.nav-link.active { color: var(--primary); }
+.nav-link i { font-size: 20px; display: block; margin-bottom: 4px; }
 </style>
 </head>
-
 <body>
-<!-- الصفحة الرئيسية -->
-<div id="mainPage">
-    <!-- شريط الحالة -->
+
+<div class="header">
     <div class="status-bar">
-        <div id="currentTime">٩:٤١</div>
-        <div class="status-icons">
-            <i class="fas fa-signal"></i>
-            <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-three-quarters"></i>
-        </div>
+        <div id="time">--:--</div>
+        <div style="display: flex; gap: 8px;"><i class="fas fa-wifi"></i><i class="fas fa-signal"></i></div>
     </div>
-
-    <!-- الترحيب -->
-    <div class="welcome-section">
-        <h1 class="greeting">أهلاً سليمان</h1>
-        <div class="weather">
-            <i class="fas fa-cloud-sun"></i>
-            <span>غائم جزئي في KR الآن</span>
-        </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 id="page-title">الرئيسية</h2>
+        <div style="width: 35px; height: 35px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">س م</div>
     </div>
+</div>
 
-    <!-- البحث -->
-    <div class="search-section">
-        <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="ابحث في خدمات منصة سَمُوّ">
-        </div>
-    </div>
-
-    <!-- الوصول السريع -->
-    <div class="quick-access-section">
-        <div class="section-header">
-            <h2 class="section-title">الوصول السريع</h2>
-            <a href="#" class="view-all">المزيد <i class="fas fa-chevron-left"></i></a>
-        </div>
-        <div class="quick-grid">
-            <div class="quick-item" onclick="openQuickAccess('التقويم')">
-                <div class="quick-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <span>التقويم</span>
-            </div>
-            <div class="quick-item" onclick="openQuickAccess('الخدمات')">
-                <div class="quick-icon">
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <span>الخدمات</span>
-            </div>
-            <div class="quick-item" onclick="openQuickAccess('الجهات')">
-                <div class="quick-icon">
-                    <i class="fas fa-building"></i>
-                </div>
-                <span>الجهات</span>
-            </div>
-            <div class="quick-item" onclick="openQuickAccess('المستندات')">
-                <div class="quick-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <span>المستندات</span>
+<div id="home" class="page active">
+    <div class="id-card card">
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <div style="width: 60px; height: 80px; background: #e2e8f0; border-radius: 4px; overflow: hidden;"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Suliman" alt="Avatar"></div>
+            <div>
+                <p style="font-size: 12px; opacity: 0.8;">الهوية الوطنية</p>
+                <h3 style="font-size: 16px;">سليمان بن محمد آل سعود</h3>
+                <p style="font-size: 14px; letter-spacing: 2px; margin-top: 5px;">١٠٩٨٧٦٥٤٣٢</p>
             </div>
         </div>
     </div>
 
-    <!-- النشرة المختصرة -->
-    <div class="news-brief-section">
-        <div class="section-header">
-            <h2 class="section-title">آخر النشرة</h2>
-            <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
+    <h2 class="section-title"><i class="fas fa-th-large" style="color: var(--primary);"></i> خدمات لوحة التحكم</h2>
+    <div class="services-grid">
+        <div class="service-item" onclick="showPage('health', 'الخدمات الصحية')">
+            <div class="icon-box"><i class="fas fa-heartbeat"></i></div>
+            <span>الصحة</span>
         </div>
-        <div class="news-brief-grid">
-            <div class="news-brief-item" onclick="openNews('خدمات الصحة الجديدة')">
-                <div class="news-brief-icon">
-                    <i class="fas fa-heartbeat"></i>
-                </div>
-                <div class="news-brief-content">
-                    <h3>خدمات الصحة الجديدة</h3>
-                    <p>إطلاق منصة الصحة الإلكترونية مع خدمات حجز المواعيد والاستشارات الطبية عن بعد</p>
-                    <div class="news-date">
-                        <i class="far fa-clock"></i>
-                        <span>قبل ساعتين</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-brief-item" onclick="openNews('فرص التوظيف')">
-                <div class="news-brief-icon">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div class="news-brief-content">
-                    <h3>فرص التوظيف الجديدة</h3>
-                    <p>فتح باب التقديم على ٢٥٠ وظيفة حكومية في عدة وزارات وهيئات</p>
-                    <div class="news-date">
-                        <i class="far fa-clock"></i>
-                        <span>قبل ٥ أيام</span>
-                    </div>
-                </div>
-            </div>
-            <div class="news-brief-item" onclick="openNews('التحديثات التقنية')">
-                <div class="news-brief-icon">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
-                <div class="news-brief-content">
-                    <h3>التحديثات التقنية</h3>
-                    <p>تحسينات جديدة على المنصة تشمل سرعة الأداء وتجربة مستخدم محسنة</p>
-                    <div class="news-date">
-                        <i class="far fa-clock"></i>
-                        <span>قبل أسبوع</span>
-                    </div>
-                </div>
-            </div>
+        <div class="service-item" onclick="showPage('jobs', 'التقديمات والوظائف')">
+            <div class="icon-box"><i class="fas fa-briefcase"></i></div>
+            <span>التقديمات</span>
+        </div>
+        <div class="service-item" onclick="showPage('calendar', 'التقويم الرسمي')">
+            <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+            <span>التقويم</span>
+        </div>
+        <div class="service-item" onclick="showPage('accounts', 'إدارة الحسابات')">
+            <div class="icon-box"><i class="fas fa-user-cog"></i></div>
+            <span>الحسابات</span>
         </div>
     </div>
+</div>
 
-    <!-- الإحصائيات السريعة -->
-    <div class="stats-section">
-        <div class="section-header">
-            <h2 class="section-title">إحصائيات سريعة</h2>
+<div id="health" class="page">
+    <div class="card">
+        <h3>الحالة الصحية: <span style="color: var(--success);">محصن</span></h3>
+        <p style="font-size: 12px; color: var(--text-muted);">آخر تحديث: منذ ساعة واحدة</p>
+    </div>
+    <h2 class="section-title">الخدمات المتاحة</h2>
+    <div class="card" style="padding: 0;">
+        <div class="health-item">
+            <i class="fas fa-syringe" style="color: var(--primary);"></i>
+            <div style="flex: 1;"><h5>لقاحات كورونا (كوفيد-١٩)</h5><p style="font-size: 11px; color: var(--text-muted);">عرض الشهادات والجرعات</p></div>
+            <i class="fas fa-chevron-left" style="font-size: 12px;"></i>
         </div>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">١٥٬٢٣٤</div>
-                <div class="stat-label">خدمة منفذة</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">٨٤٥</div>
-                <div class="stat-label">جهة حكومية</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">١٫٢م</div>
-                <div class="stat-label">مستخدم نشط</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">٩٩٫٨٪</div>
-                <div class="stat-label">رضا العملاء</div>
-            </div>
+        <div class="health-item">
+            <i class="fas fa-file-medical" style="color: var(--primary);"></i>
+            <div style="flex: 1;"><h5>التقرير الطبي الرقمي</h5><p style="font-size: 11px; color: var(--text-muted);">طلب تقرير معتمد للجهات</p></div>
+            <i class="fas fa-chevron-left" style="font-size: 12px;"></i>
         </div>
     </div>
+    <button class="btn-request" onclick="alert('تم إرسال طلب موعد جديد')">حجز موعد طبي جديد</button>
+</div>
 
-    <!-- البطاقات المميزة -->
-    <div class="featured-section">
-        <div class="section-header">
-            <h2 class="section-title">مميز لك</h2>
-            <a href="#" class="view-all">تخصيص <i class="fas fa-chevron-left"></i></a>
+<div id="jobs" class="page">
+    <h2 class="section-title">التقديمات المتاحة</h2>
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4>وزارة الطاقة</h4>
+            <span class="job-tag">تقديم نشط</span>
         </div>
-        <div class="featured-grid">
-            <div class="featured-card" onclick="openFeatured('منصة إبلاغ')">
-                <div class="featured-header">
-                    <div class="featured-icon">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <div class="featured-content">
-                        <h3>منصة إبلاغ</h3>
-                        <p>الإبلاغ عن المخالفات والشكاوى والاقتراحات للجهات المعنية</p>
-                    </div>
-                </div>
+        <p style="font-size: 12px; margin: 8px 0; color: var(--text-muted);">برنامج تطوير الخريجين ٢٠٢٦</p>
+        <button class="btn-request" style="background: var(--card); border: 1px solid var(--primary); color: var(--primary);">تفاصيل التقديم</button>
+    </div>
+    <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4>برنامج كفاءات</h4>
+            <span class="job-tag">متاح الآن</span>
+        </div>
+        <p style="font-size: 12px; margin: 8px 0; color: var(--text-muted);">مسار التحول الرقمي والذكاء الاصطناعي</p>
+        <button class="btn-request">تقديم الآن</button>
+    </div>
+</div>
+
+<div id="calendar" class="page">
+    <div class="card" style="text-align: center;">
+        <h2 style="color: var(--primary);" id="hijri-date">٢٢ رجب ١٤٤٧ هـ</h2>
+        <p style="color: var(--text-muted);">٢ فبراير ٢٠٢٦ م</p>
+    </div>
+    <h2 class="section-title">المواعيد القادمة</h2>
+    <div class="card">
+        <div style="display: flex; gap: 15px;">
+            <div style="background: var(--primary); padding: 5px 12px; border-radius: 8px; text-align: center;">
+                <span style="display: block; font-size: 10px;">فبراير</span><b style="font-size: 18px;">١٥</b>
             </div>
-            <div class="featured-card" onclick="openFeatured('خدمات الموظفين')">
-                <div class="featured-header">
-                    <div class="featured-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="featured-content">
-                        <h3>خدمات الموظفين</h3>
-                        <p>نظام إدارة المهام والتقارير والملفات الداخلية</p>
-                    </div>
-                </div>
+            <div>
+                <h5>موعد تجديد الرخصة</h5>
+                <p style="font-size: 11px; color: var(--text-muted);">مرور منطقة الرياض - ٠٩:٠٠ ص</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- الشريط السفلي -->
-<nav class="bottom-nav">
-    <div class="nav-items">
-        <a class="nav-item active" onclick="changeNav('الرئيسية')">
-            <i class="fas fa-home"></i>
-            <span>الرئيسية</span>
-        </a>
-        <a class="nav-item" onclick="changeNav('النشرة')">
-            <i class="fas fa-newspaper"></i>
-            <span>النشرة</span>
-        </a>
-        <a class="nav-item" onclick="changeNav('الخدمات')">
-            <i class="fas fa-sliders-h"></i>
-            <span>الخدمات</span>
-        </a>
-        <a class="nav-item" onclick="changeNav('الجهات')">
-            <i class="fas fa-building"></i>
-            <span>الجهات</span>
-        </a>
-        <a class="nav-item" onclick="changeNav('حسابي')">
-            <i class="fas fa-user"></i>
-            <span>حسابي</span>
-        </a>
+<div id="accounts" class="page">
+    <div class="card">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div style="width: 50px; height: 50px; background: var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-building"></i></div>
+            <div>
+                <h5>مؤسسة سليمان للتجارة</h5>
+                <p style="font-size: 11px; color: var(--text-muted);">سجل تجاري: ٤٠٣٠٢٠١٠</p>
+            </div>
+            <span class="job-tag" style="margin-right: auto;">نشط</span>
+        </div>
     </div>
+    <div class="card">
+        <h5>التابعين (٣)</h5>
+        <div style="margin-top: 10px;">
+            <p style="font-size: 13px; padding: 5px 0;">- محمد سليمان (ابن)</p>
+            <p style="font-size: 13px; padding: 5px 0;">- نورة سليمان (ابنة)</p>
+        </div>
+    </div>
+</div>
+
+<nav class="bottom-nav">
+    <div class="nav-link active" onclick="showPage('home', 'الرئيسية')"><i class="fas fa-home"></i><span>الرئيسية</span></div>
+    <div class="nav-link" onclick="showPage('health', 'الصحة')"><i class="fas fa-heartbeat"></i><span>الصحة</span></div>
+    <div class="nav-link" onclick="showPage('jobs', 'التقديمات')"><i class="fas fa-briefcase"></i><span>التقديمات</span></div>
+    <div class="nav-link" onclick="showPage('accounts', 'حسابي')"><i class="fas fa-user-circle"></i><span>حسابي</span></div>
 </nav>
 
 <script>
-// تحديث الوقت
-const arabicNumbers = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-function updateTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    
-    // تحويل إلى تنسيق 12 ساعة
-    hours = hours % 12 || 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    
-    // تحويل الأرقام إلى عربية
-    const hoursStr = hours.toString().split('').map(n => arabicNumbers[n] || n).join('');
-    const minutesStr = minutes.toString().split('').map(n => arabicNumbers[n] || n).join('');
-    
-    document.getElementById('currentTime').textContent = `${hoursStr}:${minutesStr}`;
-}
-
-updateTime();
-setInterval(updateTime, 60000);
-
-// فتح الوصول السريع
-function openQuickAccess(item) {
-    alert(`جاري فتح ${item}...`);
-}
-
-// فتح النشرة
-function openNews(title) {
-    alert(`جاري فتح "${title}"...`);
-}
-
-// فتح المميزات
-function openFeatured(item) {
-    alert(`جاري فتح ${item}...`);
-}
-
-// تحديث التنقل
-function updateNav(pageName) {
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => item.classList.remove('active'));
-    
-    // إيجاد العنصر المناسب وتفعيله
-    navItems.forEach(item => {
-        if (item.querySelector('span').textContent === pageName) {
-            item.classList.add('active');
-        }
-    });
-}
-
-function changeNav(pageName) {
-    if (pageName === 'الرئيسية') {
-        // نحن بالفعل في الرئيسية
-        alert(`أنت في الصفحة الرئيسية`);
-        updateNav('الرئيسية');
-    } else {
-        alert(`جاري تحميل صفحة ${pageName}...`);
-        updateNav(pageName);
-    }
-}
-
-// تأثيرات عند التحميل
-document.addEventListener('DOMContentLoaded', function() {
-    // تأثيرات ظهور تدريجي للعناصر
-    const sections = document.querySelectorAll('.quick-grid, .news-brief-grid, .stats-grid, .featured-grid');
-    
-    sections.forEach((section, sectionIndex) => {
-        const items = section.querySelectorAll('.quick-item, .news-brief-item, .stat-card, .featured-card');
+    // نظام التنقل بين الصفحات
+    function showPage(pageId, title) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         
-        items.forEach((item, itemIndex) => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-            }, (sectionIndex * 200) + (itemIndex * 100));
-        });
-    });
-});
-
-// تأثير على البحث عند التركيز
-const searchInput = document.querySelector('.search-bar input');
-searchInput.addEventListener('focus', function() {
-    document.querySelector('.search-bar').style.boxShadow = '0 0 0 2px rgba(10, 132, 255, 0.2)';
-});
-
-searchInput.addEventListener('blur', function() {
-    document.querySelector('.search-bar').style.boxShadow = 'none';
-});
-
-// تحديث البطارية بشكل عشوائي
-setInterval(() => {
-    const batteryIcons = [
-        'fa-battery-empty',
-        'fa-battery-quarter',
-        'fa-battery-half',
-        'fa-battery-three-quarters',
-        'fa-battery-full'
-    ];
-    const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
-    const batteryIcon = document.querySelector('.fa-battery-three-quarters');
-    if (batteryIcon) {
-        batteryIcon.className = `fas ${randomIcon}`;
+        document.getElementById(pageId).classList.add('active');
+        document.getElementById('page-title').innerText = title;
+        
+        // تفعيل الأيقونة في الشريط السفلي
+        event.currentTarget.classList.add('active');
     }
-}, 30000);
+
+    // الساعة الرقمية
+    function updateTime() {
+        const now = new Date();
+        let h = now.getHours(), m = now.getMinutes();
+        h = h % 12 || 12;
+        m = m < 10 ? '0' + m : m;
+        const arab = n => n.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        document.getElementById('time').textContent = arab(h) + ':' + arab(m);
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
 </script>
 </body>
 </html>
