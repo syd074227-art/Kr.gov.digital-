@@ -4,175 +4,350 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>منصة سَمُوّ</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <style>
-:root{
---bg:#000;
---card:#1C1C1E;
---text:#fff;
---muted:#8E8E93;
---blue:#0A84FF;
---green:#30D158;
---red:#FF453A;
---yellow:#FFD60A;
---purple:#5E5CE6;
+:root {
+    --bg: #000000;
+    --card: #1C1C1E;
+    --card-light: #2C2C2E;
+    --text: #FFFFFF;
+    --text-muted: #8E8E93;
+    --blue: #0A84FF;
+    --green: #30D158;
+    --red: #FF453A;
+    --yellow: #FFD60A;
+    --purple: #5E5CE6;
+    --orange: #FF9F0A;
+    --border: #3A3A3C;
+    --glass: rgba(28, 28, 30, 0.95);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
-body{
-background:var(--bg);
-color:var(--text);
-max-width:500px;
-margin:auto;
-padding:0 16px 90px;
+body {
+    background: var(--bg);
+    color: var(--text);
+    max-width: 500px;
+    margin: auto;
+    padding: 0 20px 100px;
+    line-height: 1.5;
 }
 
 /* شريط الحالة */
-.status-bar{
-display:flex;
-justify-content:space-between;
-padding:14px 0;
-font-weight:600;
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0 15px;
+    font-weight: 600;
+    font-size: 15px;
 }
 
-.status-icons i{margin-right:6px}
+.status-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.status-icons i {
+    font-size: 14px;
+}
 
 /* الترحيب */
-.greeting{
-font-size:30px;
-font-weight:700;
-margin-bottom:6px;
+.greeting {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #0A84FF, #5E5CE6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.weather{
-color:var(--muted);
-font-size:14px;
-margin-bottom:18px;
+.weather {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.weather i {
+    color: #FFD60A;
 }
 
 /* البحث */
-.search-bar{
-background:var(--card);
-border-radius:16px;
-padding:14px 16px;
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:24px;
+.search-bar {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
 }
 
-.search-bar input{
-flex:1;
-background:none;
-border:none;
-color:var(--text);
-font-size:15px;
+.search-bar:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.15);
+}
+
+.search-bar i {
+    color: var(--text-muted);
+    font-size: 18px;
+}
+
+.search-bar input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 16px;
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-muted);
 }
 
 /* الوصول السريع */
-.mini-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-bottom:26px;
+.mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 30px;
 }
 
-.mini-item{
-background:var(--card);
-border-radius:16px;
-padding:14px 10px;
-text-align:center;
-box-shadow:0 6px 20px rgba(0,0,0,.6);
+.mini-item {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.mini-icon{
-width:40px;height:40px;
-margin:auto;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(255,255,255,.06);
-margin-bottom:6px;
+.mini-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue);
+    box-shadow: 0 8px 20px rgba(10, 132, 255, 0.2);
+}
+
+.mini-icon {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.2), rgba(94, 92, 230, 0.15));
+    border: 1px solid rgba(10, 132, 255, 0.3);
+}
+
+.mini-item:nth-child(2) .mini-icon {
+    background: linear-gradient(135deg, rgba(48, 209, 88, 0.2), rgba(10, 132, 255, 0.15));
+    border-color: rgba(48, 209, 88, 0.3);
+}
+
+.mini-item:nth-child(3) .mini-icon {
+    background: linear-gradient(135deg, rgba(255, 159, 10, 0.2), rgba(255, 69, 58, 0.15));
+    border-color: rgba(255, 159, 10, 0.3);
+}
+
+.mini-item span {
+    font-size: 14px;
+    font-weight: 600;
 }
 
 /* النشرة */
-.section-title{
-font-size:18px;
-font-weight:700;
-margin-bottom:14px;
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
 }
 
-.news-grid{
-display:grid;
-gap:14px;
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
 }
 
-.news-item{
-background:var(--card);
-border-radius:18px;
-padding:16px;
-display:flex;
-gap:14px;
-box-shadow:0 6px 22px rgba(0,0,0,.65);
+.view-all {
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-.news-icon{
-width:46px;height:46px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:20px;
-background:rgba(255,255,255,.06);
-flex-shrink:0;
+.news-grid {
+    display: grid;
+    gap: 16px;
 }
 
-.news h3{
-font-size:15px;
-font-weight:600;
-margin-bottom:4px;
+.news-item {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.news p{
-font-size:13px;
-color:var(--muted);
+.news-item:hover {
+    transform: translateX(-8px);
+    border-color: var(--purple);
+    box-shadow: 0 10px 25px rgba(94, 92, 230, 0.15);
 }
 
-/* ألوان الأقسام */
-.health i{color:var(--red)}
-.law i{color:var(--blue)}
-.services i{color:var(--purple)}
-.work i{color:var(--green)}
-.education i{color:var(--yellow)}
+.news-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    flex-shrink: 0;
+}
+
+/* ألوان الأيقونات */
+.news-item.services .news-icon {
+    background: linear-gradient(135deg, var(--purple), #7E5CFF);
+}
+
+.news-item.health .news-icon {
+    background: linear-gradient(135deg, var(--red), #FF6B6B);
+}
+
+.news-item.law .news-icon {
+    background: linear-gradient(135deg, var(--blue), #5AC8FA);
+}
+
+.news-item.work .news-icon {
+    background: linear-gradient(135deg, var(--green), #4CD964);
+}
+
+.news-item.education .news-icon {
+    background: linear-gradient(135deg, var(--orange), #FFD700);
+}
+
+.news-content h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.news-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
 
 /* الشريط السفلي */
-.bottom-nav{
-position:fixed;
-bottom:0;left:0;right:0;
-background:rgba(28,28,30,.9);
-backdrop-filter:blur(25px);
-padding:10px 0;
-max-width:500px;
-margin:auto;
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--glass);
+    backdrop-filter: blur(25px);
+    border-top: 1px solid var(--border);
+    padding: 12px 0 18px;
+    max-width: 500px;
+    margin: auto;
+    z-index: 1000;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
 }
 
-.nav-items{
-display:flex;
-justify-content:space-around;
+.nav-items {
+    display: flex;
+    justify-content: space-around;
 }
 
-.nav-item{
-text-align:center;
-font-size:11px;
-color:var(--muted);
-text-decoration:none;
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
 }
 
-.nav-item.active{color:var(--blue)}
+.nav-item.active {
+    color: var(--blue);
+    background: rgba(10, 132, 255, 0.12);
+}
+
+.nav-item:hover {
+    color: var(--blue);
+    transform: translateY(-2px);
+}
+
+.nav-item i {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+/* تأثيرات تفاعلية */
+.mini-item:active, .news-item:active {
+    transform: scale(0.98);
+}
+
+/* التكيف مع الشاشات */
+@media (max-width: 400px) {
+    body {
+        padding: 0 16px 95px;
+    }
+    
+    .greeting {
+        font-size: 28px;
+    }
+    
+    .mini-grid {
+        gap: 12px;
+    }
+    
+    .mini-item {
+        padding: 16px 10px;
+    }
+    
+    .news-item {
+        padding: 18px;
+    }
+    
+    .nav-item {
+        padding: 5px 10px;
+    }
+    
+    .nav-item i {
+        font-size: 20px;
+    }
+}
 </style>
 </head>
 
@@ -180,101 +355,192 @@ text-decoration:none;
 
 <!-- شريط الحالة -->
 <div class="status-bar">
-<div id="time">٩:٤١</div>
-<div class="status-icons">
-<i class="fas fa-signal"></i>
-<i class="fas fa-wifi"></i>
-<i id="battery" class="fas fa-battery-three-quarters"></i>
-</div>
+    <div id="time">٩:٤١</div>
+    <div class="status-icons">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i id="battery" class="fas fa-battery-three-quarters"></i>
+    </div>
 </div>
 
 <!-- الترحيب -->
 <div class="greeting">أهلاً سليمان</div>
-<div class="weather">غائم جزئي في جازان الآن</div>
+<div class="weather">
+    <i class="fas fa-cloud-sun"></i>
+    <span>غائم جزئي في جازان الآن</span>
+</div>
 
 <!-- البحث -->
 <div class="search-bar">
-<i class="fas fa-search"></i>
-<input placeholder="ابحث في منصة سَمُوّ">
+    <i class="fas fa-search"></i>
+    <input placeholder="ابحث في منصة سَمُوّ">
 </div>
 
 <!-- الوصول السريع -->
 <div class="mini-grid">
-<div class="mini-item"><div class="mini-icon"><i class="fas fa-calendar"></i></div>التقويم</div>
-<div class="mini-item"><div class="mini-icon"><i class="fas fa-building"></i></div>الجهات</div>
-<div class="mini-item"><div class="mini-icon"><i class="fas fa-user"></i></div>الشخصية</div>
+    <div class="mini-item" onclick="openService('التقويم')">
+        <div class="mini-icon"><i class="fas fa-calendar-alt"></i></div>
+        <span>التقويم</span>
+    </div>
+    <div class="mini-item" onclick="openService('الجهات')">
+        <div class="mini-icon"><i class="fas fa-building"></i></div>
+        <span>الجهات</span>
+    </div>
+    <div class="mini-item" onclick="openService('الشخصية')">
+        <div class="mini-icon"><i class="fas fa-user-circle"></i></div>
+        <span>الشخصية</span>
+    </div>
 </div>
 
 <!-- النشرة -->
-<div class="section-title">استكشف التصنيفات</div>
+<div class="section-header">
+    <div class="section-title">استكشف التصنيفات</div>
+    <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
+</div>
 
 <div class="news-grid">
+    <div class="news-item services" onclick="openNews('الخدمات الحكومية')">
+        <div class="news-icon"><i class="fas fa-sliders-h"></i></div>
+        <div class="news-content">
+            <h3>الخدمات الحكومية</h3>
+            <p>أحدث الخدمات والميزات المضافة للمنصة</p>
+        </div>
+    </div>
 
-<div class="news-item services news">
-<div class="news-icon"><i class="fas fa-sliders"></i></div>
-<div>
-<h3>الخدمات الحكومية</h3>
-<p>أحدث الخدمات المضافة</p>
-</div>
-</div>
+    <div class="news-item health" onclick="openNews('الصحة')">
+        <div class="news-icon"><i class="fas fa-heart-pulse"></i></div>
+        <div class="news-content">
+            <h3>الصحة</h3>
+            <p>الخدمات الصحية والرعاية الطبية</p>
+        </div>
+    </div>
 
-<div class="news-item health news">
-<div class="news-icon"><i class="fas fa-heart-pulse"></i></div>
-<div>
-<h3>الصحة</h3>
-<p>الخدمات الصحية الموحدة</p>
-</div>
-</div>
+    <div class="news-item law" onclick="openNews('العدلية')">
+        <div class="news-icon"><i class="fas fa-scale-balanced"></i></div>
+        <div class="news-content">
+            <h3>العدلية</h3>
+            <p>خدمات قانونية ووزارة العدل</p>
+        </div>
+    </div>
 
-<div class="news-item law news">
-<div class="news-icon"><i class="fas fa-scale-balanced"></i></div>
-<div>
-<h3>العدلية</h3>
-<p>خدمات وزارة العدل</p>
-</div>
-</div>
+    <div class="news-item work" onclick="openNews('فرص العمل')">
+        <div class="news-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="news-content">
+            <h3>فرص العمل</h3>
+            <p>وظائف جديدة في القطاع الحكومي والخاص</p>
+        </div>
+    </div>
 
-<div class="news-item work news">
-<div class="news-icon"><i class="fas fa-briefcase"></i></div>
-<div>
-<h3>فرص العمل</h3>
-<p>وظائف حكومية وخاصة</p>
-</div>
-</div>
-
-<div class="news-item education news">
-<div class="news-icon"><i class="fas fa-graduation-cap"></i></div>
-<div>
-<h3>التعليم</h3>
-<p>دورات وبرامج تدريبية</p>
-</div>
-</div>
-
+    <div class="news-item education" onclick="openNews('التعليم')">
+        <div class="news-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="news-content">
+            <h3>التعليم</h3>
+            <p>دورات وبرامج تدريبية تطويرية</p>
+        </div>
+    </div>
 </div>
 
 <!-- الشريط السفلي -->
 <nav class="bottom-nav">
-<div class="nav-items">
-<a class="nav-item active"><i class="fas fa-home"></i><br>الرئيسية</a>
-<a class="nav-item"><i class="fas fa-newspaper"></i><br>النشرة</a>
-<a class="nav-item"><i class="fas fa-sliders"></i><br>الخدمات</a>
-<a class="nav-item"><i class="fas fa-envelope"></i><br>الرسائل</a>
-<a class="nav-item"><i class="fas fa-user"></i><br>حسابي</a>
-</div>
+    <div class="nav-items">
+        <a class="nav-item active" onclick="changeNav('الرئيسية')">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('النشرة')">
+            <i class="fas fa-newspaper"></i>
+            <span>النشرة</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('الخدمات')">
+            <i class="fas fa-sliders-h"></i>
+            <span>الخدمات</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('الرسائل')">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('حسابي')">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
+    </div>
 </nav>
 
 <script>
-const nums=['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-function time(){
-const d=new Date();
-let h=d.getHours()%12||12,m=d.getMinutes();
-h=h.toString().split('').map(n=>nums[n]).join('');
-m=m.toString().padStart(2,'0').split('').map(n=>nums[n]).join('');
-timeEl.textContent=`${h}:${m}`;
+// تحديث الوقت
+const arabicNumbers = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+function updateTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    
+    // تحويل إلى تنسيق 12 ساعة
+    hours = hours % 12 || 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    
+    // تحويل الأرقام إلى عربية
+    const hoursStr = hours.toString().split('').map(n => arabicNumbers[n] || n).join('');
+    const minutesStr = minutes.toString().split('').map(n => arabicNumbers[n] || n).join('');
+    
+    document.getElementById('time').textContent = `${hoursStr}:${minutesStr}`;
 }
-const timeEl=document.getElementById('time');
-time();setInterval(time,60000);
-</script>
 
+updateTime();
+setInterval(updateTime, 60000);
+
+// تغيير حالة البطارية بشكل عشوائي
+setInterval(() => {
+    const batteryIcons = [
+        'fa-battery-empty',
+        'fa-battery-quarter',
+        'fa-battery-half',
+        'fa-battery-three-quarters',
+        'fa-battery-full'
+    ];
+    const randomIcon = batteryIcons[Math.floor(Math.random() * batteryIcons.length)];
+    document.getElementById('battery').className = `fas ${randomIcon}`;
+}, 30000);
+
+// تفاعل الأزرار
+function openService(serviceName) {
+    alert(`جاري فتح خدمة ${serviceName}...`);
+}
+
+function openNews(newsName) {
+    alert(`جاري فتح ${newsName}...`);
+}
+
+function changeNav(pageName) {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+    event.target.closest('.nav-item').classList.add('active');
+    
+    if (pageName !== 'الرئيسية') {
+        alert(`جاري تحميل صفحة ${pageName}...`);
+    }
+}
+
+// تأثير على شريط البحث عند التركيز
+const searchInput = document.querySelector('.search-bar input');
+searchInput.addEventListener('focus', function() {
+    document.querySelector('.search-bar').style.boxShadow = '0 0 0 3px rgba(10, 132, 255, 0.2)';
+});
+
+searchInput.addEventListener('blur', function() {
+    document.querySelector('.search-bar').style.boxShadow = 'none';
+});
+
+// تأثيرات عند التحميل
+document.addEventListener('DOMContentLoaded', function() {
+    // تأثيرات تدريجية
+    const items = document.querySelectorAll('.mini-item, .news-item');
+    items.forEach((item, index) => {
+        setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
 </body>
 </html>
