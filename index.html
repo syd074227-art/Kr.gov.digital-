@@ -435,6 +435,11 @@ body {
     background: linear-gradient(135deg, #5E5CE6, #7E5CFF);
 }
 
+.entity-icon.recruitment {
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FF9500, #FFD60A);
+}
+
 .entity-icon img {
     width: 100%;
     height: 100%;
@@ -543,7 +548,7 @@ body {
     flex-shrink: 0;
 }
 
-.entity-avatar.interior, .entity-avatar.health {
+.entity-avatar.interior, .entity-avatar.health, .entity-avatar.recruitment {
     border-radius: 50%;
 }
 
@@ -994,7 +999,7 @@ body {
                     </div>
                     <div>
                         <h3 class="option-title">المنشورات</h3>
-                        <p class="option-subtitle">آخر التحديثات والأخبار</p>
+                        <p class="option-subtitle">آخر التحديثات والأخيار</p>
                     </div>
                 </div>
                 <button class="apply-btn">
@@ -1117,6 +1122,28 @@ const entities = [
 • تسهيل الوصول إلى العدالة
 
 تهدف الوزارة لتحقيق العدالة الناجزة وحماية الحقوق والحريات في إطار القانون.`
+    },
+    {
+        id: 4,
+        name: "الإدارة العامة للقبول والتجنيد",
+        description: "الحساب الرسمي للإدارة العامة للقبول والتجنيد بوزارة الداخلية في KR",
+        icon: "fa-user-tie",
+        iconClass: "recruitment",
+        logo: "https://i.ibb.co/LrKJkKN/Photoroom-20260202-205224.png",
+        followers: "٠",
+        posts: "٠",
+        following: false,
+        notifications: false,
+        detailDescription: `الإدارة العامة للقبول والتجنيد بوزارة الداخلية هي الجهة المعنية بشؤون القبول والتجنيد في القطاعات الأمنية والعسكرية التابعة للوزارة.
+
+المهام الرئيسية:
+• إدارة عمليات القبول والتسجيل للمتقدمين
+• الإشراف على معايير ومعايير التجنيد
+• تنظيم الاختبارات والمقابلات الخاصة بالقبول
+• متابعة أوضاع المجندين والمقبولين
+• تطوير أنظمة القبول والتجنيد الإلكترونية
+
+تهدف الإدارة إلى جذب الكفاءات واختيار الأفضل لخدمة الوطن في المجالات الأمنية، وتضمن تطبيق المعايير المهنية العالية في جميع مراحل القبول والتجنيد.`
     }
 ];
 
@@ -1196,11 +1223,15 @@ function openEntityDetail(entity) {
     
     // تحديث خلفية الغلاف
     const header = document.getElementById('entityHeader');
-    header.style.background = entity.iconClass === 'interior' ? 
-        'linear-gradient(135deg, rgba(26, 95, 180, 0.9), rgba(38, 162, 105, 0.9))' :
-        entity.iconClass === 'health' ?
-        'linear-gradient(135deg, rgba(255, 69, 58, 0.9), rgba(255, 107, 107, 0.9))' :
-        'linear-gradient(135deg, rgba(94, 92, 230, 0.9), rgba(126, 92, 255, 0.9))';
+    if (entity.iconClass === 'interior') {
+        header.style.background = 'linear-gradient(135deg, rgba(26, 95, 180, 0.9), rgba(38, 162, 105, 0.9))';
+    } else if (entity.iconClass === 'health') {
+        header.style.background = 'linear-gradient(135deg, rgba(255, 69, 58, 0.9), rgba(255, 107, 107, 0.9))';
+    } else if (entity.iconClass === 'justice') {
+        header.style.background = 'linear-gradient(135deg, rgba(94, 92, 230, 0.9), rgba(126, 92, 255, 0.9))';
+    } else if (entity.iconClass === 'recruitment') {
+        header.style.background = 'linear-gradient(135deg, rgba(255, 149, 0, 0.9), rgba(255, 214, 0, 0.9))';
+    }
     
     // تحديث الوصف
     document.getElementById('entityDescription').innerHTML = entity.detailDescription.split('\n').map(line => {
@@ -1266,6 +1297,7 @@ function toggleFollowDetail() {
     const countEl = document.getElementById('entityFollowersCount');
     let count = parseInt(countEl.textContent);
     count = isFollowing ? count + 1 : count - 1;
+    if (count < 0) count = 0;
     countEl.textContent = count.toString();
     
     // تحديث الزر
