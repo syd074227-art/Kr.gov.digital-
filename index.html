@@ -1,313 +1,1107 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>منصة سَمُوّ | البوابة الوطنية الموحدة</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-:root {
-    --bg-main: #060912;
-    --bg-card: #111827;
-    --bg-card-alt: #1F2937;
-    --primary: #10B981; /* أخضر الداخلية */
-    --secondary: #0EA5E9; /* أزرق الصحة */
-    --accent: #D4AF37; /* ذهبي العدل */
-    --danger: #F43F5E;
-    --warning: #F59E0B;
-    --text-white: #F8FAFC;
-    --text-dim: #94A3B8;
-    --border-color: #374151;
-    --glass: rgba(17, 24, 39, 0.8);
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>بوابة KR الرقمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;500;700;900&display=swap');
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg-main); color: var(--text-white); max-width: 550px; margin: auto; overflow-x: hidden; line-height: 1.6; }
+```
+    :root {
+        --bg-dark: #080808;
+        --card-dark: #121212;
+        --accent: #00e676;
+        --accent-gradient: linear-gradient(135deg, #00c853, #b2ff59);
+        --text-main: #ffffff;
+        --text-dim: #a0a0a0;
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --health-color: #2196f3;
+        --interior-color: #f44336;
+        --justice-color: #4caf50;
+        --citizen-color: #9c27b0;
+    }
 
-/* شريط الحالة الواقعي */
-.top-nav { position: sticky; top: 0; background: var(--glass); backdrop-filter: blur(20px); z-index: 5000; padding: 12px 20px; border-bottom: 1px solid var(--border-color); }
-.status-icons { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-.header-brand { display: flex; justify-content: space-between; align-items: center; }
-.user-info { display: flex; align-items: center; gap: 12px; }
-.avatar-frame { width: 42px; height: 42px; background: linear-gradient(135deg, var(--primary), #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+        font-family: 'Noto Kufi Arabic', sans-serif; 
+        -webkit-tap-highlight-color: transparent; 
+    }
+    
+    body { 
+        background-color: var(--bg-dark); 
+        color: var(--text-main); 
+        overflow-x: hidden; 
+        padding-bottom: 100px; 
+        min-height: 100vh;
+    }
 
-/* محرك الصفحات SPA */
-.view { display: none; padding: 20px 16px 120px; animation: pageIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-.view.active { display: block; }
-@keyframes pageIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    /* شاشة التحميل */
+    .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--bg-dark);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    
+    .loading-spinner {
+        width: 80px;
+        height: 80px;
+        border: 5px solid rgba(0, 230, 118, 0.2);
+        border-top: 5px solid var(--accent);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-/* المكونات الرسومية */
-.section-head { font-size: 18px; font-weight: 800; margin: 25px 0 15px; padding-right: 12px; border-right: 4px solid var(--primary); display: flex; align-items: center; gap: 10px; }
-.card { background: var(--bg-card); border-radius: 20px; padding: 18px; margin-bottom: 18px; border: 1px solid var(--border-color); position: relative; overflow: hidden; }
-.card-glow { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(16,185,129,0.05) 0%, transparent 70%); pointer-events: none; }
+    .top-nav { 
+        padding: 25px 20px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        background: linear-gradient(to bottom, rgba(17, 17, 17, 0.95), transparent); 
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    
+    .profile-area { 
+        display: flex; 
+        align-items: center; 
+        gap: 12px; 
+    }
+    
+    .profile-pic { 
+        width: 50px; 
+        height: 50px; 
+        border-radius: 50%; 
+        border: 2px solid var(--accent); 
+        padding: 2px; 
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .profile-pic img { 
+        width: 100%; 
+        height: 100%; 
+        border-radius: 50%; 
+        object-fit: cover; 
+    }
+    
+    .welcome-text h4 { 
+        font-size: 14px; 
+        color: var(--text-dim); 
+        font-weight: 300; 
+    }
+    
+    .welcome-text p { 
+        font-size: 16px; 
+        font-weight: 700; 
+    }
+    
+    .user-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 12px;
+        margin-top: 3px;
+        font-weight: 500;
+    }
+    
+    .top-icons { 
+        display: flex; 
+        gap: 15px; 
+        font-size: 20px; 
+    }
+    
+    .top-icons i {
+        cursor: pointer;
+        transition: all 0.3s;
+        padding: 5px;
+        border-radius: 8px;
+    }
+    
+    .top-icons i:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.1);
+    }
 
-/* المحفظة الرقمية الفاخرة */
-.wallet-card { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); border: none; color: white; min-height: 180px; }
-.wallet-card::before { content: ''; position: absolute; right: -20px; top: -20px; width: 120px; height: 120px; background: rgba(255,255,255,0.05); border-radius: 50%; }
-.id-photo { width: 75px; height: 95px; background: #e2e8f0; border-radius: 10px; border: 3px solid rgba(255,255,255,0.2); object-fit: cover; }
+    .search-container { 
+        padding: 0 20px; 
+        margin-bottom: 25px; 
+    }
+    
+    .search-bar { 
+        background: var(--card-dark); 
+        border: 1px solid var(--glass-border); 
+        border-radius: 18px; 
+        padding: 15px 20px; 
+        display: flex; 
+        align-items: center; 
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        transition: 0.3s;
+    }
+    
+    .search-bar:focus-within { 
+        border-color: var(--accent); 
+        box-shadow: 0 0 15px rgba(0, 230, 118, 0.2); 
+    }
+    
+    .search-bar input { 
+        background: none; 
+        border: none; 
+        color: white; 
+        width: 100%; 
+        outline: none; 
+        font-size: 14px; 
+    }
+    
+    .search-bar i { 
+        color: var(--text-dim); 
+    }
 
-/* شبكة الخدمات الحكومية */
-.grid-menu { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 30px; }
-.grid-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: 0.3s; }
-.grid-item:active { transform: scale(0.9); }
-.icon-circle { width: 55px; height: 55px; background: var(--bg-card-alt); border: 1px solid var(--border-color); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary); transition: 0.3s; }
-.grid-item:hover .icon-circle { background: var(--primary); color: white; box-shadow: 0 0 20px rgba(16,185,129,0.4); }
-.grid-item span { font-size: 11px; font-weight: 600; color: var(--text-dim); text-align: center; }
+    .sec-header { 
+        padding: 0 20px 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+    }
+    
+    .sec-header h3 { 
+        font-size: 17px; 
+        font-weight: 700; 
+    }
+    
+    .sec-header span { 
+        color: var(--accent); 
+        font-size: 13px; 
+        font-weight: 500; 
+        cursor: pointer; 
+    }
 
-/* أنظمة التنبيهات */
-.notify-bar { background: rgba(245, 158, 11, 0.1); border: 1px solid var(--warning); padding: 12px; border-radius: 12px; display: flex; gap: 12px; align-items: center; font-size: 13px; margin-bottom: 20px; }
+    .quick-access { 
+        display: flex; 
+        gap: 12px; 
+        overflow-x: auto; 
+        padding: 0 20px 25px; 
+        scrollbar-width: none; 
+    }
+    
+    .quick-access::-webkit-scrollbar { 
+        display: none; 
+    }
+    
+    .q-item { 
+        min-width: 100px; 
+        background: var(--card-dark); 
+        padding: 15px; 
+        border-radius: 20px; 
+        text-align: center; 
+        border: 1px solid var(--glass-border);
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    
+    .q-item i { 
+        font-size: 22px; 
+        color: var(--accent); 
+        margin-bottom: 8px; 
+        display: block; 
+    }
+    
+    .q-item span { 
+        font-size: 12px; 
+        color: var(--text-dim); 
+    }
+    
+    .q-item:active { 
+        transform: scale(0.95); 
+        background: var(--glass); 
+    }
 
-/* الخدمات التخصصية (داخلية، صحة، عدل) */
-.svc-row { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px dotted var(--border-color); cursor: pointer; }
-.svc-row:last-child { border: none; }
-.svc-icon-box { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.moi-bg { background: rgba(16, 185, 129, 0.1); color: var(--primary); }
-.moh-bg { background: rgba(14, 165, 233, 0.1); color: var(--secondary); }
-.moj-bg { background: rgba(212, 175, 55, 0.1); color: var(--accent); }
+    .featured-cards { 
+        padding: 0 20px 25px; 
+    }
+    
+    .digital-id { 
+        background: linear-gradient(135deg, #111 0%, #1a1a1a 100%); 
+        border-radius: 25px; 
+        padding: 20px; 
+        border: 1px solid var(--glass-border);
+        position: relative;
+        overflow: hidden;
+        height: 180px;
+    }
+    
+    .digital-id::after { 
+        content: ''; 
+        position: absolute; 
+        top: -50%; 
+        right: -20%; 
+        width: 200px; 
+        height: 200px; 
+        background: var(--accent); 
+        filter: blur(100px); 
+        opacity: 0.1; 
+    }
+    
+    .id-top { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: flex-start; 
+    }
+    
+    .id-top img { 
+        width: 45px; 
+        opacity: 0.8; 
+    }
+    
+    .id-info { 
+        margin-top: 30px; 
+    }
+    
+    .id-info h2 { 
+        font-size: 20px; 
+        letter-spacing: 1px; 
+        margin-bottom: 5px; 
+    }
+    
+    .id-info p { 
+        font-size: 12px; 
+        color: var(--text-dim); 
+    }
+    
+    .id-status {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
 
-/* نظام الدفع (سداد) */
-.bill-card { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--bg-card-alt); border-radius: 10px; margin-top: 10px; }
-.pay-btn { background: var(--primary); color: white; border: none; padding: 6px 15px; border-radius: 6px; font-weight: bold; font-size: 12px; }
+    .user-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 0 20px 25px;
+    }
+    
+    .info-card {
+        background: var(--card-dark);
+        padding: 15px;
+        border-radius: 15px;
+        border: 1px solid var(--glass-border);
+    }
+    
+    .info-label {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-bottom: 5px;
+    }
+    
+    .info-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--accent);
+    }
 
-/* شريط التنقل السفلي */
-.tab-navigator { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(11, 15, 18, 0.98); backdrop-filter: blur(15px); border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0 35px; max-width: 550px; margin: auto; z-index: 5000; }
-.tab-link { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-dim); text-decoration: none; width: 20%; transition: 0.3s; }
-.tab-link.active { color: var(--primary); }
-.tab-link i { font-size: 22px; }
-.tab-link span { font-size: 10px; font-weight: 700; }
+    .categories-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 15px; 
+        padding: 0 20px; 
+    }
+    
+    .cat-item { 
+        background: var(--card-dark); 
+        padding: 20px 10px; 
+        border-radius: 22px; 
+        text-align: center; 
+        border: 1px solid var(--glass-border);
+        animation: fadeIn 0.5s ease forwards;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .cat-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    .cat-icon { 
+        width: 50px; 
+        height: 50px; 
+        border-radius: 15px; 
+        margin: 0 auto 12px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-size: 22px; 
+    }
+    
+    .cat-item span { 
+        font-size: 11px; 
+        font-weight: 500; 
+        display: block; 
+        height: 30px; 
+    }
 
+    .bottom-nav { 
+        position: fixed; 
+        bottom: 20px; 
+        left: 20px; 
+        right: 20px; 
+        background: rgba(18, 18, 18, 0.9); 
+        backdrop-filter: blur(20px); 
+        border-radius: 25px; 
+        padding: 12px 10px; 
+        display: flex; 
+        justify-content: space-around; 
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        z-index: 1000;
+    }
+    
+    .nav-item { 
+        text-align: center; 
+        color: var(--text-dim); 
+        flex: 1; 
+        transition: 0.3s; 
+        position: relative; 
+        cursor: pointer;
+    }
+    
+    .nav-item i { 
+        font-size: 20px; 
+        display: block; 
+        margin-bottom: 4px; 
+    }
+    
+    .nav-item span { 
+        font-size: 10px; 
+        font-weight: 500; 
+    }
+    
+    .nav-item.active { 
+        color: var(--accent); 
+    }
+    
+    .nav-item.active::after { 
+        content: ''; 
+        position: absolute; 
+        top: -12px; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        width: 20px; 
+        height: 3px; 
+        background: var(--accent); 
+        border-radius: 0 0 10px 10px; 
+        box-shadow: 0 5px 10px rgba(0, 230, 118, 0.4); 
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        padding: 20px;
+        display: none;
+    }
+    
+    .modal-content {
+        background: var(--card-dark);
+        border-radius: 20px;
+        padding: 25px;
+        max-width: 400px;
+        width: 100%;
+        border: 2px solid var(--accent);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--glass-border);
+    }
+    
+    .modal-title {
+        color: var(--accent);
+        font-size: 18px;
+    }
+    
+    .modal-body {
+        color: var(--text-dim);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    
+    .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        flex: 1;
+    }
+    
+    .btn-primary {
+        background: var(--accent);
+        color: #000;
+    }
+    
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-main);
+    }
+
+    @keyframes fadeIn { 
+        from { opacity: 0; transform: translateY(10px); } 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+
+    .toast {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: rgba(0, 230, 118, 0.9);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        z-index: 1001;
+        animation: slideIn 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        max-width: 300px;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
 </style>
+```
+
 </head>
 <body>
 
-<header class="top-nav">
-    <div class="status-icons">
-        <span id="live-time">٠٠:٠٠</span>
-        <div style="display: flex; gap: 8px;"><i class="fas fa-wifi"></i> <i class="fas fa-signal"></i></div>
-    </div>
-    <div class="header-brand">
-        <div class="user-info">
-            <div class="avatar-frame">س</div>
-            <div>
-                <p style="font-size: 11px; color: var(--text-dim);">البوابة الوطنية</p>
-                <h2 id="view-title" style="font-size: 16px;">الرئيسية</h2>
+```
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-spinner"></div>
+    <div style="color: var(--accent); font-size: 18px; font-weight: 700;">جاري تحميل بوابة KR الرقمية...</div>
+</div>
+
+<div id="mainContent" style="display: none;">
+    <div class="top-nav">
+        <div class="profile-area">
+            <div class="profile-pic">
+                <img id="userProfileImage" src="" alt="User">
+            </div>
+            <div class="welcome-text">
+                <h4>أهلاً بك</h4>
+                <p id="userName">جاري التحميل...</p>
+                <div id="userBadge" class="user-badge" style="display: none;"></div>
             </div>
         </div>
-        <div style="display: flex; gap: 15px; color: var(--text-dim);">
-            <i class="fas fa-bell"></i>
+        <div class="top-icons">
+            <i class="far fa-bell" onclick="showNotifications()"></i>
+            <i class="fas fa-qrcode" onclick="showQRCode()"></i>
+            <i class="fas fa-sign-out-alt" onclick="logout()"></i>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="ابحث في الخدمات الرقمية، الهويات، أو الأخبار...">
+            <i class="fas fa-sliders-h"></i>
+        </div>
+    </div>
+
+    <div class="user-info-grid">
+        <div class="info-card">
+            <div class="info-label">التصنيف</div>
+            <div class="info-value" id="userDepartment">-</div>
+        </div>
+        <div class="info-card">
+            <div class="info-label">الرتبة</div>
+            <div class="info-value" id="userRank">-</div>
+        </div>
+        <div class="info-card">
+            <div class="info-label">رقم الهوية</div>
+            <div class="info-value" id="userIdNumber">-</div>
+        </div>
+        <div class="info-card">
+            <div class="info-label">الحالة</div>
+            <div class="info-value" id="userStatus">نشط</div>
+        </div>
+    </div>
+
+    <div class="sec-header">
+        <h3>الوصول السريع</h3>
+    </div>
+    <div class="quick-access">
+        <div class="q-item" onclick="openService('calendar')">
+            <i class="fas fa-calendar-alt"></i>
+            <span>التقويم</span>
+        </div>
+        <div class="q-item" onclick="openService('departments')">
+            <i class="fas fa-university"></i>
+            <span>الجهات</span>
+        </div>
+        <div class="q-item" onclick="openService('permit')">
             <i class="fas fa-qrcode"></i>
+            <span>تصريحي</span>
+        </div>
+        <div class="q-item" onclick="openService('wallet')">
+            <i class="fas fa-wallet"></i>
+            <span>المحفظة</span>
         </div>
     </div>
-</header>
 
-<div id="home-view" class="view active">
-    <div class="card wallet-card" onclick="switchView('wallet', 'المحفظة الرقمية')">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-            <i class="fas fa-crown" style="color: var(--accent);"></i>
-            <span style="font-size: 11px; font-weight: 700;">المملكة العربية السعودية</span>
-        </div>
-        <div style="display: flex; gap: 15px;">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Suliman" class="id-photo" alt="Suliman">
-            <div>
-                <p style="font-size: 11px; opacity: 0.8;">الاسم</p>
-                <h3 style="font-size: 15px;">سليمان بن محمد بن عبدالله آل سعود</h3>
-                <p style="font-size: 11px; opacity: 0.8; margin-top: 8px;">رقم الهوية</p>
-                <h3 style="letter-spacing: 3px;">١٠٩٨٧٦٥٤٣٢</h3>
+    <div class="sec-header">
+        <h3>بطاقة الهوية الرقمية</h3>
+        <span onclick="showFullID()">عرض الكل</span>
+    </div>
+    <div class="featured-cards">
+        <div class="digital-id">
+            <div class="id-top">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Coat_of_arms_of_Saudi_Arabia.svg" alt="Logo">
+                <i class="fas fa-ellipsis-h" onclick="showIDOptions()"></i>
+            </div>
+            <div class="id-info">
+                <p>بطاقة الهوية الوطنية الرقمية</p>
+                <h2 id="userGameId">-</h2>
+                <div class="id-status">
+                    <div class="status-dot"></div>
+                    <span style="color: var(--accent);">نشط • تم التحقق الرقمي</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="notify-bar">
-        <i class="fas fa-info-circle"></i>
-        <span>لديك (٣) خدمات حكومية تتطلب إجراءً فورياً.</span>
+    <div class="sec-header">
+        <h3>استكشف التصنيفات</h3>
+        <span onclick="showAllCategories()">عرض الكل</span>
     </div>
-
-    <h2 class="section-head"><i class="fas fa-layer-group"></i> القطاعات الرئيسية</h2>
-    <div class="grid-menu">
-        <div class="grid-item" onclick="switchView('moi', 'وزارة الداخلية')">
-            <div class="icon-circle"><i class="fas fa-shield-halved"></i></div>
-            <span>الداخلية</span>
+    <div class="categories-grid">
+        <div class="cat-item" onclick="openCategory('personal')">
+            <div class="cat-icon" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;"><i class="fas fa-users"></i></div>
+            <span>الشخصية والأسرة</span>
         </div>
-        <div class="grid-item" onclick="switchView('moh', 'وزارة الصحة')">
-            <div class="icon-circle" style="color: var(--secondary);"><i class="fas fa-heart-pulse"></i></div>
+        <div class="cat-item" onclick="openCategory('health')">
+            <div class="cat-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;"><i class="fas fa-heartbeat"></i></div>
             <span>الصحة</span>
         </div>
-        <div class="grid-item" onclick="switchView('moj', 'وزارة العدل')">
-            <div class="icon-circle" style="color: var(--accent);"><i class="fas fa-gavel"></i></div>
-            <span>العدل</span>
+        <div class="cat-item" onclick="openCategory('religious')">
+            <div class="cat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i class="fas fa-mosque"></i></div>
+            <span>الدينية</span>
         </div>
-        <div class="grid-item" onclick="switchView('jobs', 'التوظيف')">
-            <div class="icon-circle" style="color: var(--warning);"><i class="fas fa-user-tie"></i></div>
-            <span>التوظيف</span>
+        <div class="cat-item" onclick="openCategory('education')">
+            <div class="cat-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i class="fas fa-graduation-cap"></i></div>
+            <span>التعليم</span>
+        </div>
+        <div class="cat-item" onclick="openCategory('commerce')">
+            <div class="cat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i class="fas fa-hand-holding-usd"></i></div>
+            <span>التجارة والمالية</span>
+        </div>
+        <div class="cat-item" onclick="openCategory('transport')">
+            <div class="cat-icon" style="background: rgba(34, 197, 94, 0.1); color: #22c55e;"><i class="fas fa-car"></i></div>
+            <span>المركبات والمرور</span>
         </div>
     </div>
 
-    <h2 class="section-head"><i class="fas fa-wallet"></i> المستحقات المالية (سداد)</h2>
-    <div class="card">
-        <div class="bill-card">
-            <div><p style="font-size: 13px;">مخالفات مرورية</p><p style="font-size: 11px; color: var(--text-dim);">رقم المفوتر: ٠٠١</p></div>
-            <div><b style="color: var(--danger);">١٥٠ ر.س</b> <button class="pay-btn">سداد</button></div>
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="setActiveTab(this, 'home')">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
         </div>
-        <div class="bill-card">
-            <div><p style="font-size: 13px;">رسوم تجديد جواز</p><p style="font-size: 11px; color: var(--text-dim);">رقم المفوتر: ٠٤٥</p></div>
-            <div><b style="color: var(--text-white);">٣٠٠ ر.س</b> <button class="pay-btn">سداد</button></div>
+        <div class="nav-item" onclick="setActiveTab(this, 'services')">
+            <i class="fas fa-th-large"></i>
+            <span>الخدمات</span>
+        </div>
+        <div class="nav-item" onclick="setActiveTab(this, 'explore')">
+            <i class="fas fa-compass"></i>
+            <span>واكب</span>
+        </div>
+        <div class="nav-item" onclick="setActiveTab(this, 'messages')">
+            <i class="fas fa-comment-dots"></i>
+            <span>رسائل</span>
+        </div>
+        <div class="nav-item" onclick="setActiveTab(this, 'profile')">
+            <i class="fas fa-user-circle"></i>
+            <span>معلوماتي</span>
         </div>
     </div>
 </div>
 
-<div id="moi-view" class="view">
-    <div class="card" style="background: var(--primary); color: white;">
-        <h3>خدمات أبشر الذكية</h3>
-        <p style="font-size: 12px; opacity: 0.9;">بوابتك لإدارة الهوية والجوازات والمرور</p>
-    </div>
-    <h2 class="section-head">خدمات المركبات</h2>
-    <div class="card">
-        <div class="svc-row">
-            <div class="svc-icon-box moi-bg"><i class="fas fa-car"></i></div>
-            <div style="flex: 1;"><h5>رخص السير (الاستمارة)</h5><p style="font-size: 11px; color: var(--text-dim);">تجديد، نقل ملكية، إسقاط</p></div>
+<!-- نافذة تسجيل الخروج -->
+<div class="modal-overlay" id="logoutModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">تسجيل الخروج</div>
+            <i class="fas fa-times" onclick="hideModal('logoutModal')" style="cursor: pointer;"></i>
         </div>
-        <div class="svc-row">
-            <div class="svc-icon-box moi-bg"><i class="fas fa-id-badge"></i></div>
-            <div style="flex: 1;"><h5>رخص القيادة</h5><p style="font-size: 11px; color: var(--text-dim);">تجديد رخصة، طلب بدل فاقد</p></div>
+        <div class="modal-body">
+            هل أنت متأكد من رغبتك في تسجيل الخروج من بوابة KR الرقمية؟
         </div>
-    </div>
-    <h2 class="section-head">الأحوال المدنية</h2>
-    <div class="card">
-        <div class="svc-row">
-            <div class="svc-icon-box moi-bg"><i class="fas fa-address-card"></i></div>
-            <div style="flex: 1;"><h5>تجديد الهوية الوطنية</h5><p style="font-size: 11px; color: var(--text-dim);">طلب إلكتروني عبر العنوان الوطني</p></div>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="hideModal('logoutModal')">إلغاء</button>
+            <button class="btn btn-primary" onclick="confirmLogout()">تسجيل الخروج</button>
         </div>
     </div>
 </div>
 
-<div id="moh-view" class="view">
-    <div class="card" style="background: var(--secondary); color: white;">
-        <h3>منظومة صحتي</h3>
-        <p style="font-size: 12px; opacity: 0.9;">إدارة المواعيد والملف الطبي الموحد</p>
-    </div>
-    <h2 class="section-head">الرعاية والحجز</h2>
-    <div class="card">
-        <div class="svc-row" onclick="alert('جاري الاتصال بالطبيب...')">
-            <div class="svc-icon-box moh-bg"><i class="fas fa-video"></i></div>
-            <div style="flex: 1;"><h5>الاستشارات الطبية عن بعد</h5><p style="font-size: 11px; color: var(--text-dim);">تواصل مع طبيب معتمد فوراً</p></div>
+<!-- نافذة التنبيهات -->
+<div class="modal-overlay" id="notificationsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">التنبيهات</div>
+            <i class="fas fa-times" onclick="hideModal('notificationsModal')" style="cursor: pointer;"></i>
         </div>
-        <div class="svc-row">
-            <div class="svc-icon-box moh-bg"><i class="fas fa-calendar-check"></i></div>
-            <div style="flex: 1;"><h5>حجز موعد حضوري</h5><p style="font-size: 11px; color: var(--text-dim);">المراكز الصحية والمستشفيات</p></div>
+        <div class="modal-body" id="notificationsList">
+            <div style="text-align: center; padding: 20px; color: var(--text-dim);">
+                <i class="far fa-bell" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>لا توجد تنبيهات جديدة</p>
+            </div>
         </div>
     </div>
 </div>
 
-<div id="moj-view" class="view">
-    <div class="card" style="background: var(--accent); color: black;">
-        <h3 style="font-weight: 800;">بوابة ناجز العدلية</h3>
-        <p style="font-size: 12px;">القضاء، العقارات، والوكالات</p>
-    </div>
-    <h2 class="section-head">الثروة العقارية</h2>
-    <div class="card">
-        <div class="svc-row">
-            <div class="svc-icon-box moj-bg"><i class="fas fa-file-contract"></i></div>
-            <div style="flex: 1;"><h5>الصكوك العقارية</h5><p style="font-size: 11px; color: var(--text-dim);">استعراض، تحديث، أو رهن الصك</p></div>
+<!-- نافذة QR Code -->
+<div class="modal-overlay" id="qrModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">رمز الهوية الرقمية</div>
+            <i class="fas fa-times" onclick="hideModal('qrModal')" style="cursor: pointer;"></i>
         </div>
-        <div class="svc-row">
-            <div class="svc-icon-box moj-bg"><i class="fas fa-handshake"></i></div>
-            <div style="flex: 1;"><h5>البورصة العقارية</h5><p style="font-size: 11px; color: var(--text-dim);">متابعة صفقات السوق العقاري</p></div>
+        <div class="modal-body" style="text-align: center;">
+            <div style="background: white; padding: 20px; display: inline-block; border-radius: 10px; margin: 20px 0;">
+                <div id="qrCode"></div>
+            </div>
+            <p style="margin-top: 20px; color: var(--text-main); font-size: 14px;">
+                يمكن استخدام هذا الرمز للتحقق من هويتك الرقمية
+            </p>
+            <p style="font-size: 12px; color: var(--text-dim); margin-top: 10px;" id="qrIdNumber">
+                رقم الهوية: -
+            </p>
         </div>
-    </div>
-</div>
-
-<div id="wallet-view" class="view">
-    <h2 class="section-head">الوثائق الرقمية</h2>
-    <div class="card" style="background: #1e293b; border-right: 5px solid var(--primary);">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div><h5>رخصة قيادة رقمية</h5><p style="font-size: 11px; color: var(--text-dim);">صالح حتى: ٢٠٣٠/٠١/٠١</p></div>
-            <i class="fas fa-id-card" style="font-size: 25px; color: var(--primary);"></i>
-        </div>
-    </div>
-    <div class="card" style="background: #1e293b; border-right: 5px solid var(--secondary);">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div><h5>تأمين طبي فئة (أ)</h5><p style="font-size: 11px; color: var(--text-dim);">شركة بوبا العربية</p></div>
-            <i class="fas fa-shield-heart" style="font-size: 25px; color: var(--secondary);"></i>
-        </div>
-    </div>
-    <div class="card" style="background: #1e293b; border-right: 5px solid var(--accent);">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div><h5>صك ملكية إلكتروني</h5><p style="font-size: 11px; color: var(--text-dim);">حي الياسمين، الرياض</p></div>
-            <i class="fas fa-home" style="font-size: 25px; color: var(--accent);"></i>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="hideModal('qrModal')">إغلاق</button>
         </div>
     </div>
 </div>
-
-<nav class="tab-navigator">
-    <div class="tab-link active" onclick="switchView('home', 'الرئيسية')">
-        <i class="fas fa-house"></i>
-        <span>الرئيسية</span>
-    </div>
-    <div class="tab-link" onclick="switchView('wallet', 'المحفظة')">
-        <i class="fas fa-wallet"></i>
-        <span>المحفظة</span>
-    </div>
-    <div class="tab-link" onclick="alert('فتح الماسح الضوئي الحكومي...')">
-        <i class="fas fa-qrcode" style="font-size: 30px; color: var(--primary);"></i>
-        <span>QR</span>
-    </div>
-    <div class="tab-link" onclick="switchView('moh', 'صحتي')">
-        <i class="fas fa-heart-pulse"></i>
-        <span>صحتي</span>
-    </div>
-    <div class="tab-link" onclick="switchView('moj', 'ناجز')">
-        <i class="fas fa-gavel"></i>
-        <span>ناجز</span>
-    </div>
-</nav>
 
 <script>
-    // نظام تبديل الصفحات المتطور
-    function switchView(viewId, title) {
-        // إخفاء كل المشاهد
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        // إظهار المشهد المطلوب
-        document.getElementById(viewId + '-view').classList.add('active');
-        // تحديث العنوان
-        document.getElementById('view-title').innerText = title;
-        
-        // تحديث حالة الأزرار السفلية
-        document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
-        
-        // منطق تحديد الزر النشط
-        const links = document.querySelectorAll('.tab-link');
-        links.forEach(link => {
-            if(link.innerText.includes(title) || (viewId === 'home' && link.innerText.includes('الرئيسية'))) {
-                link.classList.add('active');
-            }
-        });
-
-        window.scrollTo(0, 0);
+    // تكوين Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyAobTthAKj-0_my15XXl8VAGgJ9Z4SJtJo",
+        databaseURL: "https://kr-digital-system-default-rtdb.firebaseio.com",
+        projectId: "kr-digital-system"
+    };
+    
+    // تهيئة Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
     }
-
-    // تحديث الساعة بالعربية
-    function updateLiveClock() {
-        const now = new Date();
-        let h = now.getHours();
-        let m = now.getMinutes();
-        let ampm = h >= 12 ? 'م' : 'ص';
-        h = h % 12 || 12;
-        m = m < 10 ? '٠' + m : m;
+    
+    const db = firebase.database();
+    
+    // بيانات المستخدم
+    let userData = null;
+    
+    // ✅ تحميل بيانات المستخدم المفعّل
+    function loadUserData() {
+        console.log('بدء تحميل بيانات المستخدم...');
         
-        const arabize = (num) => num.toString().replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        // التحقق من وجود بيانات المستخدم في localStorage
+        const storedUserData = localStorage.getItem('kr_activated_user');
+        const deviceId = localStorage.getItem('kr_device_id');
         
-        document.getElementById('live-time').textContent = 
-            arabize(h) + ':' + arabize(m) + ' ' + ampm;
-    }
-    setInterval(updateLiveClock, 1000);
-    updateLiveClock();
-
-    // منع السحب للأسفل للتحديث (تجربة تطبيق)
-    document.addEventListener('touchmove', function(e) {
-        if (e.touches[0].pageY > 0 && window.scrollY === 0) {
-            // e.preventDefault(); 
+        console.log('البيانات المخزنة:', storedUserData ? 'موجودة' : 'غير موجودة');
+        console.log('معرف الجهاز:', deviceId);
+        
+        if (!storedUserData || !deviceId) {
+            console.log('لا توجد بيانات مستخدم - إعادة التوجيه...');
+            setTimeout(() => {
+                window.location.href = 'apply.html';
+            }, 1000);
+            return;
         }
-    }, { passive: false });
+        
+        try {
+            userData = JSON.parse(storedUserData);
+            console.log('تم تحميل بيانات المستخدم:', userData);
+            
+            // ✅ التحقق من أن الحالة "accepted" فقط
+            if (userData.status !== 'accepted') {
+                console.log('الحساب غير مفعّل - الحالة:', userData.status);
+                localStorage.removeItem('kr_activated_user');
+                alert('لم يتم تفعيل حسابك بعد. يرجى انتظار الموافقة من الإدارة.');
+                window.location.href = 'apply.html';
+                return;
+            }
+            
+            // تحديث واجهة المستخدم
+            updateUserInterface();
+            
+            // التحقق من حالة الحساب في قاعدة البيانات
+            checkUserStatus(deviceId);
+            
+            // إخفاء شاشة التحميل وعرض المحتوى
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                showWelcomeToast();
+            }, 1500);
+            
+        } catch (error) {
+            console.error('خطأ في تحميل بيانات المستخدم:', error);
+            alert('حدث خطأ في تحميل البيانات. سيتم إعادة التوجيه...');
+            localStorage.removeItem('kr_activated_user');
+            window.location.href = 'apply.html';
+        }
+    }
+    
+    // تحديث واجهة المستخدم
+    function updateUserInterface() {
+        console.log('تحديث واجهة المستخدم...');
+        
+        document.getElementById('userName').textContent = userData.fullName || 'مستخدم';
+        document.getElementById('userGameId').textContent = userData.gameId || '-';
+        document.getElementById('userIdNumber').textContent = userData.gameId || '-';
+        document.getElementById('userDepartment').textContent = userData.department || '-';
+        document.getElementById('userRank').textContent = userData.rank || '-';
+        
+        // تحديث صورة الملف الشخصي
+        if (userData.avatarImage) {
+            document.getElementById('userProfileImage').src = userData.avatarImage;
+        } else {
+            const firstLetter = (userData.fullName || 'U').charAt(0);
+            document.getElementById('userProfileImage').src = 'https://via.placeholder.com/100/00e676/000000?text=' + firstLetter;
+        }
+        
+        // تحديث البادج حسب التصنيف
+        updateUserBadge();
+    }
+    
+    // تحديث البادج حسب التصنيف
+    function updateUserBadge() {
+        const badgeElement = document.getElementById('userBadge');
+        if (!userData.department) return;
+        
+        let badgeText = '';
+        let badgeColor = '';
+        
+        switch(userData.department) {
+            case 'وزارة الصحة':
+                badgeText = 'منسوب وزارة الصحة';
+                badgeColor = 'var(--health-color)';
+                break;
+            case 'وزارة الداخلية':
+                badgeText = 'منسوب وزارة الداخلية';
+                badgeColor = 'var(--interior-color)';
+                break;
+            case 'وزارة العدل':
+                badgeText = 'منسوب وزارة العدل';
+                badgeColor = 'var(--justice-color)';
+                break;
+            case 'مواطن':
+                badgeText = 'مواطن';
+                badgeColor = 'var(--citizen-color)';
+                break;
+            default:
+                badgeText = userData.department;
+                badgeColor = 'var(--accent)';
+        }
+        
+        badgeElement.textContent = badgeText;
+        badgeElement.style.backgroundColor = badgeColor;
+        badgeElement.style.color = 'white';
+        badgeElement.style.display = 'inline-flex';
+    }
+    
+    // التحقق من حالة المستخدم في قاعدة البيانات
+    function checkUserStatus(deviceId) {
+        console.log('التحقق من حالة المستخدم في Firebase...');
+        
+        db.ref('kr_requests').orderByChild('deviceId').equalTo(deviceId).once('value')
+            .then(snapshot => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const requestId = Object.keys(data)[0];
+                    const requestData = data[requestId];
+                    
+                    console.log('حالة الطلب:', requestData.status);
+                    
+                    if (requestData.status === 'accepted') {
+                        // ✅ الحساب مفعّل - تحديث البيانات
+                        Object.assign(userData, requestData);
+                        localStorage.setItem('kr_activated_user', JSON.stringify(userData));
+                        updateUserInterface();
+                    } else if (requestData.status === 'rejected') {
+                        // ❌ تم رفض الطلب
+                        console.log('تم رفض الطلب');
+                        localStorage.removeItem('kr_activated_user');
+                        localStorage.removeItem('kr_device_id');
+                        alert('عذراً، تم رفض طلبك. يرجى التواصل مع الدعم.');
+                        window.location.href = 'apply.html';
+                    } else if (requestData.status === 'pending') {
+                        // ⏳ الطلب قيد المراجعة - عدم السماح بالدخول
+                        console.log('الطلب لا زال قيد المراجعة');
+                        localStorage.removeItem('kr_activated_user'); // حذف البيانات المؤقتة
+                        alert('طلبك لا يزال قيد المراجعة. سيتم إشعارك عند الموافقة.');
+                        window.location.href = 'apply.html';
+                    }
+                } else {
+                    // لا يوجد طلب بهذا الجهاز
+                    console.log('لا يوجد طلب مسجل');
+                    localStorage.removeItem('kr_activated_user');
+                    localStorage.removeItem('kr_device_id');
+                    window.location.href = 'apply.html';
+                }
+            })
+            .catch(error => {
+                console.error('خطأ في التحقق من حالة المستخدم:', error);
+                alert('حدث خطأ في التحقق من البيانات. يرجى المحاولة لاحقاً.');
+            });
+    }
+    
+    // عرض رسالة ترحيب
+    function showWelcomeToast() {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <strong>مرحباً بك في بوابة KR الرقمية</strong>
+                <div style="font-size: 12px; opacity: 0.9;">تم تفعيل هويتك الرقمية بنجاح</div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s';
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 300);
+        }, 3000);
+    }
+    
+    // تسجيل الخروج
+    function logout() {
+        document.getElementById('logoutModal').style.display = 'flex';
+    }
+    
+    function confirmLogout() {
+        localStorage.removeItem('kr_activated_user');
+        window.location.href = 'apply.html';
+    }
+    
+    // إخفاء النافذة
+    function hideModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+    
+    // إظهار التنبيهات
+    function showNotifications() {
+        const notificationsList = document.getElementById('notificationsList');
+        notificationsList.innerHTML = `
+            <div class="notification-item" style="padding: 15px; border-bottom: 1px solid var(--glass-border);">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-check-circle" style="color: var(--accent);"></i>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">تم تفعيل هويتك الرقمية</div>
+                        <div style="font-size: 12px; color: var(--text-dim);">${new Date().toLocaleDateString('ar-SA')}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="notification-item" style="padding: 15px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-info-circle" style="color: var(--health-color);"></i>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">مرحباً بك في المنصة</div>
+                        <div style="font-size: 12px; color: var(--text-dim);">يمكنك الآن استخدام جميع الخدمات</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('notificationsModal').style.display = 'flex';
+    }
+    
+    // إظهار QR Code
+    function showQRCode() {
+        document.getElementById('qrModal').style.display = 'flex';
+        document.getElementById('qrIdNumber').textContent = 'رقم الهوية: ' + (userData ? userData.gameId : '-');
+        
+        // إنشاء QR Code بسيط
+        setTimeout(() => {
+            createSimpleQRCode();
+        }, 100);
+    }
+    
+    // إنشاء QR Code بسيط
+    function createSimpleQRCode() {
+        const qrCodeDiv = document.getElementById('qrCode');
+        const qrData = `KR_ID:${userData.gameId}:${userData.fullName}:${new Date().getTime()}`;
+        
+        // إنشاء QR Code باستخدام canvas بسيط
+        const canvas = document.createElement('canvas');
+        canvas.width = 200;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        
+        // خلفية بيضاء
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, 200, 200);
+        
+        // نمط QR بسيط (مربعات)
+        ctx.fillStyle = 'black';
+        
+        // مربعات الزوايا الثلاثة
+        ctx.fillRect(10, 10, 40, 40);
+        ctx.fillRect(150, 10, 40, 40);
+        ctx.fillRect(10, 150, 40, 40);
+        
+        // مربعات داخلية بيضاء
+        ctx.fillStyle = 'white';
+        ctx.fillRect(20, 20, 20, 20);
+        ctx.fillRect(160, 20, 20, 20);
+        ctx.fillRect(20, 160, 20, 20);
+        
+        // نمط عشوائي للبيانات
+        ctx.fillStyle = 'black';
+        for(let i = 0; i < 15; i++) {
+            for(let j = 0; j < 15; j++) {
+                if(Math.random() > 0.5) {
+                    ctx.fillRect(10 + i * 12, 10 + j * 12, 10, 10);
+                }
+            }
+        }
+        
+        // إضافة Canvas إلى الصفحة
+        qrCodeDiv.innerHTML = '';
+        qrCodeDiv.appendChild(canvas);
+    }
+    
+    // فتح خدمة
+    function openService(serviceName) {
+        alert('سيتم فتح خدمة: ' + serviceName + '\nقريباً...');
+    }
+    
+    // فتح فئة
+    function openCategory(categoryName) {
+        alert('سيتم فتح فئة: ' + categoryName + '\nقريباً...');
+    }
+    
+    // عرض الهوية الكاملة
+    function showFullID() {
+        alert('عرض الهوية الكاملة\nقريباً...');
+    }
+    
+    // خيارات الهوية
+    function showIDOptions() {
+        alert('خيارات الهوية\nقريباً...');
+    }
+    
+    // عرض جميع الفئات
+    function showAllCategories() {
+        alert('عرض جميع الفئات\nقريباً...');
+    }
+    
+    // تغيير التاب النشط
+    function setActiveTab(element, tabName) {
+        // إزالة الكلاس النشط من جميع العناصر
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // إضافة الكلاس النشط للعنصر المحدد
+        element.classList.add('active');
+        
+        // هنا يمكنك إضافة منطق تغيير المحتوى حسب التاب
+        console.log('تم تغيير التاب إلى:', tabName);
+    }
+    
+    // البحث في الخدمات
+    document.getElementById('searchInput')?.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        console.log('البحث عن:', searchTerm);
+        // هنا يمكنك إضافة منطق البحث
+    });
+    
+    // تحميل البيانات عند فتح الصفحة
+    window.addEventListener('DOMContentLoaded', function() {
+        console.log('الصفحة جاهزة - بدء التحميل...');
+        loadUserData();
+    });
+    
+    // معالجة الأخطاء العامة
+    window.addEventListener('error', function(e) {
+        console.error('خطأ في الصفحة:', e.error);
+    });
+    
+    console.log('تم تحميل جميع السكريبتات بنجاح');
 </script>
+```
+
 </body>
 </html>
