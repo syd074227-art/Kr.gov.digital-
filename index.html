@@ -1,748 +1,885 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة سَمُوّ - الجهات</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #000000;
-            --card: #1C1C1E;
-            --card-light: #2C2C2E;
-            --text: #FFFFFF;
-            --text-muted: #8E8E93;
-            --blue: #0A84FF;
-            --green: #30D158;
-            --red: #FF453A;
-            --yellow: #FFD60A;
-            --purple: #5E5CE6;
-            --orange: #FF9F0A;
-            --border: #3A3A3C;
-            --glass: rgba(28, 28, 30, 0.95);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة سَمُوّ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --bg: #000000;
+    --card: #1C1C1E;
+    --card-light: #2C2C2E;
+    --text: #FFFFFF;
+    --text-muted: #8E8E93;
+    --blue: #0A84FF;
+    --green: #30D158;
+    --red: #FF453A;
+    --yellow: #FFD60A;
+    --purple: #5E5CE6;
+    --orange: #FF9F0A;
+    --border: #3A3A3C;
+    --glass: rgba(28, 28, 30, 0.95);
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            max-width: 500px;
-            margin: auto;
-            padding: 0 0 100px;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
+body {
+    background: var(--bg);
+    color: var(--text);
+    max-width: 500px;
+    margin: auto;
+    padding: 0 20px 100px;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
 
-        /* شريط التنقل العلوي */
-        .top-nav {
-            position: sticky;
-            top: 0;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 1000;
-        }
+/* شريط الحالة */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0 15px;
+    font-weight: 600;
+    font-size: 15px;
+}
 
-        .back-btn {
-            background: none;
-            border: none;
-            color: var(--blue);
-            font-size: 18px;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
+.status-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
 
-        .back-btn:hover {
-            background: rgba(10, 132, 255, 0.1);
-        }
+.status-icons i {
+    font-size: 14px;
+}
 
-        .nav-title {
-            font-size: 20px;
-            font-weight: 700;
-            flex: 1;
-        }
+/* الترحيب */
+.greeting {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #0A84FF, #5E5CE6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
 
-        /* ترويسة الحساب */
-        .account-header {
-            position: relative;
-            padding: 25px 20px;
-            background: linear-gradient(135deg, rgba(0, 40, 85, 0.9), rgba(0, 20, 40, 0.9));
-            border-bottom: 1px solid var(--border);
-        }
+.weather {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-        .cover-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://image2url.com/r2/default/images/1770049494107-03f3c4cf-a495-431e-8b2d-6a159701f22e.jpeg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3;
-            z-index: 1;
-        }
+.weather i {
+    color: #FFD60A;
+}
 
-        .account-info {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+/* البحث */
+.search-bar {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
 
-        .account-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            flex-shrink: 0;
-        }
+.search-bar:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.15);
+}
 
-        .account-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+.search-bar i {
+    color: var(--text-muted);
+    font-size: 18px;
+}
 
-        .account-details {
-            flex: 1;
-        }
+.search-bar input {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 16px;
+    outline: none;
+}
 
-        .account-name {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text);
-        }
+.search-bar input::placeholder {
+    color: var(--text-muted);
+}
 
-        .account-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-        }
+/* الوصول السريع */
+.mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 30px;
+}
 
-        .followers-count {
-            font-size: 13px;
-            color: var(--blue);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+.mini-item {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 18px 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
 
-        /* قسم المعلومات */
-        .info-section {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-        }
+.mini-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue);
+    box-shadow: 0 8px 20px rgba(10, 132, 255, 0.2);
+}
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
+.mini-icon {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.2), rgba(94, 92, 230, 0.15));
+    border: 1px solid rgba(10, 132, 255, 0.3);
+}
 
-        .info-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(10, 132, 255, 0.15);
-            color: var(--blue);
-            font-size: 18px;
-            flex-shrink: 0;
-        }
+.mini-item:nth-child(2) .mini-icon {
+    background: linear-gradient(135deg, rgba(48, 209, 88, 0.2), rgba(10, 132, 255, 0.15));
+    border-color: rgba(48, 209, 88, 0.3);
+}
 
-        .info-content h4 {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
+.mini-item:nth-child(3) .mini-icon {
+    background: linear-gradient(135deg, rgba(255, 159, 10, 0.2), rgba(255, 69, 58, 0.15));
+    border-color: rgba(255, 159, 10, 0.3);
+}
 
-        .info-content p {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text);
-        }
+.mini-item span {
+    font-size: 14px;
+    font-weight: 600;
+}
 
-        /* أزرار المتابعة */
-        .action-buttons {
-            padding: 20px;
-            display: flex;
-            gap: 12px;
-            border-bottom: 1px solid var(--border);
-        }
+/* النشرة */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
 
-        .action-btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+}
 
-        .follow-btn {
-            background: linear-gradient(135deg, var(--blue), #5E5CE6);
-            color: white;
-            box-shadow: 0 4px 15px rgba(10, 132, 255, 0.3);
-        }
+.view-all {
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
 
-        .follow-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4);
-        }
+.news-grid {
+    display: grid;
+    gap: 16px;
+}
 
-        .follow-btn.following {
-            background: linear-gradient(135deg, var(--green), #30D158);
-        }
+.news-item {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-        .message-btn {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
+.news-item:hover {
+    transform: translateX(-8px);
+    border-color: var(--purple);
+    box-shadow: 0 10px 25px rgba(94, 92, 230, 0.15);
+}
 
-        .message-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
+.news-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    flex-shrink: 0;
+}
 
-        /* قسم الخيارات */
-        .options-section {
-            padding: 20px;
-        }
+/* ألوان الأيقونات */
+.news-item.services .news-icon {
+    background: linear-gradient(135deg, var(--purple), #7E5CFF);
+}
 
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.news-item.health .news-icon {
+    background: linear-gradient(135deg, var(--red), #FF6B6B);
+}
 
-        .section-title i {
-            color: var(--blue);
-        }
+.news-item.law .news-icon {
+    background: linear-gradient(135deg, var(--blue), #5AC8FA);
+}
 
-        .options-grid {
-            display: grid;
-            gap: 15px;
-        }
+.news-item.work .news-icon {
+    background: linear-gradient(135deg, var(--green), #4CD964);
+}
 
-        .option-card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
+.news-item.education .news-icon {
+    background: linear-gradient(135deg, var(--orange), #FFD700);
+}
 
-        .option-card:hover {
-            transform: translateX(-8px);
-            border-color: var(--blue);
-            box-shadow: 0 10px 25px rgba(10, 132, 255, 0.15);
-        }
+.news-content h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+}
 
-        .option-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--blue), var(--purple));
-            transition: width 0.3s ease;
-        }
+.news-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
 
-        .option-card:hover::before {
-            width: 8px;
-        }
+/* الشريط السفلي */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--glass);
+    backdrop-filter: blur(25px);
+    border-top: 1px solid var(--border);
+    padding: 12px 0 18px;
+    max-width: 500px;
+    margin: auto;
+    z-index: 1000;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+}
 
-        .option-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+.nav-items {
+    display: flex;
+    justify-content: space-around;
+}
 
-        .option-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: white;
-            flex-shrink: 0;
-        }
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-        .description .option-icon {
-            background: linear-gradient(135deg, #5E5CE6, #7E5CFF);
-        }
+.nav-item.active {
+    color: var(--blue);
+    background: rgba(10, 132, 255, 0.12);
+}
 
-        .posts .option-icon {
-            background: linear-gradient(135deg, #30D158, #4CD964);
-        }
+.nav-item:hover {
+    color: var(--blue);
+    transform: translateY(-2px);
+}
 
-        .services .option-icon {
-            background: linear-gradient(135deg, #FF9500, #FFD60A);
-        }
+.nav-item i {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
 
-        .messages .option-icon {
-            background: linear-gradient(135deg, #FF2D55, #FF6B6B);
-        }
+/* صفحة الجهات */
+.entities-page {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg);
+    z-index: 3000;
+    overflow-y: auto;
+    padding-bottom: 100px;
+}
 
-        .option-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text);
-        }
+/* شريط التنقل في صفحة الجهات */
+.entities-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+}
 
-        .option-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--blue);
+    font-size: 20px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
 
-        .option-content {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 10px;
-            border: 1px solid var(--border);
-        }
+.back-btn:hover {
+    background: rgba(10, 132, 255, 0.1);
+}
 
-        .option-content h4 {
-            font-size: 14px;
-            color: var(--blue);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
+.entities-title {
+    font-size: 20px;
+    font-weight: 700;
+    flex: 1;
+}
 
-        .option-content p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
+/* شريط البحث في الجهات */
+.entities-search {
+    padding: 0 20px 20px;
+}
 
-        .apply-btn {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: rgba(10, 132, 255, 0.1);
-            color: var(--blue);
-            border: 1px solid rgba(10, 132, 255, 0.3);
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+.search-box {
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text);
+    font-size: 16px;
+}
 
-        .apply-btn:hover {
-            background: rgba(10, 132, 255, 0.2);
-            transform: translateY(-2px);
-        }
+/* قائمة الجهات */
+.entities-list {
+    padding: 0 20px;
+}
 
-        /* الشريط السفلي */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            border-top: 1px solid var(--border);
-            padding: 12px 0 18px;
-            max-width: 500px;
-            margin: auto;
-            z-index: 1000;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
-        }
+.entity-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .nav-items {
-            display: flex;
-            justify-content: space-around;
-        }
+.entity-card:hover {
+    transform: translateX(-8px);
+    border-color: var(--blue);
+    box-shadow: 0 10px 25px rgba(10, 132, 255, 0.2);
+}
 
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 11px;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+.entity-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+}
 
-        .nav-item.active {
-            color: var(--blue);
-            background: rgba(10, 132, 255, 0.12);
-        }
+.entity-info {
+    flex: 1;
+}
 
-        .nav-item:hover {
-            color: var(--blue);
-            transform: translateY(-2px);
-        }
+.entity-name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text);
+}
 
-        .nav-item i {
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
+.entity-description {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
 
-        /* تأثيرات تفاعلية */
-        .option-card:active {
-            transform: scale(0.98);
-        }
+.entity-stats {
+    display: flex;
+    gap: 15px;
+}
 
-        /* التكيف مع الشاشات */
-        @media (max-width: 400px) {
-            .account-avatar {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .account-name {
-                font-size: 20px;
-            }
-            
-            .option-card {
-                padding: 18px;
-            }
-            
-            .nav-item {
-                padding: 5px 10px;
-            }
-            
-            .nav-item i {
-                font-size: 20px;
-            }
-        }
-    </style>
+.entity-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.entity-stat i {
+    color: var(--blue);
+}
+
+.entity-follow {
+    background: rgba(48, 209, 88, 0.15);
+    color: var(--green);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* تأثيرات تفاعلية */
+.mini-item:active, .news-item:active, .entity-card:active {
+    transform: scale(0.98);
+}
+
+/* التكيف مع الشاشات */
+@media (max-width: 400px) {
+    body {
+        padding: 0 16px 95px;
+    }
+    
+    .greeting {
+        font-size: 28px;
+    }
+    
+    .mini-grid {
+        gap: 12px;
+    }
+    
+    .mini-item {
+        padding: 16px 10px;
+    }
+    
+    .news-item {
+        padding: 18px;
+    }
+    
+    .nav-item {
+        padding: 5px 10px;
+    }
+    
+    .nav-item i {
+        font-size: 20px;
+    }
+    
+    .entity-card {
+        padding: 16px;
+    }
+    
+    .entity-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <!-- شريط التنقل العلوي -->
-    <div class="top-nav">
-        <button class="back-btn" onclick="goBack()">
+<!-- الصفحة الرئيسية -->
+<div id="mainPage">
+    <!-- الترحيب -->
+    <div class="greeting">أهلاً سليمان</div>
+    <div class="weather">
+        <i class="fas fa-cloud-sun"></i>
+        <span>غائم جزئي في KR الآن</span>
+    </div>
+
+    <!-- البحث -->
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input placeholder="ابحث في منصة سَمُوّ">
+    </div>
+
+    <!-- الوصول السريع -->
+    <div class="mini-grid">
+        <div class="mini-item" id="calendarBtn">
+            <div class="mini-icon"><i class="fas fa-calendar-alt"></i></div>
+            <span>التقويم</span>
+        </div>
+        <div class="mini-item" id="entitiesBtn">
+            <div class="mini-icon"><i class="fas fa-building"></i></div>
+            <span>الجهات</span>
+        </div>
+        <div class="mini-item" onclick="openService('الشخصية')">
+            <div class="mini-icon"><i class="fas fa-user-circle"></i></div>
+            <span>الشخصية</span>
+        </div>
+    </div>
+
+    <!-- النشرة -->
+    <div class="section-header">
+        <div class="section-title">استكشف التصنيفات</div>
+        <a href="#" class="view-all">عرض الكل <i class="fas fa-chevron-left"></i></a>
+    </div>
+
+    <div class="news-grid">
+        <div class="news-item services" onclick="openNews('الخدمات الحكومية')">
+            <div class="news-icon"><i class="fas fa-sliders-h"></i></div>
+            <div class="news-content">
+                <h3>الخدمات الحكومية</h3>
+                <p>أحدث الخدمات والميزات المضافة للمنصة</p>
+            </div>
+        </div>
+
+        <div class="news-item health" onclick="openNews('الصحة')">
+            <div class="news-icon"><i class="fas fa-heart-pulse"></i></div>
+            <div class="news-content">
+                <h3>الصحة</h3>
+                <p>الخدمات الصحية والرعاية الطبية</p>
+            </div>
+        </div>
+
+        <div class="news-item law" onclick="openNews('العدلية')">
+            <div class="news-icon"><i class="fas fa-scale-balanced"></i></div>
+            <div class="news-content">
+                <h3>العدلية</h3>
+                <p>خدمات قانونية ووزارة العدل</p>
+            </div>
+        </div>
+
+        <div class="news-item work" onclick="openNews('فرص العمل')">
+            <div class="news-icon"><i class="fas fa-briefcase"></i></div>
+            <div class="news-content">
+                <h3>فرص العمل</h3>
+                <p>وظائف جديدة في القطاع الحكومي والخاص</p>
+            </div>
+        </div>
+
+        <div class="news-item education" onclick="openNews('التعليم')">
+            <div class="news-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="news-content">
+                <h3>التعليم</h3>
+                <p>دورات وبرامج تدريبية تطويرية</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- صفحة الجهات -->
+<div class="entities-page" id="entitiesPage">
+    <!-- شريط التنقل -->
+    <div class="entities-header">
+        <button class="back-btn" onclick="closeEntities()">
             <i class="fas fa-arrow-right"></i>
         </button>
-        <div class="nav-title">الجهات</div>
+        <h1 class="entities-title">الجهات</h1>
     </div>
 
-    <!-- ترويسة الحساب -->
-    <div class="account-header">
-        <div class="cover-image"></div>
-        <div class="account-info">
-            <div class="account-avatar">
-                <img src="https://image2url.com/r2/default/images/1770049494107-03f3c4cf-a495-431e-8b2d-6a159701f22e.jpeg" alt="وزارة الداخلية">
-            </div>
-            <div class="account-details">
-                <h1 class="account-name">وزارة الداخلية</h1>
-                <div class="account-subtitle">الحساب الرسمي لوزارة الداخلية في KR</div>
-                <div class="followers-count">
-                    <i class="fas fa-users"></i>
-                    <span id="followersCount">٨٤٥٫٣٦٢</span> متابع
-                </div>
-            </div>
-        </div>
+    <!-- شريط البحث -->
+    <div class="entities-search">
+        <input type="text" class="search-box" placeholder="ابحث عن جهة..." id="entitySearch">
     </div>
 
-    <!-- قسم المعلومات -->
-    <div class="info-section">
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-camera"></i>
-            </div>
-            <div class="info-content">
-                <h4>صورة الحساب</h4>
-                <p>الصورة الرسمية للوزارة</p>
-            </div>
-        </div>
-        
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-id-card"></i>
-            </div>
-            <div class="info-content">
-                <h4>اسم الجهة</h4>
-                <p>وزارة الداخلية - KR</p>
-            </div>
-        </div>
-        
-        <div class="info-item">
-            <div class="info-icon">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <div class="info-content">
-                <h4>الهوية</h4>
-                <p>حساب رسمي معتمد ✓</p>
-            </div>
-        </div>
+    <!-- قائمة الجهات -->
+    <div class="entities-list" id="entitiesList">
+        <!-- ستتم إضافة الجهات بواسطة JavaScript -->
     </div>
+</div>
 
-    <!-- أزرار المتابعة -->
-    <div class="action-buttons">
-        <button class="action-btn follow-btn" id="followBtn" onclick="toggleFollow()">
-            <i class="fas fa-user-plus"></i>
-            <span id="followText">متابعة</span>
-        </button>
-        <button class="action-btn message-btn" onclick="sendMessage()">
-            <i class="fas fa-envelope"></i>
-            الرسائل
-        </button>
-    </div>
-
-    <!-- قسم الخيارات -->
-    <div class="options-section">
-        <h2 class="section-title">
+<!-- الشريط السفلي -->
+<nav class="bottom-nav">
+    <div class="nav-items">
+        <a class="nav-item active" onclick="changeNav('الرئيسية')">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('النشرة')">
+            <i class="fas fa-newspaper"></i>
+            <span>النشرة</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('الخدمات')">
             <i class="fas fa-sliders-h"></i>
-            الخيارات
-        </h2>
-        
-        <div class="options-grid">
-            <!-- الوصف -->
-            <div class="option-card description" onclick="openDescription()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-align-left"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">الوصف</h3>
-                        <p class="option-subtitle">التعريف بالوزارة ومهامها</p>
-                    </div>
-                </div>
-                <div class="option-content">
-                    <h4>وزارة الداخلية في KR</h4>
-                    <p>الوزارة المسؤولة عن الأمن الداخلي والنظام العام في المملكة. تقوم بتنفيذ السياسات الأمنية والإشراف على الجهات الأمنية التابعة لها.</p>
-                </div>
-                <button class="apply-btn" onclick="openDescription()">
-                    <i class="fas fa-external-link-alt"></i>
-                    عرض الوصف
-                </button>
-            </div>
-
-            <!-- المنشورات -->
-            <div class="option-card posts" onclick="openPosts()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">المنشورات</h3>
-                        <p class="option-subtitle">آخر التحديثات والأخبار</p>
-                    </div>
-                </div>
-                <div class="option-content">
-                    <h4>آخر المنشورات</h4>
-                    <p>• تحديث أنظمة الأمن الإلكتروني<br>• حملة التوعية المرورية الجديدة<br>• إطلاق خدمة التجديد الإلكتروني</p>
-                </div>
-                <button class="apply-btn" onclick="openPosts()">
-                    <i class="fas fa-external-link-alt"></i>
-                    عرض المنشورات
-                </button>
-            </div>
-
-            <!-- الخدمات -->
-            <div class="option-card services" onclick="openServices()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-concierge-bell"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">الخدمات</h3>
-                        <p class="option-subtitle">الخدمات الإلكترونية المقدمة</p>
-                    </div>
-                </div>
-                <div class="option-content">
-                    <h4>الخدمات المتاحة</h4>
-                    <p>• تجديد الإقامة<br>• خدمات المرور<br>• الجوازات والسفر<br>• الأمن العام</p>
-                </div>
-                <button class="apply-btn" onclick="openServices()">
-                    <i class="fas fa-external-link-alt"></i>
-                    عرض الخدمات
-                </button>
-            </div>
-
-            <!-- الرسائل -->
-            <div class="option-card messages" onclick="openMessages()">
-                <div class="option-header">
-                    <div class="option-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div>
-                        <h3 class="option-title">الرسائل</h3>
-                        <p class="option-subtitle">الاتصال والمراسلة</p>
-                    </div>
-                </div>
-                <div class="option-content">
-                    <h4>قنوات الاتصال</h4>
-                    <p>• الدعم الفني: ٩٢٠٠٢٠٠٠٠<br>• البريد الإلكتروني<br>• مركز الاتصال الموحد</p>
-                </div>
-                <button class="apply-btn" onclick="openMessages()">
-                    <i class="fas fa-external-link-alt"></i>
-                    فتح الرسائل
-                </button>
-            </div>
-        </div>
+            <span>الخدمات</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('الرسائل')">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+        </a>
+        <a class="nav-item" onclick="changeNav('حسابي')">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </a>
     </div>
+</nav>
 
-    <!-- الشريط السفلي -->
-    <nav class="bottom-nav">
-        <div class="nav-items">
-            <a class="nav-item" onclick="changeNav('الرئيسية')">
-                <i class="fas fa-home"></i>
-                <span>الرئيسية</span>
-            </a>
-            <a class="nav-item" onclick="changeNav('النشرة')">
-                <i class="fas fa-newspaper"></i>
-                <span>النشرة</span>
-            </a>
-            <a class="nav-item" onclick="changeNav('الخدمات')">
-                <i class="fas fa-sliders-h"></i>
-                <span>الخدمات</span>
-            </a>
-            <a class="nav-item active" onclick="changeNav('الجهات')">
-                <i class="fas fa-building"></i>
-                <span>الجهات</span>
-            </a>
-            <a class="nav-item" onclick="changeNav('حسابي')">
-                <i class="fas fa-user"></i>
-                <span>حسابي</span>
-            </a>
-        </div>
-    </nav>
+<script>
+// بيانات الجهات
+const entities = [
+    {
+        id: 1,
+        name: "وزارة الداخلية",
+        description: "الحساب الرسمي لوزارة الداخلية في KR",
+        icon: "fa-shield-alt",
+        followers: "٨٤٥٫٣٦٢",
+        posts: "٢٫٣٤٥",
+        following: true
+    },
+    {
+        id: 2,
+        name: "وزارة التعليم",
+        description: "الحساب الرسمي لوزارة التعليم",
+        icon: "fa-graduation-cap",
+        followers: "٦٢٣٫٤٥١",
+        posts: "١٫٨٩٠",
+        following: true
+    },
+    {
+        id: 3,
+        name: "وزارة الصحة",
+        description: "الحساب الرسمي لوزارة الصحة",
+        icon: "fa-heartbeat",
+        followers: "٧١٢٫٣٤٥",
+        posts: "٣٫١٢٣",
+        following: false
+    },
+    {
+        id: 4,
+        name: "وزارة العدل",
+        description: "الحساب الرسمي لوزارة العدل",
+        icon: "fa-balance-scale",
+        followers: "٣٤٥٫٦٧٨",
+        posts: "٨٩٠",
+        following: false
+    },
+    {
+        id: 5,
+        name: "وزارة التجارة",
+        description: "الحساب الرسمي لوزارة التجارة",
+        icon: "fa-chart-line",
+        followers: "٤٥٦٫٧٨٩",
+        posts: "١٫٥٦٧",
+        following: true
+    },
+    {
+        id: 6,
+        name: "وزارة الشؤون البلدية",
+        description: "الحساب الرسمي للوزارة",
+        icon: "fa-city",
+        followers: "٢٣٤٫٥٦٧",
+        posts: "٩٨٧",
+        following: false
+    },
+    {
+        id: 7,
+        name: "وزارة النقل",
+        description: "الحساب الرسمي لوزارة النقل",
+        icon: "fa-bus",
+        followers: "١٨٩٫٣٤٥",
+        posts: "٧٦٥",
+        following: true
+    },
+    {
+        id: 8,
+        name: "وزارة الطاقة",
+        description: "الحساب الرسمي للوزارة",
+        icon: "fa-bolt",
+        followers: "١٥٦٫٧٨٩",
+        posts: "٥٤٣",
+        following: false
+    },
+    {
+        id: 9,
+        name: "وزارة المالية",
+        description: "الحساب الرسمي لوزارة المالية",
+        icon: "fa-money-bill-wave",
+        followers: "٣٢١٫٤٥٦",
+        posts: "١٫٢٣٤",
+        following: true
+    },
+    {
+        id: 10,
+        name: "وزارة البيئة",
+        description: "الحساب الرسمي للوزارة",
+        icon: "fa-leaf",
+        followers: "١٢٣٫٤٥٦",
+        posts: "٦٥٤",
+        following: false
+    },
+    {
+        id: 11,
+        name: "هيئة الاتصالات",
+        description: "الحساب الرسمي للهيئة",
+        icon: "fa-satellite-dish",
+        followers: "٢٣٤٫٥٦٧",
+        posts: "٨٩٠",
+        following: true
+    },
+    {
+        id: 12,
+        name: "الهيئة العامة للطيران",
+        description: "الحساب الرسمي للهيئة",
+        icon: "fa-plane",
+        followers: "١٨٩٫٣٤٥",
+        posts: "٦٧٨",
+        following: false
+    }
+];
 
-    <script>
-        // بيانات المتابعة
-        let isFollowing = false;
-        let followersCount = 845362;
+// فتح صفحة الجهات
+function openEntities() {
+    document.getElementById('mainPage').style.display = 'none';
+    document.getElementById('entitiesPage').style.display = 'block';
+    renderEntitiesList();
+    updateNav('الجهات');
+}
 
-        // تحديث عدد المتابعين بالعربية
-        function formatArabicNumber(num) {
-            return num.toLocaleString('ar-SA');
+// إغلاق صفحة الجهات
+function closeEntities() {
+    document.getElementById('entitiesPage').style.display = 'none';
+    document.getElementById('mainPage').style.display = 'block';
+    updateNav('الرئيسية');
+}
+
+// عرض قائمة الجهات
+function renderEntitiesList(filter = '') {
+    const container = document.getElementById('entitiesList');
+    container.innerHTML = '';
+    
+    const filteredEntities = entities.filter(entity => 
+        entity.name.toLowerCase().includes(filter.toLowerCase()) ||
+        entity.description.toLowerCase().includes(filter.toLowerCase())
+    );
+    
+    filteredEntities.forEach(entity => {
+        const card = document.createElement('div');
+        card.className = 'entity-card';
+        card.onclick = () => openEntityPage(entity);
+        
+        card.innerHTML = `
+            <div class="entity-icon">
+                <i class="fas ${entity.icon}"></i>
+            </div>
+            <div class="entity-info">
+                <div class="entity-name">${entity.name}</div>
+                <div class="entity-description">${entity.description}</div>
+                <div class="entity-stats">
+                    <div class="entity-stat">
+                        <i class="fas fa-users"></i>
+                        <span>${entity.followers}</span>
+                    </div>
+                    <div class="entity-stat">
+                        <i class="fas fa-newspaper"></i>
+                        <span>${entity.posts}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="entity-follow">
+                ${entity.following ? 'متابع' : 'متابعة'}
+            </div>
+        `;
+        
+        container.appendChild(card);
+    });
+}
+
+// فتح صفحة الجهة التفصيلية
+function openEntityPage(entity) {
+    alert(`جاري فتح صفحة ${entity.name}\n\nفي الصفحة التفصيلية ستجد:\n• معلومات الجهة\n• نظام المتابعة\n• المنشورات\n• الخدمات\n• الرسائل`);
+    
+    // هنا يمكن إضافة الانتقال لصفحة الجهة التفصيلية
+    // window.open(`entity.html?id=${entity.id}`, '_blank');
+}
+
+// البحث في الجهات
+document.getElementById('entitySearch').addEventListener('input', function(e) {
+    renderEntitiesList(e.target.value);
+});
+
+// تحديث التنقل
+function updateNav(pageName) {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+    
+    // إيجاد العنصر المناسب وتفعيله
+    navItems.forEach(item => {
+        if (item.querySelector('span').textContent === pageName) {
+            item.classList.add('active');
         }
+    });
+}
 
-        // تبديل حالة المتابعة
-        function toggleFollow() {
-            const followBtn = document.getElementById('followBtn');
-            const followText = document.getElementById('followText');
-            const followersCountEl = document.getElementById('followersCount');
-            
-            isFollowing = !isFollowing;
-            
-            if (isFollowing) {
-                followersCount++;
-                followBtn.classList.add('following');
-                followText.textContent = 'متابَع';
-                followBtn.innerHTML = '<i class="fas fa-user-check"></i> <span id="followText">متابَع</span>';
-            } else {
-                followersCount--;
-                followBtn.classList.remove('following');
-                followText.textContent = 'متابعة';
-                followBtn.innerHTML = '<i class="fas fa-user-plus"></i> <span id="followText">متابعة</span>';
-            }
-            
-            followersCountEl.textContent = formatArabicNumber(followersCount);
-        }
+function changeNav(pageName) {
+    if (pageName === 'الجهات') {
+        openEntities();
+    } else if (pageName === 'الرئيسية') {
+        closeEntities();
+    } else {
+        alert(`جاري تحميل صفحة ${pageName}...`);
+        updateNav(pageName);
+    }
+}
 
-        // إرسال رسالة
-        function sendMessage() {
-            alert('جاري فتح نافذة المراسلة مع وزارة الداخلية...');
-        }
+// فتح التقويم (من الكود السابق)
+function openCalendar() {
+    alert('جاري فتح التقويم...');
+}
 
-        // فتح الأقسام المختلفة
-        function openDescription() {
-            alert('جاري فتح صفحة الوصف التفصيلي للوزارة...');
-        }
+// تفاعل الأزرار
+document.getElementById('calendarBtn').onclick = openCalendar;
+document.getElementById('entitiesBtn').onclick = openEntities;
 
-        function openPosts() {
-            alert('جاري فتح صفحة المنشورات والأخبار...');
-        }
+function openService(serviceName) {
+    alert(`جاري فتح خدمة ${serviceName}...`);
+}
 
-        function openServices() {
-            alert('جاري فتح صفحة الخدمات الإلكترونية...');
-        }
+function openNews(newsName) {
+    alert(`جاري فتح ${newsName}...`);
+}
 
-        function openMessages() {
-            alert('جاري فتح نافذة الرسائل...');
-        }
-
-        // العودة للصفحة السابقة
-        function goBack() {
-            window.history.back();
-        }
-
-        // تغيير التنقل
-        function changeNav(pageName) {
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            event.target.closest('.nav-item').classList.add('active');
-            
-            if (pageName !== 'الجهات') {
-                alert(`جاري تحميل صفحة ${pageName}...`);
-            }
-        }
-
-        // تحميل الصورة
-        window.addEventListener('load', function() {
-            // تأثيرات ظهور
-            const cards = document.querySelectorAll('.option-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateX(30px)';
-                
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateX(0)';
-                }, index * 100);
-            });
-        });
-    </script>
+// تأثيرات عند التحميل
+document.addEventListener('DOMContentLoaded', function() {
+    const items = document.querySelectorAll('.mini-item, .news-item');
+    items.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
 </body>
 </html>
